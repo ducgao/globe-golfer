@@ -14,17 +14,19 @@ export default React.memo(({item, viewOnly}) => {
   const requestPlayTo = () => {
     // console.warn(item);
     
-    // GameData.instance().challengeId = item.id 
-    // GameData.instance().playerA = item.from
-    // GameData.instance().playerB = item.to
+    GameData.instance().challengeId = item.id 
+    GameData.instance().playerA = item.from
+    GameData.instance().playerB = item.to
     
-    // navigate("SelectNumber")
+    navigate("SelectNumber")
 
     Alert.alert("Feature is under development")
   }
 
   const sourceFrom = item.from.avatar ? { uri: item.from.avatar } : require('../../../res/images/golfer_placeholder.png')
   const sourceTo = item.to.avatar ? { uri: item.to.avatar } : require('../../../res/images/golfer_placeholder.png')
+  const lastnameFrom = item.from.lastName.slice(0,1)
+  const lastnameTo = item.to.lastName.slice(0,1)
 
   return (
     <View style={{ marginVertical: 16, flexDirection: 'row', justifyContent: 'center' }}>
@@ -41,7 +43,7 @@ export default React.memo(({item, viewOnly}) => {
           }}
           source={sourceFrom}
         />
-        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.from.name}</DGText>
+        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.from.name + "." + lastnameFrom}</DGText>
       </View>
       <View style={{ marginHorizontal: 24, justifyContent: 'center', alignItems: 'center' }}>
         {
@@ -70,7 +72,7 @@ export default React.memo(({item, viewOnly}) => {
           }}
           source={sourceTo}
         />
-        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.to.name}</DGText>
+        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.to.name + "." + lastnameTo}</DGText>
       </View>
     </View>
   )

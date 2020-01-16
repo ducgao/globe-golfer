@@ -9,7 +9,7 @@ import { shareGG } from '../../../utils'
 
 const HeaderIcon = React.memo(({name, action}) => (
   <Icon 
-    size={32}
+    size={40}
     color={'white'}
     name={name}
     onPress={action}

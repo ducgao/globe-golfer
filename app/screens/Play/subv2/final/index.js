@@ -13,6 +13,7 @@ import Api from '../../../../api'
 import { getPendingMatches } from '../../../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../../../actions/getPlayedMatches'
 import { ScrollView } from 'react-native-gesture-handler'
+import Ads from '../../../../components/Ads';
 
 class EnterFinalResult extends React.PureComponent {
 
@@ -105,6 +106,7 @@ class EnterFinalResult extends React.PureComponent {
             <SelectItem value={"submit the result"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestSubmit} />
           </View>
         </ScrollView>
+        <Ads />
         {/* <LoadingModal visible={true} /> */}
       </BaseComponent>
     )

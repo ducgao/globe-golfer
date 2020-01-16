@@ -11,14 +11,16 @@ const HeaderIcon = React.memo(({name, action}) => (
     justifyContent: name === "ios-settings" ? 'flex-end' : 'flex-start',
     alignItems: name === "ios-settings" ? 'flex-end' : 'flex-start'
   }} onPress={action}>
-    <Icon 
-      style={{
-        opacity: action ? 1 : 0
-      }}
-      size={32}
-      color={'white'}
-      name={name}
-    />
+
+  <Icon 
+    style={{
+      opacity: action ? 1 : 0
+    }}
+    size={40}
+    color={'white'}
+    name={name}
+    onPress={action}
+  />
   </TouchableOpacity>
 ))
 

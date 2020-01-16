@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ActivityIndicator, View, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, View, TouchableOpacity, Alert } from 'react-native'
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
@@ -47,6 +47,7 @@ const BoardHeader = React.memo(({title, isExpanded, requestToggleExpand}) => {
 })
 
 const PendingItems = React.memo(({isLoading, data}) => {
+  // Alert.alert(data)
   if (isLoading || data == null) {
     return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
   }
@@ -67,16 +68,57 @@ const PendingBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, da
   )
 })
 
+// const PlayedItem = React.memo(({item, userAvatar}) => {
+  
+//   return (   
+//     <View style={{ marginVertical: 16, flexDirection: 'row', justifyContent: 'center' }}>
+//       <LoadableImage
+//         style={{
+//           width: 100,
+//           height: 100,
+//           borderRadius: 50
+//         }}
+//         source={{uri:item.from.avatar}}
+//       />
+//       <View style={{ marginHorizontal: 24, justifyContent: 'center', alignItems: 'center' }}>
+//         <DGText style={{ 
+//           fontSize: 20,
+//           fontWeight: 'bold',
+//           marginBottom: 4,
+//           color: Theme.buttonPrimary 
+//         }}>{item.result}</DGText>
+//         <TouchableOpacity activeOpacity={0.7} onPress={() => alert("Request replay with victim")}>
+//           <DGText style={{ 
+//             backgroundColor: Theme.buttonPrimary,
+//             color: Theme.textWhite,
+//             paddingHorizontal: 12,
+//             paddingVertical: 8
+//           }}>REPLAY</DGText>
+//         </TouchableOpacity>
+        
+//       </View>
+//       <LoadableImage
+//         style={{
+//           width: 100,
+//           height: 100,
+//           borderRadius: 50
+//         }}
+//         source={{uri: item.to.avatar}}
+//       />
+//     </View>
+//   )
+// })
+
 const PlayedItems = React.memo(({isLoading, data, userAvatar}) => {
   if (isLoading || data == null) {
     return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
   }
 
   if (data.length == 0) {
-    return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16 + 30 + 8, fontSize: 12 }}>No Pending Match</DGText>
+    return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16 + 30 + 8, fontSize: 12 }}>No Played Match</DGText>
   }
 
-  return data.map((item, index) => <PlayedItem key={`pending-item-${index}`} item={item} />)
+  return data.map((item, index) => <PlayedItem key={`played-item-${index}`} item={item} userAvatar={userAvatar} />)
 })
 
 const PlayedBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data, userAvatar}) => {

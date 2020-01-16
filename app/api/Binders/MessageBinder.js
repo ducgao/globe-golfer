@@ -20,12 +20,7 @@ export default class MessageBinder {
         }
       })
 
-      preReturnValue.sort((a, b) => {
-        const aTime = (Array.isArray(a.message) && a.message.length > 0) ? a.message[0].time : 0
-        const bTime = (Array.isArray(b.message) && b.message.length > 0) ? b.message[0].time : 0
-
-        return bTime - aTime
-      })
+      preReturnValue.sort((a, b) => b.message[0].time - a.message[0].time)
 
       return preReturnValue
     }

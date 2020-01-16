@@ -8,7 +8,7 @@ export default class ChallengesBinder {
         return data.map(item => {
           return {
             id: item.userId,
-            name: item.name,
+            name: item.name +"."+item.lastName.substr(0,1),
             location: item.gofl_name,
             rating: item.rate,
             avatar: item.avatar ? GET_AVATAR.replace("{id}", item.avatar) : null,

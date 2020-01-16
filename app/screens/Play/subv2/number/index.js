@@ -6,6 +6,7 @@ import BaseComponent from '../../../../components/BaseComponent'
 import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
 import GameData from '../GameData'
+import Ads from '../../../../components/Ads';
 
 const NumberItem = React.memo(({value, onPress}) => {
   return (
@@ -87,6 +88,9 @@ export default class SelectNumber extends React.PureComponent {
           playerB={gameData.playerB}
         />
         <NumberSelector onChanged={this.onSelectionChanged} />
+        {/* <View style={{flex: 1}}>
+          <Ads />
+        </View> */}
       </BaseComponent>
     )
   }

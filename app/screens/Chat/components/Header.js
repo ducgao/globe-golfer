@@ -9,7 +9,7 @@ import { shareGG } from '../../../utils'
 
 const HeaderIcon = React.memo(({name, action}) => (
   <Icon 
-    size={32}
+    size={40}
     color={'white'}
     name={name}
     onPress={action}
@@ -60,7 +60,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       borderBottomWidth: 1,
       borderBottomColor: Theme.separator
     }}>
-      <HeaderIcon name={"ios-home"} action={onGoBack}/>
+      <HeaderIcon name={"ios-home"} action={onGoBack} />
       <CenterButton action={onGoToInvite} />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>

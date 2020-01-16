@@ -19,12 +19,14 @@ export default class GameData {
 
   playerA = {
     avatar: "https://ideapod.com/wp-content/uploads/2017/06/stencil.facebook-post-20.jpg",
-    name: "Alexandre M"
+    name: "Alexandre M",    
+	userId: "1"
   }
   
   playerB = {
     avatar: "https://www.midlandsderm.com/wp-content/uploads/2019/04/Rachel-R.-Person.jpg",
-    name: "Frencois B"
+    name: "Frencois B",    
+	userId: "2"
   }
 
   playerC = null

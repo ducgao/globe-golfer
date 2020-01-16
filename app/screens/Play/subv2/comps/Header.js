@@ -7,14 +7,15 @@ import Theme from '../../../../res/Theme'
 
 const HeaderIcon = React.memo(({name, action}) => (
   <TouchableOpacity style={{
-    width: 32,
+    width: 40,
     justifyContent: name === "ios-settings" ? 'flex-end' : 'flex-start',
     alignItems: name === "ios-settings" ? 'flex-end' : 'flex-start'
   }} onPress={action}>
     <Icon 
-      size={32}
+      size={40}
       color={'white'}
-      name={name}
+      name={name}    
+	  onPress={action}
     />
   </TouchableOpacity>
 ))
