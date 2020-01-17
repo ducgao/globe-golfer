@@ -25,18 +25,41 @@ class Lottery extends React.PureComponent {
   }
   
 
+  // componentDidMount() {
+  //   Api.instance().getLottery().then(res => {
+  //     if (res) {
+  //       const et = moment(res.end)
+  //       const cu = moment(new Date())
+  
+  //       const endTime = et.diff(cu)
+  //       this.setState({
+  //         id: res.id,
+  //         endTime: parseInt(endTime) / 1000
+  //       })
+  //       this.props.visibleChanged && this.props.visibleChanged()
+  //       this.startTimer()
+  //     }
+  //   })  
+  // }
+
   componentDidMount() {
     Api.instance().getLottery().then(res => {
       if (res) {
+        let now = new Date();
+       let current= new Date(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() , 
+      now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds())
         const et = moment(res.end)
-        const cu = moment(new Date())
-  
+        const cu = moment(current);
+        
         const endTime = et.diff(cu)
+        console.warn('Endtime:'+cu);
+        
         this.setState({
           id: res.id,
-          endTime: parseInt(endTime) / 1000
+          endTime: parseInt(endTime) 
         })
         this.props.visibleChanged && this.props.visibleChanged()
+       
         this.startTimer()
       }
     })  
@@ -45,18 +68,35 @@ class Lottery extends React.PureComponent {
   startTimer() {
     setInterval(() => {
       this.setState({
-        endTime: this.state.endTime - 1
+        endTime: this.state.endTime - 1000
       })
     }, 1000)
   }
 
-  secondToCountDown(t) {
-    const s = this.makeUpTimeValue(Math.floor(t % 60));
-    const m = this.makeUpTimeValue(Math.floor((t/60) % 60));
-    const h = this.makeUpTimeValue(Math.floor((t/(60*60)) % 24));
 
+  // secondToCountDown(t) {
+  //   const s = this.makeUpTimeValue(Math.floor(t % 60));
+  //   const m = this.makeUpTimeValue(Math.floor((t/60) % 60));
+  //   const h = this.makeUpTimeValue(Math.floor((t/(60*60)) % 24));
+
+  //   return `${h}:${m}:${s}`
+  // } 
+
+  secondToCountDown(t) {
+    const time = (t /1000) /3600;
+    const roundTime = time - parseInt(time) ;
+    
+    const roundTimeM = roundTime * 60 - parseInt(roundTime * 60) ;
+    
+    
+    const m =this.makeUpTimeValue(parseInt(roundTime*60)) ;
+    const s = this.makeUpTimeValue(parseInt(roundTimeM *60));
+    const h =this.makeUpTimeValue(parseInt(time));
+    // const s = this.makeUpTimeValue(Math.floor(t * 60));
+    // const m = this.makeUpTimeValue(Math.floor((t/60) * 60));
+    // const h = this.makeUpTimeValue(Math.floor((t/(60*60)) % 24));
     return `${h}:${m}:${s}`
-  } 
+    }
 
   makeUpTimeValue(v) {
     if (v < 10) {
