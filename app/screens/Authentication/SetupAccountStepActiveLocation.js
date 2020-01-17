@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet, Platform } from 'react-native'
+import { View, StyleSheet, Platform, Text, Alert, TouchableOpacity } from 'react-native'
+
 
 import Permissions from 'react-native-permissions'
 
@@ -13,9 +14,23 @@ import Strings from '../../res/Strings'
 import Theme from '../../res/Theme'
 import { showErrorAlert } from '../../utils'
 import LoadableImage from '../../components/LoadableImage'
+import { ScrollView } from 'react-native-gesture-handler'
+import ReadMore from 'react-native-read-more-text'
 
 export default class SetupAccountStepActiveLocation extends PureComponent {
+  constructor(props) {
+    super(props)
+   
+    this.state = {
+        showInfo :false
+    }
+  }
   static navigationOptions = { header: null }
+  toggleStatus(){
+    this.setState({
+      showInfo:!this.state.showInfo
+    });
+  }
 
   onRequestGetLocation = () => {
     Permissions.request('location').then(response => {
@@ -26,6 +41,26 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
         showErrorAlert(Strings.activeLocation.error)
       }
     })
+  }
+
+  // _renderTruncatedFooter = (handlePress) => {
+  //   return (
+  //     <RegularText style={{color: Colors.tintColor, marginTop: 5}} onPress={handlePress}>
+  //       Read more
+  //     </RegularText>
+  //   );
+  // }
+
+  // _renderRevealedFooter = (handlePress) => {
+  //   return (
+  //     <RegularText style={{color: Colors.tintColor, marginTop: 5}} onPress={handlePress}>
+  //       Show less
+  //     </RegularText>
+  //   );
+  // }
+
+  onLearnMore = () => {
+    Alert.aler
   }
 
   onRequestLearnMore = () => {
@@ -44,15 +79,39 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
     )
   }
 
+  _handleTextReady = () => {
+    console.log('ready!');
+  }
+
   renderMessage() {
-    return <DGText style={styles.messgage}>{Strings.activeLocation.message}</DGText>
+    return (
+      <View style={{flex: 1}}>
+        <ScrollView style={{alignSelf: 'flex-start'}}>
+          
+            <ReadMore
+              numberOfLines={3}
+              onReady={this._handleTextReady}>
+              <DGText style={styles.messgage}>{Strings.activeLocation.message1}</DGText>
+              <DGText style={styles.messgage}>
+              {"\n"}Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat.  Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum
+              </DGText>
+            </ReadMore>
+        </ScrollView>
+      </View>
+    )
   }
 
   renderLogo() {
     return (
       <LoadableImage
         style={{
-          marginTop: 60,
+          marginTop: 30,
           width: 120,
           height: 120,
           alignSelf: 'center'
@@ -109,16 +168,27 @@ const styles = StyleSheet.create({
     color: Theme.textWhite,
     fontSize: 32,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 20
   },
   messgage: {
+    color: Theme.textGray,
+    fontSize: 16,
+    marginTop: 16,
+    marginLeft: 0, 
+    marginRight: 16,
+    textAlign: 'center',
+    lineHeight: 24,
+    flex:1
+  },
+  messgage1: {
     color: Theme.textGray,
     fontSize: 16,
     marginTop: 24,
     marginLeft: 16, 
     marginRight: 16,
     textAlign: 'center',
-    lineHeight: 24
+    lineHeight: 24,
   },
   footerContainer: {
     flexDirection: 'row',
@@ -137,5 +207,8 @@ const styles = StyleSheet.create({
   icon: {
     alignSelf: 'center', 
     marginTop: Platform.OS == 'android' ? 6 : 12
+  },
+  inlineStyle: {
+    alignSelf:'flex-start',
   }
 })
