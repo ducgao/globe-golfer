@@ -19,10 +19,11 @@ const Toolbar = React.memo((props) => {
   return (
     <View {...props} style={[styles.container, props.style]}>
       <View style={styles.contentContainer}>
-        <TouchableOpacity onPress={onBack} activeOpacity={0.7} hitSlop={hitSlop}>
+        <TouchableOpacity onPress={onBack} activeOpacity={0.7} hitSlop={hitSlop} style={{flexDirection:'row'}}>
           <Icon name="ios-arrow-back" color={'white'} size={30} />
+          <DGText style={styles.text}>{props.title}</DGText>
         </TouchableOpacity>
-        <DGText style={styles.text}>{props.title}</DGText>
+        
         {
           props.rightComponent ? (
             <TouchableOpacity onPress={props.rightComponent.onPress} activeOpacity={0.7} hitSlop={hitSlop}>
