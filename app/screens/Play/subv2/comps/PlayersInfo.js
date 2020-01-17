@@ -3,7 +3,10 @@ import {View, Image} from 'react-native'
 import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
 
-const Player = React.memo(({avatar, name, showPoint, point}) => {
+const Player = React.memo(({avatar, name, lastName, showPoint, point}) => {
+  
+  const lastname = lastName.slice(0,1);
+  
   return (
     <View style={{
       justifyContent: 'center',
@@ -23,7 +26,7 @@ const Player = React.memo(({avatar, name, showPoint, point}) => {
       <DGText style={{
         color: Theme.buttonPrimary,
         marginTop: 12
-      }}>{name}</DGText>
+      }}>{name + "." + lastname}</DGText>
 
       {showPoint ? (<DGText style={{
         backgroundColor: Theme.buttonPrimary,
@@ -39,11 +42,8 @@ const Player = React.memo(({avatar, name, showPoint, point}) => {
 
 export default React.memo(({playerA, playerB, showPoint}) => {
 
-  let aIndex = Number.parseInt(playerA.index)
-  let bIndex = Number.parseInt(playerB.index)
-
-  aIndex = aIndex ? aIndex : 0
-  bIndex = bIndex ? bIndex : 0
+  const aIndex = Number.parseInt(playerA.index)
+  const bIndex = Number.parseInt(playerB.index)
 
   const aBasePoint = Math.floor(aIndex * 3/4) 
   const bBasePoint = Math.floor(bIndex * 3/4) 
@@ -52,18 +52,17 @@ export default React.memo(({playerA, playerB, showPoint}) => {
   let bPoint = 0
 
   if (aBasePoint > bBasePoint) {
-    aPoint = Math.round(Math.abs(aBasePoint - bBasePoint)/2)
+    aPoint = Math.abs(aBasePoint - bBasePoint) 
   } else {
-    bPoint = Math.round(Math.abs(aBasePoint - bBasePoint)/2)
+    bPoint = Math.abs(aBasePoint - bBasePoint) 
   }
-
   return (
     <View style={{
       flexDirection: 'row', 
       justifyContent: 'center', 
       alignItems: 'center'
     }}>
-      <Player avatar={playerA.avatar} name={playerA.name} showPoint={showPoint} point={aPoint} />
+      <Player avatar={playerA.avatar} name={playerA.name} lastName={playerA.lastName} showPoint={showPoint} point={aPoint} />
       <DGText style={{
         color: Theme.buttonPrimary,
         marginHorizontal: 16,
@@ -71,7 +70,7 @@ export default React.memo(({playerA, playerB, showPoint}) => {
         fontSize: 30,
         fontWeight: 'bold',
       }}>VS</DGText>
-      <Player avatar={playerB.avatar} name={playerB.name} showPoint={showPoint} point={bPoint}/>
+      <Player avatar={playerB.avatar} name={playerB.name} lastName={playerB.lastName} showPoint={showPoint} point={bPoint}/>
     </View>
   )
 })
