@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, ScrollView, Alert} from 'react-native'
+import { View, ScrollView, Alert } from 'react-native'
 import PlayersInfo from '../comps/PlayersInfo'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
@@ -9,6 +9,7 @@ import SelectItem from '../comps/CircleButton'
 import PlayersInfo3 from '../comps/PlayersInfo3'
 import PlayersInfo4 from '../comps/PlayersInfo4'
 import Api from '../../../../api'
+import Ads from '../../../../components/Ads';
 
 const gameTypes = [
   "Select the game type",
@@ -33,8 +34,8 @@ export default class SelectType extends React.PureComponent {
   updateGameType(type) {
     const gameData = GameData.instance()
     gameData.setGameType(type)
-  
-    this.setState({type})
+
+    this.setState({ type })
   }
 
   onRequestChangeGameType = () => {
@@ -66,8 +67,6 @@ export default class SelectType extends React.PureComponent {
 
     const gameType = this.state.type
     const challenge = GameData.instance().challengeId
-    
-    // this.props.navigation.navigate("EditResult2Player")
 
     Api.instance().createNewGame(challenge, gameType).then(res => {
       if (res.data && res.data.scheduleId) {
@@ -77,6 +76,10 @@ export default class SelectType extends React.PureComponent {
       else {
         Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
       }
+    }).catch(err => {
+      console.warn("err" + err);
+
+      Alert.alert("Oops!", "You don't have permission!")
     })
   }
 
@@ -89,17 +92,37 @@ export default class SelectType extends React.PureComponent {
     const gameType = this.state.type
     const challenge = GameData.instance().challengeId
 
-    // this.props.navigation.navigate("EnterFinalResult")
-    
+    // Api.instance().createNewGame(challenge, gameType).then(res => {
+    //   if (res.data && res.data.scheduleId) {
+    //     GameData.instance().gameId = res.data.scheduleId
+    //     this.props.navigation.navigate("EnterFinalResult")
+    //   }
+    //   else {
+    //     Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
+    //   }
+    // }).catch(err => {
+    //   console.warn(err)
+    // })
+
     Api.instance().createNewGame(challenge, gameType).then(res => {
+
+      console.warn("res" + res.code);
+
       if (res.data && res.data.scheduleId) {
         GameData.instance().gameId = res.data.scheduleId
-        this.props.navigation.navigate("EnterFinalResult")
+        this.props.navigation.navigate("EditResult2Player")
       }
       else {
         Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
       }
+    }).catch(err => {
+      console.warn("err" + err);
+
+      Alert.alert("Oops!", "You don't have permission!")
+
+
     })
+
   }
 
   renderPlayerInfo() {
@@ -120,7 +143,7 @@ export default class SelectType extends React.PureComponent {
       />
     }
     else {
-      return <PlayersInfo 
+      return <PlayersInfo
         playerA={gameData.playerA}
         playerB={gameData.playerB}
       />
@@ -143,6 +166,7 @@ export default class SelectType extends React.PureComponent {
             <SelectItem value={"Enter final result"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestEnterScore} />
           </View>
         </ScrollView>
+        <Ads />
       </BaseComponent>
     )
   }
