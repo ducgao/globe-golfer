@@ -65,11 +65,17 @@ class SetupAccountStepInputLocation extends PureComponent {
       return
     }
 
-    const index = this.indexTextInput.getText()
-    if (!index) {
-      showErrorAlert("Your index can not be blank")
-      return
+    // const index = this.indexTextInput.getText()
+    // if (!index) {
+    //   showErrorAlert("Your index can not be blank")
+    //   return
+    // }
+
+    const index = "18".toUpperCase()
+    if(!index){
+      index = this.indexTextInput.getText()
     }
+
 
     const license = this.licenseTextInput.getText()
     if (!license) {
@@ -271,17 +277,20 @@ class SetupAccountStepInputLocation extends PureComponent {
   }
 
   renderMemberShipInfo() {
+  
     let index = <TextInputBlockV2
       ref={ref => this.indexTextInput = ref}
       title="Index"
-      placeholder="Enter your index" 
+      placeholder="18" 
       inputAlign="left"
+      inputType ="number-pad"
     />
     let license = <TextInputBlockV2 
       ref={ref => this.licenseTextInput = ref}
       title="License's number"
       placeholder="Enter your number of license"
       inputAlign="left"
+      inputType ="number-pad"
     />
     return (
       <View style={{
