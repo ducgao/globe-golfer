@@ -37,13 +37,19 @@ class AddMember extends React.PureComponent {
 
         const where = this.props.navigation.getParam('where')
 
-        if (where === "C") {
+        if (where === "A") {
+          this.gameData.playerA = player
+        }
+        else if (where === "B") {
+          this.gameData.playerB = player
+        }
+        else if (where === "C") {
           this.gameData.playerC = player
         }
         else if (where === "D") {
           this.gameData.playerD = player
-        } 
-
+        }
+        
         this.props.navigation.goBack()
       }}
     />

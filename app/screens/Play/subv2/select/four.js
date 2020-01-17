@@ -19,6 +19,40 @@ class Select4rdPlayerView extends React.PureComponent {
     this.props.navigation.navigate("AddGuest", {where})
   }
 
+  onRequestChangeA = () => {
+    Alert.alert("Select New Player", null, [
+      {
+        text: "Select GG Member",
+        onPress: () => this.onRequestAddGGMember("A")
+      },
+      {
+        text: "Add Guest",
+        onPress: () => this.onRequestAddGuest("A")
+      },
+      {
+        text: "Cancel",
+        style: 'destructive'
+      },
+    ])
+  }
+
+  onRequestChangeB = () => {
+    Alert.alert("Select New Player", null, [
+      {
+        text: "Select GG Member",
+        onPress: () => this.onRequestAddGGMember("B")
+      },
+      {
+        text: "Add Guest",
+        onPress: () => this.onRequestAddGuest("B")
+      },
+      {
+        text: "Cancel",
+        style: 'destructive'
+      },
+    ])
+  }
+
   onRequestChangeC = () => {
     Alert.alert("Select New Player", null, [
       {
@@ -72,8 +106,11 @@ class Select4rdPlayerView extends React.PureComponent {
           playerB={this.props.playerB}
           playerC={this.props.playerC}
           playerD={this.props.playerD}
+          onRequestChangeA={this.onRequestChangeA}
+          onRequestChangeB={this.onRequestChangeB}
           onRequestChangeC={this.onRequestChangeC}
           onRequestChangeD={this.onRequestChangeD}
+          onSwitched={this.props.onSwitched}
         />
         <View style={{justifyContent: 'center', alignItems: 'center', marginHorizontal: 24}}>
           <DGText style={{
@@ -119,5 +156,19 @@ export default React.memo((props) => {
     playerB={state.playerB}
     playerC={state.playerC}
     playerD={state.playerD}
+    onSwitched={(a, b, c, d) => {
+
+      gameData.playerA = a
+      gameData.playerB = b
+      gameData.playerC = c
+      gameData.playerD = d
+
+      setState({
+        playerA: a,
+        playerB: b,
+        playerC: c,
+        playerD: d,
+      })
+    }}
   />
 })

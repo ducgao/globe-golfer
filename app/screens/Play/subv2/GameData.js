@@ -17,15 +17,11 @@ export default class GameData {
       return this._instance
   } 
 
-  playerA = {
-    avatar: "https://ideapod.com/wp-content/uploads/2017/06/stencil.facebook-post-20.jpg",
-    name: "Alexandre M"
-  }
-  
-  playerB = {
-    avatar: "https://www.midlandsderm.com/wp-content/uploads/2019/04/Rachel-R.-Person.jpg",
-    name: "Frencois B"
-  }
+  root1 = null
+  root2 = null
+
+  playerA = null  
+  playerB = null
 
   playerC = null
   playerD = null

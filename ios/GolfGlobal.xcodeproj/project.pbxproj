@@ -437,12 +437,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GolfGlobal/GolfGlobal.entitlements;
-				CURRENT_PROJECT_VERSION = 71;
+				CURRENT_PROJECT_VERSION = 72;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = NU865VDUYC;
 				INFOPLIST_FILE = GolfGlobal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.6.11;
+				MARKETING_VERSION = 0.6.12;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -460,11 +460,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GolfGlobal/GolfGlobal.entitlements;
-				CURRENT_PROJECT_VERSION = 71;
+				CURRENT_PROJECT_VERSION = 72;
 				DEVELOPMENT_TEAM = NU865VDUYC;
 				INFOPLIST_FILE = GolfGlobal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.6.11;
+				MARKETING_VERSION = 0.6.12;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

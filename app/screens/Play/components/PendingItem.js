@@ -18,6 +18,9 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
     GameData.instance().playerA = item.from
     GameData.instance().playerB = item.to
     
+    GameData.instance().root1 = item.from
+    GameData.instance().root2 = item.to
+    
     navigate("SelectNumber")
   }
 
