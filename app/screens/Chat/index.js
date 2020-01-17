@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ActivityIndicator, ScrollView, View, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, ScrollView, View, TouchableOpacity, Alert } from 'react-native'
 
 import { connect } from 'react-redux'
 
@@ -17,6 +17,7 @@ import LoadableImage from '../../components/LoadableImage'
 import lodash from 'lodash'
 import Api from '../../api'
 import { withNavigationFocus } from 'react-navigation'
+import Ads from '../../components/Ads';
 
 const Challenge = React.memo(({item, onPress}) => {
 
@@ -84,7 +85,7 @@ const Challengers = React.memo(({title, data, onPress}) => {
   }
 
   const items = data.map((item, index) => <Challenge key={`challenge-${index}`} item={item} onPress={onPress} />)
-
+  
   return (
     <>
       <DGText style={{ 
@@ -119,18 +120,17 @@ const EmptyData = React.memo(() => {
 })
 
 const MessageItem = React.memo(({user, item, tag}) => {
-
   const { navigate } = useNavigation()
-
   const onPress = () => {
     navigate("ChatDetail", {
       data: item,
       tag
     })
   }
-
   let lastMessage = "draft:"
   if (Array.isArray(item.message) && item.message.length > 0) {
+    console.warn("item message"+item.message);
+    
     if (item.message[0].sender_id == user.id) {
       lastMessage = "You: " + item.message[0].message
     }
@@ -200,6 +200,9 @@ const Board = React.memo(({user, title, isLoading, data, tag}) => {
     content = <EmptyData />
   }
   else {
+    console.warn("data Messblock"+data);
+    Alert.alert("data Messblock= "+data)
+    
     content = <MessageBlock data={data} user={user} tag={tag} />
   }
 
@@ -225,7 +228,10 @@ class Chat extends PureComponent {
     super(props)
     
     const initTag =  props.navigation.getParam("tag")
-    
+    console.warn(
+      "???",
+      initTag
+    );
     this.state = {
       tabIndex: initTag ? initTag : 0
     }
@@ -245,6 +251,7 @@ class Chat extends PureComponent {
   }
 
   onFilterChanged = (nextValue) => {
+
     let theValue = 0
     if (this.state.tabIndex == null) {
       const initTag = this.props.navigation.getParam("tag")
@@ -258,15 +265,13 @@ class Chat extends PureComponent {
       this.setState({tabIndex: nextValue})
       theValue = nextValue
     }
-
-    this.props.getMessages(theValue)
-
-    if (theValue == 0) {
+     this.props.getMessages(theValue)    
+    //  Alert.alert(JSON.stringify(this.props.getMessages(theValue)))
+    if (theValue == 0) { 
       this.props.getPendingMatches()
       this.props.getPlayedMatches()
     }
   }
-
   onChallengePress = (challenger) => {
     const conversation = lodash.find(this.props.messagesData.data, (item) => item.avatar == challenger.avatar)
     if (conversation) {
@@ -292,16 +297,19 @@ class Chat extends PureComponent {
   
   render() {
     let challengersData = null
+    let userId = this.props.user.id
 
     const {pendingData, playedData, messagesData} = this.props
-
-    if (!pendingData.isLoading && !playedData.isLoading && !messagesData.isLoading) {
+    if (!pendingData.isLoading && !playedData.isLoading) {
       if (this.state.tabIndex == 0 && Array.isArray(pendingData.data)) {
         if (challengersData == null) {
           challengersData = []
         }
         pendingData.data.forEach(d => {
-          challengersData.push(d.to)
+          if(d.to.id != userId){ //don't show avatar user at room chat
+
+            challengersData.push(d.to)
+          }
         });
       }
 
@@ -310,29 +318,33 @@ class Chat extends PureComponent {
           challengersData = []
         }
         playedData.data.forEach(d => {
-          challengersData.push(d.to)
+          if (d.to.id != userId) {
+            challengersData.push(d.to)
+          }
         });
       }
+     
+    }
 
+    Alert.alert(messagesData.data)
+    // if (!messagesData.isLoading) {
       if (Array.isArray(messagesData.data)) {
         if (challengersData == null) {
           challengersData = []
         }
         messagesData.data.forEach(d => {
-          if (d.avatar != this.props.user.avatar) {
-            challengersData.push({
-              name: d.name,
-              avatar: d.avatar
-            })
-          }
+          challengersData.push({
+            name: d.name,
+            avatar: d.avatar
+          })
         })
       }
-    }
+      
+    // }
+    
 
     challengersData = lodash.uniqBy(challengersData, "avatar")
-    challengersData = lodash.filter(challengersData, (t) => t.avatar != this.props.user.avatar)
-    const messageData = lodash.filter(this.props.messagesData.data, (t) => t.avatar != this.props.user.avatar)
-    
+   
     return (
       <BaseComponent>
         <Header />
@@ -347,10 +359,11 @@ class Chat extends PureComponent {
             user={this.props.user}
             requestToggleExpand={this.requestToggleExpand}
             isLoading={this.props.messagesData.isLoading}
-            data={messageData}
+            data={this.props.messagesData.data}
             tag={this.state.tabIndex}
           />
         </ScrollView>
+        <Ads />
       </BaseComponent>
     )
   }
