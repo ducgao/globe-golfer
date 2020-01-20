@@ -78,7 +78,7 @@ export default class GameData {
     let finalA = tA > tB ? (tA - tB) : 0
     let finalB = tB > tA ? (tB - tA) : 0
 
-    if (finalA >= Math.round(this.gameHoles / 2) || finalB >= Math.round(this.gameHoles / 2)) {
+    if (finalA > holeLeft || finalB > holeLeft) {
       this.isTerminated = true
       if (finalA > finalB) {
         finalB = holeLeft
