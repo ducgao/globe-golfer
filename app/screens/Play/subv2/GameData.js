@@ -90,4 +90,36 @@ export default class GameData {
 
     return [finalA, finalB, finalA === finalB ? "A/S" : "UP"]
   }
+
+  getCurrentScore3() {
+    let aScore = 0
+    let bScore = 0
+    let cScore = 0
+
+    let holeLeft = 0
+
+    this.gameResults.forEach(g => {
+      if (g.a == 1) {
+        aScore++
+      }
+      else if (g.b == 1) {
+        bScore++
+      }
+      else if (g.c == 1) {
+        cScore++
+      }
+      else if (g.result == -1) {
+        holeLeft++
+      }
+    });
+
+    const lowest = Math.min(aScore, bScore, cScore)
+    const highest = Math.max(aScore, bScore, cScore)
+
+    if ((highest - lowest) > holeLeft) {
+      this.isTerminated = true
+    }
+
+    return [aScore - lowest, bScore - lowest, cScore - lowest]
+  }
 }

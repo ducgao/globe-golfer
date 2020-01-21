@@ -65,19 +65,29 @@ export default class SelectType extends React.PureComponent {
     }
 
     const gameType = this.state.type
-    const challenge = GameData.instance().challengeId
+    const gameData = GameData.instance()
+    const challenge = gameData.challengeId
     
-    // this.props.navigation.navigate("EditResult2Player")
+    if (gameData.playerD && gameData.playerC) {
+      this.props.navigation.navigate("EditResult2Player")
+    } else if (gameData.playerC) {
+      this.props.navigation.navigate("EditResult3Player")
+    }
+    else {
+      this.props.navigation.navigate("EditResult2Player")
+    }
+    
+    
 
-    Api.instance().createNewGame(challenge, gameType).then(res => {
-      if (res.data && res.data.scheduleId) {
-        GameData.instance().gameId = res.data.scheduleId
-        this.props.navigation.navigate("EditResult2Player")
-      }
-      else {
-        Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
-      }
-    })
+    // Api.instance().createNewGame(challenge, gameType).then(res => {
+    //   if (res.data && res.data.scheduleId) {
+    //     GameData.instance().gameId = res.data.scheduleId
+    //     this.props.navigation.navigate("EditResult2Player")
+    //   }
+    //   else {
+    //     Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
+    //   }
+    // })
   }
 
   onRequestEnterScore = () => {
