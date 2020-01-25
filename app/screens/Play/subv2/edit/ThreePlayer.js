@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, TouchableOpacity, Alert} from 'react-native'
+import {View, TouchableOpacity, Alert, ScrollView, Dimensions} from 'react-native'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
 import GameData from '../GameData'
@@ -9,96 +9,55 @@ import Theme from '../../../../res/Theme'
 import SelectItem from '../comps/CircleButton'
 import PlayersInfo3 from '../comps/PlayersInfo3'
 
-const HoleBoard3 = React.memo(({hole, result, onResultChanged}) => {
+const HoleBoard3 = React.memo(({hole, result, onResultChanged, gameEnded}) => {
 
-  const display = (score) => {
-    switch (score) {
-      case 1:
-        return "1st"
-      case 2:
-        return "2nd"
-      case 3:
-        return "3rd"
-      default:
-        return "---"
-    }
+  const buttonWidth = Dimensions.get('window').width / 4
+
+  const renderButton = (text, marginH, marginV, tag, player) => {
+    return (
+      <TouchableOpacity style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: 'white',
+        borderWidth: 1,
+        height: 40,
+        width: buttonWidth,
+        borderRadius: 20,
+        marginHorizontal: marginH,
+        marginVertical: marginV,
+        backgroundColor: result[player] === tag ? Theme.buttonPrimary : null
+      }} onPress={() => {
+        result[player] = tag
+        onResultChanged({...result})
+      }}>
+        <DGText style={{color: 'white'}}>{text}</DGText>
+      </TouchableOpacity>
+    )
   }
 
-  const onRequestChange = (player) => {
-    Alert.alert("Select Finish Position", null, [
-      {
-        text: "1st",
-        onPress: () => {
-          result[player] = 1
-          onResultChanged({...result})
-        }
-      },
-      {
-        text: "2nd",
-        onPress: () => {
-          result[player] = 2
-          onResultChanged({...result})
-        }
-      },
-      {
-        text: "3rd",
-        onPress: () => {
-          result[player] = 3
-          onResultChanged({...result})
-        }
-      },
-    ])
-  }
+  const left = (
+    <View>
+      {renderButton("1st", 0, 4, 1, "a")}
+      {renderButton("2nd", 0, 4, 2, "a")}
+      {renderButton("3rd", 0, 4, 3, "a")}
+    </View>
+  )
 
-  const leftButton = <TouchableOpacity style={{
-    height: 40,
-    width: '40%',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderLeftWidth: 1,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: 'white',
-    backgroundColor: result.a > 0 ? Theme.buttonPrimary : null
-  }} onPress={() => onRequestChange("a")}>
-    <DGText style={{color: 'white'}}>{
-      result.a > 0 ? display(result.a) : "---"
-    }</DGText>
-  </TouchableOpacity>
+  const middle = (
+    <View>
+      {renderButton("1st", 20, 4, 1, "b")}
+      {renderButton("2nd", 20, 4, 2, "b")}
+      {renderButton("3rd", 20, 4, 3, "b")}
+    </View>
+  )
 
-  const middleButton = <TouchableOpacity style={{
-    height: 40,
-    width: '40%',
-    borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: 'white',
-    backgroundColor: result.b > 0 ? Theme.buttonPrimary : null
-  }} onPress={() => onRequestChange("b")}>
-    <DGText style={{color: 'white'}}>{
-      result.b > 0 ? display(result.b) : "---"
-    }</DGText>
-  </TouchableOpacity>
-
-  const rightButton = <TouchableOpacity style={{
-    height: 40,
-    width: '40%',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderRightWidth: 1,
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: 'white',
-    backgroundColor: result.c > 2 ? Theme.buttonPrimary : null
-  }} onPress={() => onRequestChange("c")}>
-    <DGText style={{color: 'white'}}>{
-      result.c > 0 ? display(result.c) : "---"
-    }</DGText>
-  </TouchableOpacity> 
+  const right = (
+    <View>
+      {renderButton("1st", 0, 4, 1, "c")}
+      {renderButton("2nd", 0, 4, 2, "c")}
+      {renderButton("3rd", 0, 4, 3, "c")}
+    </View>
+  )
 
   const controller = <View style={{
       flexDirection: 'row',
@@ -108,9 +67,9 @@ const HoleBoard3 = React.memo(({hole, result, onResultChanged}) => {
       alignItems: 'center',
       paddingHorizontal: 24
     }}>
-    {leftButton}
-    {middleButton}
-    {rightButton}
+    {left}
+    {middle}
+    {right}
   </View>
 
   const holeInfo = <View style={{
@@ -123,7 +82,7 @@ const HoleBoard3 = React.memo(({hole, result, onResultChanged}) => {
     justifyContent: 'center',
     alignItems: 'center',
   }}>
-    <DGText style={{color: 'white', fontSize: 30}}>{"Hole " + hole}</DGText>
+    <DGText style={{color: 'white', fontSize: 30}}>{hole}</DGText>
   </View>
 
   return (
@@ -134,7 +93,7 @@ const HoleBoard3 = React.memo(({hole, result, onResultChanged}) => {
       marginBottom: 24
     }}>
       {holeInfo}
-      {controller}
+      {gameEnded ? undefined : controller}
     </View>
   )
 })
@@ -191,36 +150,39 @@ export default class EditResult3Player extends React.PureComponent {
     return (
       <BaseComponent>
         <Header />
-        <PlayersInfo3
-          playerA={gameData.playerA}
-          playerB={gameData.playerB}
-          playerC={gameData.playerC}
-          showPoint
-        />
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 12
-        }}>
-          <ScoreBoard3
-            editable={false}
-            playerAScore={this.state.scoreA}
-            playerBScore={this.state.scoreB}
-            playerCScore={this.state.scoreB}
-            gameRelation={this.state.relation}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <PlayersInfo3
+            playerA={gameData.playerA}
+            playerB={gameData.playerB}
+            playerC={gameData.playerC}
+            showPoint
           />
-          <HoleBoard3
-            hole={gameResults[this.state.processingHole - 1].hole} 
-            result={this.state.displayResult}
-            onResultChanged={this.onResultChanged}  
-          />
-          <SelectItem 
-            value={gameData.isTerminated ? "End" : "Record & Next"} 
-            tint={Theme.buttonPrimary} 
-            fixSize 
-            onPress={this.onRequestNext} 
-          />
-        </View>
+          <View style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 12
+          }}>
+            <ScoreBoard3
+              editable={false}
+              playerAScore={this.state.scoreA}
+              playerBScore={this.state.scoreB}
+              playerCScore={this.state.scoreB}
+              gameRelation={this.state.relation}
+            />
+            <HoleBoard3
+              hole={gameData.isTerminated ? "Game Terminated" : ("Hole" + gameResults[this.state.processingHole - 1].hole)}
+              result={this.state.displayResult}
+              onResultChanged={this.onResultChanged}  
+              gameEnded={gameData.isTerminated}
+            />
+            <SelectItem 
+              value={gameData.isTerminated ? "End" : "Record & Next"} 
+              tint={Theme.buttonPrimary} 
+              fixSize 
+              onPress={this.onRequestNext} 
+            />
+          </View>
+        </ScrollView>
       </BaseComponent>
     )
   }

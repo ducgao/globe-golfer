@@ -11,7 +11,7 @@ import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
 import SelectItem from '../comps/CircleButton'
 
-const HoleBoard = React.memo(({hole, result, onResultChanged}) => {
+const HoleBoard = React.memo(({hole, result, onResultChanged, gameEnded}) => {
 
   const leftButton = <TouchableOpacity style={{
     height: 40,
@@ -92,7 +92,7 @@ const HoleBoard = React.memo(({hole, result, onResultChanged}) => {
       marginBottom: 24
     }}>
       {holeInfo}
-      {controller}
+      {gameEnded ? undefined : controller}
     </View>
   )
 })
@@ -112,6 +112,11 @@ export default class EditResult2Player extends React.PureComponent {
 
     const gameResults = gameData.gameResults
     const theScore = gameResults[this.state.processingHole - 1].result
+
+    if (gameData.isTerminated) {
+      this.props.navigation.navigate("Overview")
+      return
+    }
 
     if (this.state.processingHole == gameData.gameHoles && [0, 1, 2].indexOf(theScore) >= 0) {
       this.props.navigation.navigate("Overview")
@@ -201,6 +206,7 @@ export default class EditResult2Player extends React.PureComponent {
               hole={gameData.isTerminated ? "Game Terminated" : ("Hole" + gameResults[this.state.processingHole - 1].hole)} 
               result={this.state.displayResult}
               onResultChanged={this.onResultChanged}  
+              gameEnded={gameData.isTerminated}
             />
             <SelectItem 
               value={gameData.isTerminated ? "End" : "Record & Next"} 

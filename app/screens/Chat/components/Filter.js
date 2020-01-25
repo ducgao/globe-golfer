@@ -41,11 +41,6 @@ export default class Filter extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.warn(
-      "ducgao",
-      nextProps
-    );
-    
     this.setState({selectedIndex: nextProps.initTab == 1 ? 1 : 0})
   }
 

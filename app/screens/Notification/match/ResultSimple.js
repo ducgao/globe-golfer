@@ -49,8 +49,7 @@ export default class ResultSimple extends React.PureComponent {
 
   render() {
     const data = this.props.navigation.getParam("data")
-    console.warn(data);
-    
+  
     return (
       <BaseComponent>
         <DialogCombination>

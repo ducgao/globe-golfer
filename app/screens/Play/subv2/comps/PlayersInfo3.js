@@ -92,11 +92,6 @@ export default React.memo(({playerA, playerB, playerC, showPoint}) => {
     pointA = Math.round(Math.abs(pA3d4 - lowest)/2)
     pointB = Math.round(Math.abs(pB3d4 - lowest)/2)
     pointC = Math.round(Math.abs(pC3d4 - lowest)/2)
-
-    console.warn(bIndex);
-    console.warn(pB3d4)
-    console.warn(lowest)
-    console.warn(pointB)
   }
 
   if (!playerC) {

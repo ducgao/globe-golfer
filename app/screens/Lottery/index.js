@@ -18,9 +18,6 @@ const Lottery = React.memo(({data}) => {
     navigate("LotteryDetail", {data: data})
   }, [])
 
-  console.warn(data.image);
-  
-  
   return (
     <TouchableWithoutFeedback style={{
       width: ITEM_WIDTH,

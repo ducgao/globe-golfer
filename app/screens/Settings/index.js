@@ -984,9 +984,6 @@ class Settings extends PureComponent {
     const isTempRegionValid = tempLocationData.reIndex == null || tempLocationData.reIndex >= 0
     const isTempClubValid = tempLocationData.clIndex == null || tempLocationData.clIndex >= 0
 
-    console.warn("Ducgao", isCountryValid + "/" + isRegionValid + "/" + isClubValid);
-    
-
     if (!isCountryValid || !isRegionValid || !isClubValid) {
       Alert.alert("Oops!", "Your location data is not valid. Please check it and apply settings again!")
       return

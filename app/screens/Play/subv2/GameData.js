@@ -115,8 +115,15 @@ export default class GameData {
 
     const lowest = Math.min(aScore, bScore, cScore)
     const highest = Math.max(aScore, bScore, cScore)
+    let middle = lowest
 
-    if ((highest - lowest) > holeLeft) {
+    [aScore, bScore, cScore].forEach(t => {
+      if (middle != lowest && middle != highest) {
+        middle = t
+      }
+    })
+
+    if ((middle + holeLeft) < highest) {
       this.isTerminated = true
     }
 

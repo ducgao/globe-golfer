@@ -12,8 +12,7 @@ export default React.memo(({item, viewOnly}) => {
   const { navigate } = useNavigation()
 
   const requestPlayTo = () => {
-    // console.warn(item);
-    
+  
     // GameData.instance().challengeId = item.id 
     // GameData.instance().playerA = item.from
     // GameData.instance().playerB = item.to

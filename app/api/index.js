@@ -412,9 +412,6 @@ export default class Api extends Base {
       ]
     })
 
-    console.warn("update match result", body);
-    
-
     return this.callPut(SIMPLE_UPDATE_MATCH_RESULT, body)
   }
 
