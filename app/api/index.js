@@ -442,12 +442,12 @@ export default class Api extends Base {
     return this.callGet(callingApi, new LotteryTicketBinder())
   }
 
-  updateLocation(lat, long, type) {
+  updateLocation(id, lat, long) {
     const callingApi = UPDATE_LOCATION
     const body = JSON.stringify({
-      latitude : lat,
-      longitude : long,
-      type
+      userId: id,
+      latitude: lat,
+      longitude: long
     })
 
     return this.callPut(callingApi, body)

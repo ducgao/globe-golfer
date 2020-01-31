@@ -78,5 +78,5 @@ export const RANKING_CLUB = BASE + "authenticated/clubs/ranking/"
 export const RANKING_PREMIUMS = BASE + "authenticated/premiums/ranking/"
 export const RANKING_USER_CLUB = BASE + "authenticated/clubs/user/ranking/"
 
-export const UPDATE_LOCATION = BASE + "authenticated/update-location"
+export const UPDATE_LOCATION = BASE + "authenticated/location"
 

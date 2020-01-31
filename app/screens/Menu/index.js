@@ -21,6 +21,7 @@ import AdsRepository from '../../repository/AdsRepository'
 import Api from '../../api'
 import { withStomp, StompEventTypes } from 'react-stompjs'
 import { BASE } from '../../api/Endpoints'
+import Geolocation from '@react-native-community/geolocation';
 
 const Logo = React.memo(() => (
   <LoadableImage
@@ -91,21 +92,34 @@ class Menu extends PureComponent {
     this.props.getProfile()
     this.configChatService()
 
+    Api.instance().getNewNotifications(0).then(res => {
+      NotificationRepository.instance().updateNotifications(res)
+    })
+
     AdsRepository.instance().loadAds()
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.user && nextProps.user.id) {
       OneSignal.sendTag("user_id", nextProps.user.id + "")
+
+      Geolocation.getCurrentPosition(pos => {
+        const lat = pos.coords.latitude
+        const long = pos.coords.longitude
+        
+        Api.instance().updateLocation(nextProps.user.id + "", lat, long)
+      }, undefined, {
+        enableHighAccuracy: true,
+        timeout: 20000,
+        maximumAge: 1000
+      })
     }
   }
 
+
+
   configChatService = () => {
     const token = Api.instance().getAccessToken()
-
-    Api.instance().getNewNotifications(0).then(res => {
-      NotificationRepository.instance().updateNotifications(res)
-    }) 
 
     this.props.stompContext.addStompEventListener(StompEventTypes.Connect, this.onConnected)
     this.props.stompContext.addStompEventListener(StompEventTypes.Disconnect, this.onDisconnected)
@@ -119,12 +133,9 @@ class Menu extends PureComponent {
     )
   }
 
-  onConnected = () => {
-    // alert("connected");
-  }
+  onConnected = () => {}
 
   onDisconnected = () => {
-    // alert("not connect");
     this.props.stompContext.newStompClient(
       BASE + "ws?access_token=" + token,
       null,
@@ -134,7 +145,6 @@ class Menu extends PureComponent {
   }
 
   onClose = () => {
-    // alert("close");
     this.props.stompContext.removeStompClient()
   }
 
