@@ -9,7 +9,9 @@ export default class SettingValue extends PureComponent {
     return (
       <View style={[styles.container, this.props.style]}>
         <DGText style={styles.title}>{this.props.title}</DGText>
-        <DGText style={styles.value}>{this.props.value}</DGText>
+        <TouchableOpacity onPress={this.props.onPress}>
+          <DGText style={styles.value}>{this.props.value}</DGText>
+        </TouchableOpacity>
       </View>
     )
   }

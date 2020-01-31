@@ -35,6 +35,9 @@ import LoadableImage from '../../components/LoadableImage'
 import DGText from '../../components/DGText'
 import ImagePicker from 'react-native-image-picker'
 import EditAbout from './components/editabout'
+import EditName from './components/editname'
+import EditIndex from './components/editindex'
+import SettingDateInputBlock from './components/dateinputblock'
 
 const InterestItem = React.memo(({name, style, onPress}) => {
 
@@ -82,6 +85,8 @@ class Settings extends PureComponent {
       loading: false,
       avatarSource: null,
       needOpenEditAbout: false,
+      needOpenEditName: false,
+      needOpenEditIndex: false,
       about: null,
       tempLocationEnable: null,
       countries: null,
@@ -474,6 +479,22 @@ class Settings extends PureComponent {
     })
   }
 
+  requestEditName = () => {
+    this.setState({
+      needOpenEditName: true
+    })
+  }
+
+  requestEditBirthday = () => {
+    alert("request edit birthday")
+  }
+
+  requestEditIndex = () => {
+    this.setState({
+      needOpenEditIndex: true
+    })
+  }
+
   requestChangeAvatar = () => {
     const options = {
       title: Strings.selectCardImage,
@@ -589,15 +610,27 @@ class Settings extends PureComponent {
 
   renderPersonalInfoBlock = () => {
     const user = this.props.user
-    const name = [user.firstName, user.lastName].join(" ")
+    
+    const displayFname = this.state.firstName ? this.state.firstName : user.firstName
+    const displayLname = this.state.lastName ? this.state.lastName : user.lastName
 
     const about = this.state.about ? this.state.about : user.about
+    const name = displayFname + " " + displayLname
+    const birthDay = this.state.birthDay ? this.state.birthDay : user.birthDay
+    const index = this.state.index ? this.state.index : user.index
 
     return (
       <View>
-        {renderValueItem(Strings.profile.fullName, name)}
-        {renderValueItem(Strings.profile.birthDay, user.birthDay)}
-        {renderValueItem(Strings.profile.index, user.index)}
+        {renderValueItem(Strings.profile.fullName, name, this.requestEditName)}
+        <SettingDateInputBlock 
+          initValue={birthDay} 
+          onDateChanged={date => {
+            this.setState({
+              birthDay: date
+            })
+          }} 
+        />
+        {renderValueItem(Strings.profile.index, index, this.requestEditIndex)}
         {renderSpacing(24)}
         {renderSectionTitle(Strings.profile.aboutMe, true)}
         {renderSpacing(8)}
@@ -1023,7 +1056,11 @@ class Settings extends PureComponent {
       golfCourseTemName: this.tempClDV,
       golfCourseTemId: currentTempClubId,
       regionTemName: this.tempReDV,
-      countryTemName: this.tempCoDV
+      countryTemName: this.tempCoDV,
+      p_index: this.state.index ? this.state.index : undefined,
+      firstname: this.state.firstName ? this.state.firstName : undefined,
+      lastname: this.state.lastName ? this.state.lastName : undefined,
+      date_of_born: this.state.birthDay ? this.state.birthDay : undefined
     }
 
     this.setState({
@@ -1062,6 +1099,29 @@ class Settings extends PureComponent {
     return true
   }
 
+  isPersonalInfoHasChanged() {
+    const { firstName, lastName, index, birthDay } = this.state
+    const user = this.props.user
+
+    if (firstName && firstName != user.firstName) {
+      return true
+    }
+
+    if (lastName && lastName != user.lastName) {
+      return true
+    }
+
+    if (index && index != user.index) {
+      return true
+    }
+
+    if (birthDay && birthDay != user.birthDay) {
+      return true
+    }
+
+    return false
+  }
+
   render() {
 
     let right;
@@ -1070,14 +1130,16 @@ class Settings extends PureComponent {
     const isAboutHasChanged = this.state.about != null
     const isTempHasChanged = this.state.tempLocationEnable != null
     const isLocationHasChanged = this.isLocationHasChanged()
-    const isTempLocationHasChanged = this.isTempLocationHasChanged()
+    // const isTempLocationHasChanged = this.isTempLocationHasChanged()
+    const isPersonalInfoHasChanged = this.isPersonalInfoHasChanged()
 
     if (!isSettingEqual 
       || isAvatarHasChanged 
       || isAboutHasChanged 
       || isTempHasChanged
       || isLocationHasChanged
-      || isTempLocationHasChanged
+      // || isTempLocationHasChanged
+      || isPersonalInfoHasChanged
       ) {
       right = {
         title: "Apply",
@@ -1087,6 +1149,10 @@ class Settings extends PureComponent {
 
     const user = this.props.user
     const about = this.state.about ? this.state.about : user.about
+    const fname = this.state.firstName ? this.state.firstName : user.firstName
+    const lname = this.state.lastName ? this.state.lastName : user.lastName
+    const index = this.state.index ? this.state.index : user.index
+    
 
     return (
       <BaseComponent toolbar={{
@@ -1120,13 +1186,32 @@ class Settings extends PureComponent {
           {renderSpacing(44)}
         </DialogCombination>
         <LoadingModal visible={this.state.loading} />
-        <EditAbout 
+        <EditAbout
           initValue={about}
           visible={this.state.needOpenEditAbout} 
           onRequestOK={(text) => {
           this.setState({
             about: text,
             needOpenEditAbout: false
+          })
+        }}/>
+        <EditName
+          initValue={[fname, lname]}
+          visible={this.state.needOpenEditName} 
+          onRequestOK={(text) => {
+          this.setState({
+            firstName: text[0],
+            lastName: text[1],
+            needOpenEditName: false
+          })
+        }}/>
+        <EditIndex
+          initValue={index}
+          visible={this.state.needOpenEditIndex} 
+          onRequestOK={(text) => {
+          this.setState({
+            index: text,
+            needOpenEditIndex: false
           })
         }}/>
       </BaseComponent>

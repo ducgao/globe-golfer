@@ -297,7 +297,8 @@ class Profile extends PureComponent {
                 avatar: user.avatar,
                 about: user.about,
                 rating: user.rate,
-                name: user.firstName + "." + user.lastName,
+                name: user.firstName,
+                lastName: user.lastName,
                 metaData: [
                   { key: "Level", value: "Tour Player" },
                   { key: "Index", value: user.index },

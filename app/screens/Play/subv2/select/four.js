@@ -93,7 +93,7 @@ class Select4rdPlayerView extends React.PureComponent {
     if (playerA && playerB && playerC && playerD) {
       this.props.navigation.navigate("SelectType")
     } else {
-      Alert.alert("Oopps!", "Please select all players to start the match!")
+      Alert.alert("Oops!", "Please select all players to start the match!")
     }
   }
 

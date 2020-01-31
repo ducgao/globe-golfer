@@ -74,12 +74,13 @@ export function renderValueClickableItem(title, hint, notReadyMessage, value, da
   return item;
 }
 
-export function renderValueItem(title, value) {
+export function renderValueItem(title, value, action) {
   let item = <SettingValue
     key={"value-clickable-item-" + title}
     style={{ paddingBottom: 12, paddingTop: 16 }}
     title={title}
     value={value}
+    onPress={action}
     />
   return item;
 }

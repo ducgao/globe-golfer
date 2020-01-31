@@ -27,7 +27,7 @@ class Select3rdPlayerView extends React.PureComponent {
       this.props.navigation.navigate("SelectType")
     }
     else {
-      Alert.alert("Oopps!", "Please select the 3rd player to move on!")
+      Alert.alert("Oops!", "Please select the 3rd player to move on!")
     }
   }
 
