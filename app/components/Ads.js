@@ -15,6 +15,9 @@ import { useNavigation } from 'react-navigation-hooks';
 import Theme from '../res/Theme';
 
 class Lottery extends React.PureComponent {
+
+  isRunning = false
+
   constructor(props) {
     super(props);
     
@@ -24,8 +27,20 @@ class Lottery extends React.PureComponent {
     }
   }
   
-
   componentDidMount() {
+    this.fetchLottery()
+  }
+
+  fetchLottery = (timeout = 0) => {
+    if (timeout == 0) {
+      this.doFetchLottery()
+    }
+    else {
+      setTimeout(this.doFetchLottery, timeout)
+    }
+  }
+
+  doFetchLottery = () => {
     Api.instance().getLottery().then(res => {
       if (res) {
         const et = moment(res.end)
@@ -43,11 +58,16 @@ class Lottery extends React.PureComponent {
   }
 
   startTimer() {
+    if (this.isRunning) {
+      return
+    }
+
     setInterval(() => {
       this.setState({
         endTime: this.state.endTime - 1
       })
     }, 1000)
+    this.isRunning = true
   }
 
   secondToCountDown(t) {
@@ -71,7 +91,11 @@ class Lottery extends React.PureComponent {
   }
 
   render() {
-    if (this.state.endTime == null || this.state.endTime < 0) return null
+    if (this.state.endTime == null || this.state.endTime < 0) {
+      this.isRunning = false
+      this.fetchLottery(3000)
+      return null
+    }
     
     return (
       <TouchableWithoutFeedback style={{
