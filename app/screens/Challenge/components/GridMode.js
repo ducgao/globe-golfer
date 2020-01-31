@@ -9,7 +9,7 @@ const GridMode = React.memo(({data, onItemSelected}) => {
     <CardBasicInfo
       index={index}
       avatar={item.avatar} 
-      name={item.name} 
+      name={item.name + " " + item.lastName[0]} 
       location={item.location} 
       rating={item.rating}
       onPress={onItemSelected}

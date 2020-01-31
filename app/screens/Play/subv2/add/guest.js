@@ -77,14 +77,14 @@ export default React.memo(() => {
 
     if (where === "C") {
       gameData.playerC = {
-        name: firstName + " " + lastName,
+        name: firstName + "." + lastName,
         email,
         index
       }
     }
     else if (where === "D") {
       gameData.playerD = {
-        name: firstName + " " + lastName,
+        name: firstName + "." + lastName,
         firstName,
         email,
         index

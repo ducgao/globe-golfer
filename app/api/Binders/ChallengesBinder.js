@@ -9,6 +9,7 @@ export default class ChallengesBinder {
           return {
             id: item.userId,
             name: item.name,
+            lastName: item.lastName,
             location: item.gofl_name,
             rating: item.rate,
             avatar: item.avatar ? GET_AVATAR.replace("{id}", item.avatar) : null,

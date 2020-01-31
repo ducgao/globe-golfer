@@ -287,7 +287,7 @@ export default React.memo(({
           tag={tag} 
           renderMode={renderMode}
           avatar={p.avatar} 
-          name={p.name + " " + p.lastName[0]} 
+          name={p.name + "." + p.lastName[0]} 
           team={team} 
           onRequestSwitch={onSwitched ? onRequestSwitch : undefined} 
           onRequestMoveHere={onRequestMoveHere}
@@ -298,7 +298,7 @@ export default React.memo(({
           tag={tag} 
           renderMode={renderMode}
           avatar={p.avatar} 
-          name={p.name + " " + p.lastName[0]} 
+          name={p.name + "." + p.lastName[0]} 
           onRequestSelect={rqc} 
           team={team} 
           onRequestSwitch={onSwitched ? onRequestSwitch : undefined} 

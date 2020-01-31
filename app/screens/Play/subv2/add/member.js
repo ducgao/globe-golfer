@@ -25,7 +25,7 @@ class AddMember extends React.PureComponent {
     <CardBasicInfo
       index={index}
       avatar={item.avatar} 
-      name={item.name} 
+      name={item.name + " " + item.lastName[0]} 
       location={item.location} 
       rating={item.rating}
       onPress={(theIndex) => {
@@ -95,7 +95,7 @@ class AddMember extends React.PureComponent {
         }
       }      
     });
-
+    
     return <FlatList 
       keyExtractor={this.keyExtractor}
       numColumns={2}
