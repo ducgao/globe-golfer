@@ -75,6 +75,7 @@ const PlayerWithoutAvatar = React.memo(({
   team, 
   onRequestSwitch,
   onRequestMoveHere,
+  isWinner
 }) => {
   return (
     <View style={{
@@ -86,9 +87,9 @@ const PlayerWithoutAvatar = React.memo(({
     }}>
       <TouchableOpacity
         style={{
-          width: 100,
-          height: 100,
-          borderRadius: 50,
+          width: 100 + (isWinner ? 40 : 0),
+          height: 100 + (isWinner ? 40 : 0),
+          borderRadius: 50 + (isWinner ? 20 : 0),
           borderWidth: 2,
           borderColor: team,
           justifyContent: 'center',
@@ -111,9 +112,9 @@ const PlayerWithoutAvatar = React.memo(({
       {
         renderMode === "target" ? (<TouchableOpacity 
           style={{
-            width: 100,
-            height: 100,
-            borderRadius: 50,
+            width: 100 + (isWinner ? 40 : 0),
+            height: 100 + (isWinner ? 40 : 0),
+            borderRadius: 50 + (isWinner ? 20 : 0),
             top: 0,
             position: 'absolute',
             backgroundColor: '#00000080',
@@ -137,7 +138,8 @@ const Player = React.memo(({
   onRequestSelect, 
   team, 
   onRequestSwitch,
-  onRequestMoveHere
+  onRequestMoveHere,
+  isWinner
 }) => {
   if (!avatar && !name) {
     return <NewPlayer 
@@ -159,6 +161,7 @@ const Player = React.memo(({
       team={team} 
       onRequestSwitch={onRequestSwitch} 
       onRequestMoveHere={onRequestMoveHere}
+      isWinner={isWinner}
     />
   }
 
@@ -176,9 +179,9 @@ const Player = React.memo(({
       >
         <Image
           style={{
-            width: 100,
-            height: 100,
-            borderRadius: 50,
+            width: 100 + (isWinner ? 40 : 0),
+            height: 100 + (isWinner ? 40 : 0),
+            borderRadius: 50 + (isWinner ? 20 : 0),
             borderWidth: 2,
             borderColor: team,
           }}
@@ -219,6 +222,7 @@ export default React.memo(({
   onRequestChangeB,
   onRequestChangeC, 
   onRequestChangeD,
+  winner,
   onSwitched = () => {},
 }) => {
 
@@ -265,7 +269,7 @@ export default React.memo(({
 
   const gameData = GameData.instance()
 
-  const renderPlayer = React.useCallback((tag, p, rqc, team) => {
+  const renderPlayer = React.useCallback((tag, p, rqc, team, isWinner) => {
     let renderMode = "none"
     if (state.switchTarget) {
       renderMode = state.switchTarget === tag ? "host" : "target"
@@ -279,6 +283,7 @@ export default React.memo(({
         team={team} 
         onRequestSwitch={onSwitched ? onRequestSwitch : undefined} 
         onRequestMoveHere={onRequestMoveHere}
+        isWinner={isWinner}
       />
     }
     else {
@@ -291,6 +296,7 @@ export default React.memo(({
           team={team} 
           onRequestSwitch={onSwitched ? onRequestSwitch : undefined} 
           onRequestMoveHere={onRequestMoveHere}
+          isWinner={isWinner}
         />
       }
       else {
@@ -303,6 +309,7 @@ export default React.memo(({
           team={team} 
           onRequestSwitch={onSwitched ? onRequestSwitch : undefined} 
           onRequestMoveHere={onRequestMoveHere}
+          isWinner={isWinner}
         />
       }
     }
@@ -316,8 +323,8 @@ export default React.memo(({
       alignItems: 'center'
     }}>
       <View style={{width: '50%', justifyContent: 'center', alignItems: 'center'}}>
-        {renderPlayer("A", playerA, onRequestChangeA, "white")}
-        {renderPlayer("C", playerC, onRequestChangeC, "white")}
+        {renderPlayer("A", playerA, onRequestChangeA, "white", winner == playerA)}
+        {renderPlayer("C", playerC, onRequestChangeC, "white", winner == playerA)}
       </View>
       {
         state.switchTarget ? (
@@ -335,8 +342,8 @@ export default React.memo(({
         )
       }
       <View style={{width: '50%', justifyContent: 'center', alignItems: 'center'}}>
-        {renderPlayer("B", playerB, onRequestChangeB, Theme.buttonPrimary)}
-        {renderPlayer("D", playerD, onRequestChangeD, Theme.buttonPrimary)}
+        {renderPlayer("B", playerB, onRequestChangeB, Theme.buttonPrimary, winner == playerB)}
+        {renderPlayer("D", playerD, onRequestChangeD, Theme.buttonPrimary, winner == playerB)}
       </View>
     </View>
   )

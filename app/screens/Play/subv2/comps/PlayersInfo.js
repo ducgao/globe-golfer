@@ -3,7 +3,7 @@ import {View, Image} from 'react-native'
 import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
 
-const Player = React.memo(({avatar, name, showPoint, point}) => {
+const Player = React.memo(({avatar, name, showPoint, point, isWinner}) => {
   return (
     <View style={{
       justifyContent: 'center',
@@ -12,9 +12,9 @@ const Player = React.memo(({avatar, name, showPoint, point}) => {
     }}>
       <Image
         style={{
-          width: 100,
-          height: 100,
-          borderRadius: 50,
+          width: 100 + (isWinner ? 40 : 0),
+          height: 100 + (isWinner ? 40 : 0),
+          borderRadius: 50 + (isWinner ? 20 : 0),
           borderWidth: 2,
           borderColor: 'white',
         }}
@@ -37,7 +37,7 @@ const Player = React.memo(({avatar, name, showPoint, point}) => {
   )
 })
 
-export default React.memo(({playerA, playerB, showPoint}) => {
+export default React.memo(({playerA, playerB, showPoint, winner}) => {
 
   let aIndex = Number.parseInt(playerA.index)
   let bIndex = Number.parseInt(playerB.index)
@@ -63,7 +63,13 @@ export default React.memo(({playerA, playerB, showPoint}) => {
       justifyContent: 'center', 
       alignItems: 'center'
     }}>
-      <Player avatar={playerA.avatar} name={playerA.name + "." + playerA.lastName[0]} showPoint={showPoint} point={aPoint} />
+      <Player 
+        avatar={playerA.avatar} 
+        name={playerA.name + "." + playerA.lastName[0]} 
+        showPoint={showPoint} 
+        point={aPoint} 
+        isWinner={winner === playerA}
+      />
       <DGText style={{
         color: Theme.buttonPrimary,
         marginHorizontal: 16,
@@ -71,7 +77,13 @@ export default React.memo(({playerA, playerB, showPoint}) => {
         fontSize: 30,
         fontWeight: 'bold',
       }}>VS</DGText>
-      <Player avatar={playerB.avatar} name={playerB.name + "." + playerB.lastName[0]} showPoint={showPoint} point={bPoint}/>
+      <Player 
+        avatar={playerB.avatar} 
+        name={playerB.name + "." + playerB.lastName[0]} 
+        showPoint={showPoint} 
+        point={bPoint}
+        isWinner={winner === playerB}
+      />
     </View>
   )
 })

@@ -14,6 +14,7 @@ class AddMember extends React.PureComponent {
   }
 
   gameData = GameData.instance()
+  displayData = []
 
   componentDidMount() {
     this.props.getChallenges()
@@ -29,10 +30,11 @@ class AddMember extends React.PureComponent {
       location={item.location} 
       rating={item.rating}
       onPress={(theIndex) => {
-        const objectToCatch = this.props.challenges.data[theIndex]
+        const objectToCatch = this.displayData[theIndex]
         const player = {
           avatar: objectToCatch.avatar,
-          name: objectToCatch.name
+          name: objectToCatch.name,
+          lastName: objectToCatch.lastName
         }
 
         const where = this.props.navigation.getParam('where')
@@ -85,13 +87,13 @@ class AddMember extends React.PureComponent {
     }
 
     const rawData= this.props.challenges.data
-    const displayData = []
+    this.displayData = []
 
     rawData.forEach(d => {
       if (this.state.keyword == null || d.name.toLowerCase().indexOf(this.state.keyword.toLowerCase()) >= 0) {
         const isSameWithOld = this.isSameWithA(d) || this.isSameWithB(d) || this.isSameWithC(d) || this.isSameWithD(d)
         if (!isSameWithOld) {
-          displayData.push(d)
+          this.displayData.push(d)
         }
       }      
     });
@@ -100,7 +102,7 @@ class AddMember extends React.PureComponent {
       keyExtractor={this.keyExtractor}
       numColumns={2}
       renderItem={this.renderItem}
-      data={displayData}
+      data={this.displayData}
     />
   }
 

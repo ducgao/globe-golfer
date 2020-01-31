@@ -68,16 +68,16 @@ export default class SelectType extends React.PureComponent {
     const gameData = GameData.instance()
     const challenge = gameData.challengeId
 
-    // if (gameData.playerD && gameData.playerC) {
-    //   this.props.navigation.navigate("EditResult2Player")
-    // } else if (gameData.playerC) {
-    //   this.props.navigation.navigate("EditResult3Player")
-    // }
-    // else {
-    //   this.props.navigation.navigate("EditResult2Player")
-    // }
+    if (gameData.playerD && gameData.playerC) {
+      this.props.navigation.navigate("EditResult2Player")
+    } else if (gameData.playerC) {
+      this.props.navigation.navigate("EditResult3Player")
+    }
+    else {
+      this.props.navigation.navigate("EditResult2Player")
+    }
 
-    // return
+    return
 
     Api.instance().createNewGame(challenge, gameType).then(res => {
       if (res.data && res.data.scheduleId) {

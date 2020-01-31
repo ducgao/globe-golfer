@@ -183,13 +183,15 @@ class Overview extends React.Component {
 
   renderPlayerInfo() {
     const gameData = GameData.instance()
-
+    const result = gameData.getCurrentScore()
+    
     if (gameData.playerD && gameData.playerC) {
       return <PlayersInfo4
         playerA={gameData.playerA}
         playerB={gameData.playerB}
         playerC={gameData.playerC}
         playerD={gameData.playerD}
+        winner={result[0] > result[1] ? gameData.playerA : gameData.playerB}
       />
     } else if (gameData.playerC) {
       return <PlayersInfo3
@@ -202,6 +204,7 @@ class Overview extends React.Component {
       return <PlayersInfo 
         playerA={gameData.playerA}
         playerB={gameData.playerB}
+        winner={result[0] > result[1] ? gameData.playerA : gameData.playerB}
       />
     }
   }
