@@ -63,7 +63,7 @@ export default React.memo(({playerA, playerB, showPoint}) => {
       justifyContent: 'center', 
       alignItems: 'center'
     }}>
-      <Player avatar={playerA.avatar} name={playerA.name} showPoint={showPoint} point={aPoint} />
+      <Player avatar={playerA.avatar} name={playerA.name + " " + playerA.lastName[0]} showPoint={showPoint} point={aPoint} />
       <DGText style={{
         color: Theme.buttonPrimary,
         marginHorizontal: 16,
@@ -71,7 +71,7 @@ export default React.memo(({playerA, playerB, showPoint}) => {
         fontSize: 30,
         fontWeight: 'bold',
       }}>VS</DGText>
-      <Player avatar={playerB.avatar} name={playerB.name} showPoint={showPoint} point={bPoint}/>
+      <Player avatar={playerB.avatar} name={playerB.name + " " + playerB.lastName[0]} showPoint={showPoint} point={bPoint}/>
     </View>
   )
 })

@@ -168,7 +168,7 @@ class Overview extends React.Component {
         <ScoreBoard
           playerAScore={result[0]}
           playerBScore={result[1]}
-          gameRelation={result[2]}
+          gameRelation={"&"}
         />
       )
     }

@@ -98,10 +98,10 @@ export default React.memo(({playerA, playerB, playerC, showPoint}) => {
     playerCUI = <Player />
   }
   else if (playerC.avatar) {
-    playerCUI = <Player avatar={playerC.avatar} name={playerC.name} point={pointC} />
+    playerCUI = <Player avatar={playerC.avatar} name={playerC.name + " " + playerC.lastName[0]} point={pointC} />
   }
   else {
-    playerCUI = <Player avatar={playerC.avatar} name={playerC.name} point={pointC} />
+    playerCUI = <Player avatar={playerC.avatar} name={playerC.name + " " + playerC.lastName[0]} point={pointC} />
   }
 
   return (
@@ -110,8 +110,8 @@ export default React.memo(({playerA, playerB, playerC, showPoint}) => {
       justifyContent: 'center', 
       alignItems: 'center'
     }}>
-      <Player avatar={playerA.avatar} name={playerA.name} point={pointA} />
-      <Player avatar={playerB.avatar} name={playerB.name} point={pointB}/>
+      <Player avatar={playerA.avatar} name={playerA.name + " " + playerA.lastName[0]} point={pointA} />
+      <Player avatar={playerB.avatar} name={playerB.name + " " + playerB.lastName[0]} point={pointB}/>
       {playerCUI}
     </View>
   )

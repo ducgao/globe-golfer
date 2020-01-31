@@ -41,7 +41,7 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
           }}
           source={sourceFrom}
         />
-        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.from.name}</DGText>
+        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.from.name + " " + item.from.lastName[0]}</DGText>
       </View>
       <View style={{ marginHorizontal: 24, justifyContent: 'center', alignItems: 'center' }}>
         <DGText style={{ 
@@ -75,7 +75,7 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
           }}
           source={sourceTo}
         />
-        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.to.name}</DGText>
+        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.to.name + " " + item.to.lastName[0]}</DGText>
       </View>
     </View>
   )
