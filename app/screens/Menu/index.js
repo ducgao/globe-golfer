@@ -11,7 +11,7 @@ import BaseComponent from '../../components/BaseComponent'
 import { useNavigation } from 'react-navigation-hooks';
 import Header from './components/Header'
 import { getProfile } from '../../actions/getProfile';
-import { shareGG } from '../../utils'
+import NotificationRepository from '../../repository/NotificationRepository'
 import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications'
 import { getPendingMatches } from '../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../actions/getPlayedMatches'
