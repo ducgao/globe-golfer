@@ -13,6 +13,7 @@ import { getNewNotifications, getHistoryNotifications } from '../../actions/getN
 import { useNavigation } from 'react-navigation-hooks';
 import LoadableImage from '../../components/LoadableImage'
 import { getMessages } from '../../actions/getMessages'
+import Ads from '../../components/Ads'
 
 const NewMessages = React.memo(({isExpanded, isLoading, data, requestToggleExpand, currentTag}) => {
   return <Board 
@@ -203,6 +204,7 @@ class Notification extends PureComponent {
             currentTag={this.state.tag}
           />
         </ScrollView>
+        <Ads />
       </BaseComponent>
     )
   }

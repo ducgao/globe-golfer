@@ -9,6 +9,7 @@ import SelectItem from '../comps/CircleButton'
 import PlayersInfo3 from '../comps/PlayersInfo3'
 import PlayersInfo4 from '../comps/PlayersInfo4'
 import Api from '../../../../api'
+import Ads from '../../../../components/Ads'
 
 const gameTypes = [
   "Select the game type",
@@ -68,16 +69,16 @@ export default class SelectType extends React.PureComponent {
     const gameData = GameData.instance()
     const challenge = gameData.challengeId
 
-    // if (gameData.playerD && gameData.playerC) {
-    //   this.props.navigation.navigate("EditResult2Player")
-    // } else if (gameData.playerC) {
-    //   this.props.navigation.navigate("EditResult3Player")
-    // }
-    // else {
-    //   this.props.navigation.navigate("EditResult2Player")
-    // }
+    if (gameData.playerD && gameData.playerC) {
+      this.props.navigation.navigate("EditResult2Player")
+    } else if (gameData.playerC) {
+      this.props.navigation.navigate("EditResult3Player")
+    }
+    else {
+      this.props.navigation.navigate("EditResult2Player")
+    }
 
-    // return
+    return
 
     Api.instance().createNewGame(challenge, gameType).then(res => {
       if (res.data && res.data.scheduleId) {
@@ -162,6 +163,7 @@ export default class SelectType extends React.PureComponent {
             <SelectItem value={"Enter final result"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestEnterScore} />
           </View>
         </ScrollView>
+        <Ads />
       </BaseComponent>
     )
   }

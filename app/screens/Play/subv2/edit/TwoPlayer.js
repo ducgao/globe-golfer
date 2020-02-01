@@ -10,6 +10,7 @@ import ScoreBoard from '../comps/ScoreBoard'
 import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
 import SelectItem from '../comps/CircleButton'
+import Ads from '../../../../components/Ads'
 
 const HoleBoard = React.memo(({hole, result, onResultChanged, gameEnded}) => {
 
@@ -216,6 +217,7 @@ export default class EditResult2Player extends React.PureComponent {
             />
           </View>
         </ScrollView>
+        <Ads />
       </BaseComponent>
     )
   }

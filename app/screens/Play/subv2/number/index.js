@@ -1,11 +1,12 @@
 import React from 'react'
-import {View, TouchableOpacity, Alert} from 'react-native'
+import {View, TouchableOpacity, Alert, ScrollView} from 'react-native'
 import PlayersInfo from '../comps/PlayersInfo'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
 import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
 import GameData from '../GameData'
+import Ads from '../../../../components/Ads'
 
 const NumberItem = React.memo(({value, onPress}) => {
   return (
@@ -82,11 +83,14 @@ export default class SelectNumber extends React.PureComponent {
     return (
       <BaseComponent>
         <Header />
-        <PlayersInfo 
-          playerA={gameData.playerA}
-          playerB={gameData.playerB}
-        />
-        <NumberSelector onChanged={this.onSelectionChanged} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <PlayersInfo 
+            playerA={gameData.playerA}
+            playerB={gameData.playerB}
+          />
+          <NumberSelector onChanged={this.onSelectionChanged} />
+        </ScrollView>
+        <Ads />
       </BaseComponent>
     )
   }

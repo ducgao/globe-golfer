@@ -17,6 +17,7 @@ import LoadableImage from '../../components/LoadableImage'
 import lodash from 'lodash'
 import Api from '../../api'
 import { withNavigationFocus } from 'react-navigation'
+import Ads from '../../components/Ads'
 
 const Challenge = React.memo(({item, onPress}) => {
 
@@ -343,7 +344,7 @@ class Chat extends PureComponent {
             data={challengersData}
             onPress={this.onChallengePress}
           />
-          <Message 
+          <Message
             user={this.props.user}
             requestToggleExpand={this.requestToggleExpand}
             isLoading={this.props.messagesData.isLoading}
@@ -351,6 +352,7 @@ class Chat extends PureComponent {
             tag={this.state.tabIndex}
           />
         </ScrollView>
+        <Ads />
       </BaseComponent>
     )
   }

@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Alert} from 'react-native'
+import {View, Alert, ScrollView} from 'react-native'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
 import Theme from '../../../../res/Theme'
@@ -8,6 +8,7 @@ import DGText from '../../../../components/DGText'
 import SelectItem from '../comps/CircleButton'
 import PlayersInfo4 from '../comps/PlayersInfo4'
 import { useFocusState } from 'react-navigation-hooks'
+import Ads from '../../../../components/Ads'
 
 class Select4rdPlayerView extends React.PureComponent {
 
@@ -101,28 +102,31 @@ class Select4rdPlayerView extends React.PureComponent {
     return (
       <BaseComponent>
         <Header />
-        <PlayersInfo4
-          playerA={this.props.playerA}
-          playerB={this.props.playerB}
-          playerC={this.props.playerC}
-          playerD={this.props.playerD}
-          onRequestChangeA={this.onRequestChangeA}
-          onRequestChangeB={this.onRequestChangeB}
-          onRequestChangeC={this.onRequestChangeC}
-          onRequestChangeD={this.onRequestChangeD}
-          onSwitched={this.props.onSwitched}
-        />
-        <View style={{justifyContent: 'center', alignItems: 'center', marginHorizontal: 24}}>
-          <DGText style={{
-            color: 'white', 
-            fontSize: 20, 
-            fontWeight: 'bold', 
-            marginTop: 24,
-            textAlign: 'center',
-            marginBottom: 24,
-          }}>{"Tap on \"New PLAYERS\" circle to select a player"}</DGText>
-          <SelectItem value={"Next"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestSubmit} />
-        </View>
+        <ScrollView>
+          <PlayersInfo4
+            playerA={this.props.playerA}
+            playerB={this.props.playerB}
+            playerC={this.props.playerC}
+            playerD={this.props.playerD}
+            onRequestChangeA={this.onRequestChangeA}
+            onRequestChangeB={this.onRequestChangeB}
+            onRequestChangeC={this.onRequestChangeC}
+            onRequestChangeD={this.onRequestChangeD}
+            onSwitched={this.props.onSwitched}
+          />
+          <View style={{justifyContent: 'center', alignItems: 'center', marginHorizontal: 24}}>
+            <DGText style={{
+              color: 'white', 
+              fontSize: 20, 
+              fontWeight: 'bold', 
+              marginTop: 24,
+              textAlign: 'center',
+              marginBottom: 24,
+            }}>{"Tap on \"New PLAYERS\" circle to select a player"}</DGText>
+            <SelectItem value={"Next"} tint={Theme.buttonPrimary} fixSize onPress={this.onRequestSubmit} />
+          </View>
+        </ScrollView>
+        <Ads />
       </BaseComponent>
     )
   }
