@@ -119,7 +119,7 @@ export default class EditResult3Player extends React.PureComponent {
     const gameResults = gameData.gameResults
     const theScore = gameResults[this.state.processingHole - 1].result
 
-    if (theScore.a > 0 && theScore.b >0 && theScore.c > 0) {
+    if (theScore != -1) {
       const result = gameData.getCurrentScore3()
       this.setState({
         scoreA: result[0],
@@ -166,8 +166,7 @@ export default class EditResult3Player extends React.PureComponent {
               editable={false}
               playerAScore={this.state.scoreA}
               playerBScore={this.state.scoreB}
-              playerCScore={this.state.scoreB}
-              gameRelation={this.state.relation}
+              playerCScore={this.state.scoreC}
             />
             <HoleBoard3
               hole={gameData.isTerminated ? "Game Terminated" : ("Hole" + gameResults[this.state.processingHole - 1].hole)}

@@ -99,13 +99,13 @@ export default class GameData {
     let holeLeft = 0
 
     this.gameResults.forEach(g => {
-      if (g.a == 1) {
+      if (g.result.a == 1) {
         aScore++
       }
-      else if (g.b == 1) {
+      else if (g.result.b == 1) {
         bScore++
       }
-      else if (g.c == 1) {
+      else if (g.result.c == 1) {
         cScore++
       }
       else if (g.result == -1) {
@@ -115,7 +115,7 @@ export default class GameData {
 
     const lowest = Math.min(aScore, bScore, cScore)
     const highest = Math.max(aScore, bScore, cScore)
-    let middle = lowest
+    let middle = lowest;
 
     [aScore, bScore, cScore].forEach(t => {
       if (middle != lowest && middle != highest) {
@@ -127,6 +127,8 @@ export default class GameData {
       this.isTerminated = true
     }
 
-    return [aScore - lowest, bScore - lowest, cScore - lowest]
+    const rs = [aScore - lowest, bScore - lowest, cScore - lowest]
+
+    return rs
   }
 }
