@@ -29,10 +29,12 @@ class Challenge extends PureComponent {
     })
   }
 
-  onCardBasicInfoPress = (index) => {
+  onCardBasicInfoPress = (index, item) => {
+    const theIndex = this.props.challenges.data.indexOf(item);
+    
     this.setState({
       isGridMode: false,
-      showingItemIndex: index
+      showingItemIndex: theIndex
     })
   }
 

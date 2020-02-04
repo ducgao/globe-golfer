@@ -8,14 +8,14 @@ import LoadableImage from '../../../components/LoadableImage'
 
 const windowWidth = Dimensions.get('window').width
 
-const CardBasicInfo = React.memo(({ index, avatar, name, location, rating, onPress }) => {
+const CardBasicInfo = React.memo(({ item, index, avatar, name, location, rating, onPress }) => {
   
   const avatarSource = avatar && avatar.startsWith("http") ? { uri: avatar } : require('../../../res/images/golfer_placeholder.png')
   return (
     <TouchableOpacity 
       style={{ alignItems: 'center', marginTop: 20, width: windowWidth / 2 }}
       activeOpacity={0.7}
-      onPress={() => { onPress(index) }}
+      onPress={() => { onPress(index, item) }}
     >
       <LoadableImage 
         style={{ 
