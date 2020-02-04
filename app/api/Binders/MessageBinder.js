@@ -3,14 +3,17 @@ import { GET_AVATAR } from "../Endpoints"
 export default class MessageBinder {
   bind(input) {
     try {
+
       const data = input.data 
       const preReturnValue = data.map(i => {
         return {
           first: {
-            id: i.user_first_id
+            id: i.user_first_id,
+            unread: i.unread_user_first
           },
           second: {
-            id: i.user_second_id
+            id: i.user_second_id,
+            unread: i.unread_user_second
           },
           name: i.name,
           avatar: i.avatar ? GET_AVATAR.replace("{id}", i.avatar) : null,

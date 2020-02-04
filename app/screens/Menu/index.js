@@ -22,6 +22,7 @@ import Api from '../../api'
 import { withStomp, StompEventTypes } from 'react-stompjs'
 import { BASE } from '../../api/Endpoints'
 import Geolocation from '@react-native-community/geolocation';
+import MessageRepository from '../../repository/MessageRepository'
 
 const Logo = React.memo(() => (
   <LoadableImage
@@ -102,6 +103,11 @@ class Menu extends PureComponent {
   componentWillReceiveProps(nextProps) {
     if (nextProps.user && nextProps.user.id) {
       OneSignal.sendTag("user_id", nextProps.user.id + "")
+
+      MessageRepository.instance().setUserId(nextProps.user.id)
+      Api.instance().getMessages(0).then(res => {
+        MessageRepository.instance().updateMessages(res)
+      })
 
       Geolocation.getCurrentPosition(pos => {
         const lat = pos.coords.latitude

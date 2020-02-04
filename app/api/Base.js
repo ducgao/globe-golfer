@@ -70,7 +70,6 @@ export default class Base {
     return new Promise((resolve, rejecter) => {
       fetch(url, configs)
       .then(response => {
-        console.warn(response);
         const statusCode = response.status
         const data = response.json()
 
@@ -81,7 +80,6 @@ export default class Base {
         return Promise.all([statusCode, data])
       })
       .then(([code, data]) => {
-        console.warn(code + "/" + JSON.stringify(data));
         if (code == 401) {
           this._clearApp()
         } else if (code == 200) {
@@ -101,7 +99,6 @@ export default class Base {
         rejecter(code)
       })
       .catch(e => {
-        console.warn(e);
         rejecter(e)
       })
     })

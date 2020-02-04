@@ -78,6 +78,7 @@ import Api from './api'
 import {BASE} from './api/Endpoints';
 import DGText from './components/DGText'
 import NotificationRepository from './repository/NotificationRepository'
+import MessageRepository from './repository/MessageRepository'
 
 const iconStyle = {
   alignSelf: 'center',
@@ -98,8 +99,16 @@ const TabBarIcon = React.memo(({selectedIcon, unselectedIcon, isSelected, indica
       setIv(v)
     }
 
-    const nr =  NotificationRepository.instance()
-    nr.addSubscription(subscription)
+    let nr
+
+    if (indicatorValue == 0) {
+      nr =  NotificationRepository.instance()
+      nr.addSubscription(subscription)
+    }
+    else {
+      nr = MessageRepository.instance()
+      nr.addSubscription(subscription)
+    }
 
     return () => {
       nr.removeSubscription(subscription)
@@ -153,6 +162,7 @@ const Main = createBottomTabNavigator({
           isSelected={props.focused} 
           selectedIcon={require('@images/ic_chat_selected.png')} 
           unselectedIcon={require('@images/ic_chat.png')}
+          indicatorValue={1}
         />
       )
     }

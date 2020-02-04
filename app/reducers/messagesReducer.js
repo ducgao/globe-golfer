@@ -1,6 +1,7 @@
 import { 
   GET_MESSAGES
 } from '../actions/types'
+import MessageRepository from '../repository/MessageRepository'
 
 const initialState = {
   isLoading: false,
@@ -15,6 +16,7 @@ export default matchesReducer = (state = initialState, action) => {
         isLoading: true
       }
     case GET_MESSAGES.FINISH:
+      MessageRepository.instance().updateMessages(action.payload)
       return {
         isLoading: false,
         data: action.payload

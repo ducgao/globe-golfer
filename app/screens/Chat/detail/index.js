@@ -64,6 +64,8 @@ class ChatDetail extends React.PureComponent {
     const subscribePath = '/app/chat/' + data.id + '/Subscribe'
     const client = this.props.stompContext.getStompClient()
 
+    Api.instance().updateReadMessage(data.id)
+    
     client.publish({destination: subscribePath, body: JSON.stringify({sender_id: senderId})});
     this.subscription.push(client.subscribe(path, this.onNewMessageComming))
   }

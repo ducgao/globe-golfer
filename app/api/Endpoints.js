@@ -80,3 +80,5 @@ export const RANKING_USER_CLUB = BASE + "authenticated/clubs/user/ranking/"
 
 export const UPDATE_LOCATION = BASE + "authenticated/location"
 
+export const UPDATE_READ_MESSAGE = BASE + "authenticated/conversation/{id}"
+

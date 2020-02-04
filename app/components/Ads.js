@@ -17,6 +17,7 @@ import Theme from '../res/Theme';
 class Lottery extends React.PureComponent {
 
   isRunning = false
+  intervalId = undefined
 
   constructor(props) {
     super(props);
@@ -62,12 +63,19 @@ class Lottery extends React.PureComponent {
       return
     }
 
-    setInterval(() => {
+    this.isRunning = true
+    this.intervalId = setInterval(() => {
+      const newET = this.state.endTime - 1
+
+      if (newET < 0) {
+        clearInterval(this.intervalId)
+        this.fetchLottery(3000)
+      }
+
       this.setState({
-        endTime: this.state.endTime - 1
+        endTime: newET
       })
     }, 1000)
-    this.isRunning = true
   }
 
   secondToCountDown(t) {
@@ -93,7 +101,6 @@ class Lottery extends React.PureComponent {
   render() {
     if (this.state.endTime == null || this.state.endTime < 0) {
       this.isRunning = false
-      this.fetchLottery(3000)
       return null
     }
     

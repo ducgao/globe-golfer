@@ -46,7 +46,8 @@ import {
   RANKING_PREMIUMS,
   RANKING_USER_CLUB,
   UPDATE_LOCATION,
-  CREATE_NEW_GAME
+  CREATE_NEW_GAME,
+  UPDATE_READ_MESSAGE
 } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
@@ -469,5 +470,11 @@ export default class Api extends Base {
     })
 
     return this.callPost(UPDATE_MATCH_RESULT, body, new NewGameBinder())
+  }
+
+  updateReadMessage(id) {
+    const callingApi = UPDATE_READ_MESSAGE.replace("{id}", id)
+
+    return this.callPost(callingApi)
   }
 }
