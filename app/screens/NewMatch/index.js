@@ -24,10 +24,6 @@ class NewMatch extends PureComponent {
     loading: false
   }
 
-  componentDidMount() {
-    
-  }
-
   requestChatWithHim = () => {
     const user = this.props.navigation.getParam('data').userFromProfile
 
@@ -40,7 +36,7 @@ class NewMatch extends PureComponent {
     return (
       <DGButtonV2 
         style={{ backgroundColor: Theme.buttonPrimary, width: '50%' }}
-        text={"Chat"}
+        text={"View"}
         onPress={this.requestChatWithHim}
         />
     )

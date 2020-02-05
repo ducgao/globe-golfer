@@ -81,6 +81,7 @@ import NotificationRepository from './repository/NotificationRepository'
 import MessageRepository from './repository/MessageRepository'
 
 import NewMatch from './screens/NewMatch'
+import MatchAccepted  from './screens/MatchAccepted'
 
 const iconStyle = {
   alignSelf: 'center',
@@ -275,6 +276,7 @@ const AppNavigator = createStackNavigator({
   LotteryDetail,
   YouIn,
   NewMatch,
+  MatchAccepted,
   ...loginNavigator,
   ...setupAccountNavigator
 }, {

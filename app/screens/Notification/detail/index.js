@@ -100,25 +100,16 @@ class NotificationDetail extends React.PureComponent {
           }
         }]),
       }), () => {
+        const notification = this.props.navigation.getParam("notification")
         const conversation = lodash.find(this.props.messagesData.data, (item) => item.avatar == notification.avatar)
-
-        if (conversation) {
-          this.props.navigation.navigate("ChatDetail", {
-            data: conversation,
-            tag: 0
-          })
-        }
-        else {
-          Api.instance().createConversation(notification.playerId).then(_ => {
-            Api.instance().getMessages(0).then(res => {
-              const conversation = lodash.find(res, (item) => item.avatar == notification.avatar)
-              this.props.navigation.navigate("ChatDetail", {
-                data: conversation,
-                tag: 0
-              })
-            })
-          })
-        }
+        
+        this.props.navigation.navigate("MatchAccepted", {
+          notification,
+          chatData: {
+            conversation,
+            notification
+          }  
+        })
       })
 
     })
