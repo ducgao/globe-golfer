@@ -65,9 +65,18 @@ class ChatDetail extends React.PureComponent {
     const client = this.props.stompContext.getStompClient()
 
     Api.instance().updateReadMessage(data.id)
-    
-    client.publish({destination: subscribePath, body: JSON.stringify({sender_id: senderId})});
-    this.subscription.push(client.subscribe(path, this.onNewMessageComming))
+
+    if (client) {
+      client.publish({destination: subscribePath, body: JSON.stringify({sender_id: senderId})});
+      this.subscription.push(client.subscribe(path, this.onNewMessageComming))
+    }
+    else {
+      this.configStomp().then(() => {
+        const client2 = this.props.stompContext.getStompClient()
+        client2.publish({destination: subscribePath, body: JSON.stringify({sender_id: senderId})});
+        this.subscription.push(client.subscribe(path, this.onNewMessageComming))
+      })
+    }
   }
   
   componentWillUnmount() {
@@ -75,6 +84,25 @@ class ChatDetail extends React.PureComponent {
     this.props.getMessages(tag)
     this.props.getPendingMatches()
     this.props.getPlayedMatches()
+  }
+
+  configStomp() {
+    return new Promise((resolve, reject) => {
+      const token = Api.instance().getAccessToken()
+
+      this.props.stompContext.addStompEventListener(StompEventTypes.Connect, () => {
+        resolve("ok")
+      })
+      this.props.stompContext.addStompEventListener(StompEventTypes.Disconnect, this.onDisconnected)
+      this.props.stompContext.addStompEventListener(StompEventTypes.WebSocketClose, this.onClose)
+
+      this.props.stompContext.newStompClient(
+        BASE + "ws?access_token=" + token,
+        null,
+        null,
+        "/"
+      )
+    })
   }
 
   onNewMessageComming = (message) => {
