@@ -80,6 +80,8 @@ import DGText from './components/DGText'
 import NotificationRepository from './repository/NotificationRepository'
 import MessageRepository from './repository/MessageRepository'
 
+import NewMatch from './screens/NewMatch'
+
 const iconStyle = {
   alignSelf: 'center',
   width: 44,
@@ -272,6 +274,7 @@ const AppNavigator = createStackNavigator({
   LotteryList,
   LotteryDetail,
   YouIn,
+  NewMatch,
   ...loginNavigator,
   ...setupAccountNavigator
 }, {

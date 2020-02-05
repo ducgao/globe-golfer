@@ -12,14 +12,14 @@ const Card = React.memo(({withAds, card}) => (
     marginBottom: 92,
     backgroundColor: 'black'
   }}>
-      <CardMetaData data={card.metaData} />
+      {card.metaData ? <CardMetaData data={card.metaData} /> : undefined} 
       <CardBasicInfo 
         avatar={card.avatar} 
         name={card.name + " " + card.lastName[0]} 
         location={card.location} 
         rating={card.rating}
       />
-      {card.about ? <CardAbout about={card.about} /> : null}
+      {card.about ? <CardAbout about={card.about} /> : undefined}
       <View style={{flex: 1}} />
       {withAds ? <Ads /> : null}
   </View>

@@ -24,6 +24,8 @@ import { BASE } from '../../api/Endpoints'
 import Geolocation from '@react-native-community/geolocation';
 import MessageRepository from '../../repository/MessageRepository'
 
+import Permissions from 'react-native-permissions';
+
 const Logo = React.memo(() => (
   <LoadableImage
     style={[
@@ -98,6 +100,16 @@ class Menu extends PureComponent {
     })
 
     AdsRepository.instance().loadAds()
+
+    Permissions.check("location").then(r => {
+      if (r !== "authorized") {
+        Permissions.request("location").then(rs => {
+          if (rs !== "authorized") {
+            alert("Golf Global cannot run without location service. Please go to setting and enable location service to have a best experience")
+          }
+        })  
+      }
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -113,7 +125,8 @@ class Menu extends PureComponent {
         const lat = pos.coords.latitude
         const long = pos.coords.longitude
         
-        Api.instance().updateLocation(nextProps.user.id + "", lat, long)
+        // Api.instance().updateLocation(nextProps.user.id + "", lat, long)
+        Api.instance().updateLocation(nextProps.user.id + "", 10.7781159, 106.70058)
       }, undefined, {
         enableHighAccuracy: true,
         timeout: 20000,
@@ -121,8 +134,6 @@ class Menu extends PureComponent {
       })
     }
   }
-
-
 
   configChatService = () => {
     const token = Api.instance().getAccessToken()
@@ -162,8 +173,20 @@ class Menu extends PureComponent {
     this.props.getPlayedMatches()
   }
 
-  onOpened = () => {
-    this.props.navigation.navigate('Notification')
+  onOpened = (openResult) => {
+    const notification = openResult.notification
+    const payload = notification.payload
+    const data = payload.rawPayload.custom.a
+
+    if (data.type === "1") {
+      this.props.navigation.navigate('NewMatch', {data})  
+    }
+    else if (data.type === "8") {
+      this.props.navigation.navigate('Chat')  
+    }
+    else {
+      this.props.navigation.navigate('Notification')  
+    }
   }
 
   render() {
