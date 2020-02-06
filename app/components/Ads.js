@@ -106,25 +106,25 @@ class Lottery extends React.PureComponent {
     
     return (
       <TouchableWithoutFeedback style={{
-        width: 100,
-        height: 100,
+        width: 70,
+        height: 70,
       }} onPress={this.onItemPress}>
         <View style={{
-          width: 100,
-          height: 100,
-          borderRadius: 50,
+          width: 70,
+          height: 70,
+          borderRadius: 35,
           borderColor: Theme.buttonPrimary,
           borderWidth: 4,
           alignItems: 'center'
         }}>
           <DGText style={{
             color: Theme.buttonPrimary,
-            fontSize: 24,
+            fontSize: 16,
             marginTop: 16,
           }}>Lottle</DGText>
           <DGText style={{
             color: 'white',
-            fontSize: 16,
+            fontSize: 10,
             marginTop: 4
           }}>{this.secondToCountDown(this.state.endTime)}</DGText>
         </View>
@@ -157,15 +157,15 @@ export default React.memo(({withLottery}) => {
         <>
         {withLottery && isLotteryShown ? <View style={{width: 24}} /> : undefined}
         <TouchableWithoutFeedback style={{
-          width: 100,
-          height: 100,
-          borderRadius: 50
+          width: 70,
+          height: 70,
+          borderRadius: 35
         }} onPress={() => {ads && Linking.openURL(ads.link)}} >
           <LoadableImage
             style={{
-              width: 100,
-              height: 100,
-              borderRadius: 50,
+              width: 70,
+              height: 70,
+              borderRadius: 35,
               backgroundColor: Theme.buttonPrimary
             }}
             resizeMethod='resize'
@@ -206,7 +206,7 @@ export default React.memo(({withLottery}) => {
 
 const styles = StyleSheet.create({
   ads: {
-    height: '25%',
+    height: 70 + 16 * 2,
     justifyContent: 'center',
     alignItems: 'center'
   },

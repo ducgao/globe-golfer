@@ -125,8 +125,8 @@ class Menu extends PureComponent {
         const lat = pos.coords.latitude
         const long = pos.coords.longitude
         
-        // Api.instance().updateLocation(nextProps.user.id + "", lat, long)
-        Api.instance().updateLocation(nextProps.user.id + "", 10.7781159, 106.70058)
+        Api.instance().updateLocation(nextProps.user.id + "", lat, long)
+        // Api.instance().updateLocation(nextProps.user.id + "", 10.7781159, 106.70058)
       }, undefined, {
         enableHighAccuracy: true,
         timeout: 20000,
