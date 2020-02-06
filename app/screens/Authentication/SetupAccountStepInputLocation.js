@@ -66,6 +66,10 @@ class SetupAccountStepInputLocation extends PureComponent {
     }
 
     const index = this.indexTextInput.getText()
+    if(index < -4 || index > 54){
+      showErrorAlert("Please enter the index in range from -4.0 to 54.0 !")
+      return
+    }
     if (!index) {
       showErrorAlert("Your index can not be blank")
       return
