@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import Api from '../../../../api'
 import { getPendingMatches } from '../../../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../../../actions/getPlayedMatches'
+import ScoreBoard3 from '../comps/ScoreBoard3'
 
 const ResultRow = React.memo(({result, requestChangeResult}) => {
 
@@ -161,16 +162,32 @@ class Overview extends React.Component {
     const gameResults = gameData.gameResults
 
     if (this.state.mode == "view") {
-
-      const result = gameData.getCurrentScore()
-
-      return (
-        <ScoreBoard
+      if (gameData.playerD && gameData.playerC) {
+        const result = gameData.getCurrentScore()
+        return <ScoreBoard
+          editable={false}
           playerAScore={result[0]}
           playerBScore={result[1]}
           gameRelation={"&"}
         />
-      )
+      } else if (gameData.playerC) {
+        const result = gameData.getCurrentScore3()
+        return <ScoreBoard3
+          editable={false}
+          playerAScore={result[0]}
+          playerBScore={result[1]}
+          playerCScore={result[2]}
+        />
+      }
+      else {
+        const result = gameData.getCurrentScore()
+        return <ScoreBoard
+          editable={false}
+          playerAScore={result[0]}
+          playerBScore={result[1]}
+          gameRelation={"&"}
+        />
+      }
     }
     else {
       return gameResults.map(g => <ResultRow 
@@ -210,6 +227,18 @@ class Overview extends React.Component {
   }
 
   render() {
+    const gameData = GameData.instance()
+
+    let shouldHideEdit;
+    if (gameData.playerD && gameData.playerC) {
+      shouldHideEdit = false
+    } else if (gameData.playerC) {
+      shouldHideEdit = true
+    }
+    else {
+      false
+    }
+
     return (
       <BaseComponent>
         <Header />
@@ -223,7 +252,7 @@ class Overview extends React.Component {
             fixSize 
             onPress={this.onRequestRecord} 
           />
-          {this.state.mode == "view" ? (<View style={{marginVertical: 4}}>
+          {this.state.mode == "view" && shouldHideEdit ? (<View style={{marginVertical: 4}}>
             <SelectItem 
               value={"Edit full scorecard"} 
               tint={Theme.buttonPrimary} 

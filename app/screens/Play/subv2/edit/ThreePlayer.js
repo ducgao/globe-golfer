@@ -73,7 +73,7 @@ const HoleBoard3 = React.memo(({hole, result, onResultChanged, gameEnded}) => {
   </View>
 
   const holeInfo = <View style={{
-    width: '60%',
+    minWidth: '60%',
     marginTop: 40,
     height: 50,
     borderRadius: 25,
@@ -81,6 +81,7 @@ const HoleBoard3 = React.memo(({hole, result, onResultChanged, gameEnded}) => {
     borderColor: Theme.buttonPrimary,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 16
   }}>
     <DGText style={{color: 'white', fontSize: 30}}>{hole}</DGText>
   </View>
@@ -111,6 +112,11 @@ export default class EditResult3Player extends React.PureComponent {
   onRequestNext = () => {
     const gameData = GameData.instance()
 
+    if (gameData.isTerminated) {
+      this.props.navigation.navigate("Overview")
+      return
+    }
+
     if (this.state.processingHole == gameData.gameHoles) {
       this.props.navigation.navigate("Overview")
       return
@@ -119,7 +125,7 @@ export default class EditResult3Player extends React.PureComponent {
     const gameResults = gameData.gameResults
     const theScore = gameResults[this.state.processingHole - 1].result
 
-    if (theScore != -1) {
+    if (theScore != -1 && theScore.b && theScore.b && theScore.c) {
       const result = gameData.getCurrentScore3()
       this.setState({
         scoreA: result[0],
