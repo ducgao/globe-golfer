@@ -121,6 +121,9 @@ const EmptyData = React.memo(() => {
 
 const MessageItem = React.memo(({user, item, tag}) => {
 
+  console.warn(item);
+  
+
   const { navigate } = useNavigation()
 
   const onPress = () => {
@@ -129,6 +132,9 @@ const MessageItem = React.memo(({user, item, tag}) => {
       tag
     })
   }
+
+  let you = item.first.id === user.id ? item.first : item.second
+  const isUnread = you.unread > 0
 
   let lastMessage = "draft:"
   if (Array.isArray(item.message) && item.message.length > 0) {
@@ -179,6 +185,17 @@ const MessageItem = React.memo(({user, item, tag}) => {
           fontSize: 12
         }} numberOfLines={1}>{lastMessage}</DGText>
       </View>
+      {isUnread ? (
+        <View 
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            backgroundColor: Theme.buttonPrimary,
+            marginTop: 25
+          }}
+        />
+      ) : undefined}
     </TouchableOpacity>
   )
 })
