@@ -24,7 +24,7 @@ export default class YouIn extends PureComponent {
             fontSize: 30, 
             fontWeight: 'bold', 
             textAlign: 'center'
-          }}>{"Congratulations\nYou are in !"}</DGText>
+          }}>{"Congratulations\nYou are in!"}</DGText>
           <DGText style={{
             marginTop: 40,
             color: 'white', 
