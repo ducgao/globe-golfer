@@ -15,7 +15,7 @@ class Challenge extends PureComponent {
   static navigationOptions = { header: null }
 
   state = {
-    isGridMode: false,
+    isGridMode: true,
     showingItemIndex: undefined
   }
 
