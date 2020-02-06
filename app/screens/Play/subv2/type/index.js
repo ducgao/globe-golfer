@@ -97,8 +97,6 @@ export default class SelectType extends React.PureComponent {
       else {
         Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
       }
-    }).catch(err => {
-      Alert.alert("Oops!", "You don'y have permission!!")
     })
   }
 
@@ -121,8 +119,6 @@ export default class SelectType extends React.PureComponent {
       else {
         Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
       }
-    }).catch(err => {
-      Alert.alert("Oops!", "You don'y have permission!!")
     })
   }
 

@@ -6,14 +6,10 @@ export default class SimpleMatchResultBinder {
       const data = input.data 
       return {
         from: {
-          avatar: data.profileUserFirst.avatar ? GET_AVATAR.replace("{id}", data.profileUserFirst.avatar) : null,
-          name: data.profileUserFirst.first_name,
-          lastName: data.profileUserFirst.last_name
+          avatar: data.profileUserFirst.avatar ? GET_AVATAR.replace("{id}", data.profileUserFirst.avatar) : null
         },
         to: {
-          avatar: data.profileUserSecond.avatar ? GET_AVATAR.replace("{id}", data.profileUserSecond.avatar) : null,
-          name: data.profileUserSecond.first_name,
-          lastName: data.profileUserSecond.last_name
+          avatar: data.profileUserSecond.avatar ? GET_AVATAR.replace("{id}", data.profileUserSecond.avatar) : null
         },
         score1: data.scoreUserFirst,
         score2: data.scoreUserSecond
