@@ -15,12 +15,19 @@ class Challenge extends PureComponent {
   static navigationOptions = { header: null }
 
   state = {
+    isRefreshing: false,
     isGridMode: false,
     showingItemIndex: undefined
   }
 
   componentDidMount() {
     this.props.getChallenges()
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      isRefreshing: newProps.challenges.isLoading
+    })
   }
 
   onViewModeChanged = () => {
@@ -39,7 +46,7 @@ class Challenge extends PureComponent {
   }
 
   renderContent() {
-    if (this.props.challenges.isLoading || this.props.challenges.data == null) {
+    if (this.props.challenges.data == null) {
       return <ActivityIndicator style={{ alignSelf: 'center' }} size='large' color='white' />
     }
 
@@ -50,7 +57,18 @@ class Challenge extends PureComponent {
     }
 
     if (this.state.isGridMode) {
-      return <GridMode data={this.props.challenges.data} onItemSelected={this.onCardBasicInfoPress} /> 
+      return <GridMode 
+        data={this.props.challenges.data} 
+        onItemSelected={this.onCardBasicInfoPress} 
+        refreshing={this.state.isRefreshing}
+        onRefresh={() => {
+          this.setState({
+            isRefreshing: true
+          })
+
+          this.props.getChallenges()
+        }}
+      /> 
     }
     else {
       return (

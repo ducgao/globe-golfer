@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, TextInput, FlatList, Dimensions } from 'react-native'
+import { View, TextInput, FlatList, Dimensions, RefreshControl } from 'react-native'
 import CardBasicInfo from './CardBasicInfo.gridmode'
 
-const GridMode = React.memo(({data, onItemSelected}) => {
+const GridMode = React.memo(({data, onItemSelected, refreshing, onRefresh}) => {
 
   const [displayData, setDisplayData] = React.useState(data)
 
@@ -53,6 +53,13 @@ const GridMode = React.memo(({data, onItemSelected}) => {
         data={displayData}
         numColumns={2}
         renderItem={renderItem}
+        refreshControl={
+          <RefreshControl 
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor='white'
+          />
+        }
       />
     </View>
   )
