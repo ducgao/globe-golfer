@@ -8,6 +8,8 @@ import Theme from '../../../../res/Theme'
 import GameData from '../GameData'
 import Ads from '../../../../components/Ads'
 
+import { connect } from 'react-redux'
+
 const NumberItem = React.memo(({value, onPress}) => {
   return (
     <TouchableOpacity style={{
@@ -56,22 +58,20 @@ const NumberSelector = React.memo(({onChanged}) => {
   )
 })
 
-export default class SelectNumber extends React.PureComponent {
+class SelectNumber extends React.PureComponent {
 
   onSelectionChanged = (index) => {
 
     const gameData = GameData.instance()
+    gameData.reset()
 
-    if (index == 2) {
-      gameData.reset()
+    if (index == 2) {  
       this.props.navigation.navigate("SelectType")
     }
     else if (index == 3) {
-      gameData.reset()
       this.props.navigation.navigate("Select3rdPlayer")
     }
     else {
-      gameData.reset()
       this.props.navigation.navigate("Select4rdPlayer")
     }
   }
@@ -79,6 +79,8 @@ export default class SelectNumber extends React.PureComponent {
   render() {
 
     const gameData = GameData.instance()
+
+    const isEditable = gameData.playerA.id === this.props.user.id
 
     return (
       <BaseComponent>
@@ -88,10 +90,29 @@ export default class SelectNumber extends React.PureComponent {
             playerA={gameData.playerA}
             playerB={gameData.playerB}
           />
-          <NumberSelector onChanged={this.onSelectionChanged} />
+          {isEditable ? 
+            <NumberSelector onChanged={this.onSelectionChanged} /> : 
+            <DGText style={{
+              color: 'white',
+              fontSize: 20,
+              fontWeight: '600',
+              textAlign: 'center',
+              paddingHorizontal: 16,
+              marginTop: 24
+            }}>{"You're not able to create and edit score for this match, this features just reserved to the player who asked for the challenge"}</DGText>
+          }
         </ScrollView>
         <Ads />
       </BaseComponent>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  user: state.profile.user,
+})
+
+const mapDispatchToProps = () => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SelectNumber)

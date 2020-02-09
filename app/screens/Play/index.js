@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { ActivityIndicator, View, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
 import Theme from '../../res/Theme'
