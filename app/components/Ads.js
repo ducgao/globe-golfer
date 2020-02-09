@@ -14,6 +14,8 @@ import moment from 'moment';
 import { useNavigation } from 'react-navigation-hooks';
 import Theme from '../res/Theme';
 
+let THE_LOGO_SIZE = 70
+
 class Lottery extends React.PureComponent {
 
   isRunning = false
@@ -106,25 +108,25 @@ class Lottery extends React.PureComponent {
     
     return (
       <TouchableWithoutFeedback style={{
-        width: 70,
-        height: 70,
+        width: THE_LOGO_SIZE,
+        height: THE_LOGO_SIZE,
       }} onPress={this.onItemPress}>
         <View style={{
-          width: 70,
-          height: 70,
-          borderRadius: 35,
+          width: THE_LOGO_SIZE,
+          height: THE_LOGO_SIZE,
+          borderRadius: THE_LOGO_SIZE/2,
           borderColor: Theme.buttonPrimary,
           borderWidth: 4,
           alignItems: 'center'
         }}>
           <DGText style={{
             color: Theme.buttonPrimary,
-            fontSize: 16,
+            fontSize: this.props.customLogoSize ? 24 : 16,
             marginTop: 16,
           }}>Lottle</DGText>
           <DGText style={{
             color: 'white',
-            fontSize: 10,
+            fontSize: this.props.customLogoSize ? 16 : 10,
             marginTop: 4
           }}>{this.secondToCountDown(this.state.endTime)}</DGText>
         </View>
@@ -133,7 +135,14 @@ class Lottery extends React.PureComponent {
   }
 }
 
-export default React.memo(({withLottery}) => {
+export default React.memo(({withLottery, customLogoSize}) => {
+
+  if (customLogoSize) {
+    THE_LOGO_SIZE = customLogoSize
+  }
+  else {
+    THE_LOGO_SIZE = 70
+  }
 
   const [ads, setAds] = React.useState(null)
   const [isLotteryShown, setIsLotteryShown] = React.useState(false)
@@ -149,7 +158,7 @@ export default React.memo(({withLottery}) => {
     let adsView = undefined
 
     if (withLottery) {
-      lottery = <Lottery visibleChanged={() => setIsLotteryShown(true)} onPress={onLotteryPress}/>
+      lottery = <Lottery visibleChanged={() => setIsLotteryShown(true)} onPress={onLotteryPress} customLogoSize={customLogoSize} />
     }
 
     if (ads) {
@@ -157,15 +166,15 @@ export default React.memo(({withLottery}) => {
         <>
         {withLottery && isLotteryShown ? <View style={{width: 24}} /> : undefined}
         <TouchableWithoutFeedback style={{
-          width: 70,
-          height: 70,
-          borderRadius: 35
+          width: THE_LOGO_SIZE,
+          height: THE_LOGO_SIZE,
+          borderRadius: THE_LOGO_SIZE/2
         }} onPress={() => {ads && Linking.openURL(ads.link)}} >
           <LoadableImage
             style={{
-              width: 70,
-              height: 70,
-              borderRadius: 35,
+              width: THE_LOGO_SIZE,
+              height: THE_LOGO_SIZE,
+              borderRadius: THE_LOGO_SIZE/2,
               backgroundColor: Theme.buttonPrimary
             }}
             resizeMethod='resize'
@@ -206,7 +215,7 @@ export default React.memo(({withLottery}) => {
 
 const styles = StyleSheet.create({
   ads: {
-    height: 70 + 16 * 2,
+    height: THE_LOGO_SIZE + 16 * 2,
     justifyContent: 'center',
     alignItems: 'center'
   },
