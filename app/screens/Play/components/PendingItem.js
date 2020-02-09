@@ -7,7 +7,7 @@ import LoadableImage from '../../../components/LoadableImage';
 import Theme from '../../../res/Theme';
 import GameData from '../subv2/GameData';
 
-export default PendingItem = React.memo(({item, viewOnly}) => {
+export default PendingItem = React.memo(({item, viewOnly, showName = true}) => {
 
   const { navigate } = useNavigation()
 
@@ -41,7 +41,12 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
           }}
           source={sourceFrom}
         />
-        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.from.name + "." + item.from.lastName[0]}</DGText>
+        {showName ? 
+          <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.from.name + "." + item.from.lastName[0]}</DGText>
+          :
+          undefined
+        }
+        
       </View>
       <View style={{ marginHorizontal: 24, justifyContent: 'center', alignItems: 'center' }}>
         <DGText style={{ 
@@ -75,7 +80,11 @@ export default PendingItem = React.memo(({item, viewOnly}) => {
           }}
           source={sourceTo}
         />
-        <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.to.name + "." + item.to.lastName[0]}</DGText>
+        {showName ? 
+          <DGText style={{color: 'white', marginTop: 12, fontWeight: '600'}}>{item.to.name + "." + item.to.lastName[0]}</DGText>
+          :
+          undefined  
+        }
       </View>
     </View>
   )

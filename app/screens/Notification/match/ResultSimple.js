@@ -17,6 +17,7 @@ const BackButton = React.memo(({onPress}) => {
     <TouchableOpacity style={{
       width: 200,
       height: 44,
+      marginTop: 16,
       backgroundColor: Theme.buttonPrimary,
       justifyContent: 'center',
       alignItems: 'center',
@@ -56,9 +57,9 @@ export default class ResultSimple extends React.PureComponent {
           <View style={{ minHeight: Dimensions.get('window').height }}>  
             <MatchInfo title="Match Result" />
             <Spacing />
-            <PendingItem item={data} viewOnly={true} />
+            <PendingItem item={data} viewOnly={true} showName={false} />
             <Result score1={data.score1} score2={data.score2} />
-            <BackButton onPress={() => { this.props.navigation.goBack() }} />
+            <BackButton onPress={() => this.props.navigation.goBack()} />
           </View>
         </DialogCombination>
       </BaseComponent>
