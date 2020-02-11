@@ -14,10 +14,15 @@
 #import <RNGoogleSignin/RNGoogleSignin.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [Fabric with:@[[Crashlytics class]]];
+  
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"GolfGlobal"

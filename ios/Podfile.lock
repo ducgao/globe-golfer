@@ -2,7 +2,10 @@ PODS:
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.6):
     - React
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
   - DoubleConversion (1.1.6)
+  - Fabric (1.10.2)
   - FBSDKCoreKit (5.6.0):
     - FBSDKCoreKit/Basics (= 5.6.0)
     - FBSDKCoreKit/Core (= 5.6.0)
@@ -176,7 +179,9 @@ PODS:
 
 DEPENDENCIES:
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
+  - Crashlytics
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
+  - Fabric
   - FBSDKCoreKit
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
@@ -229,6 +234,9 @@ SPEC REPOS:
     - OneSignal
     - SDWebImage
     - SDWebImageWebPCoder
+  trunk:
+    - Crashlytics
+    - Fabric
 
 EXTERNAL SOURCES:
   BVLinearGradient:
@@ -311,7 +319,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   FBSDKCoreKit: d6655a343868d4bb5c29a60859bab07c3be14a0b
   FBSDKLoginKit: c5a623de88a6b0cda35b35582921f6cec2efcc36
   FBSDKShareKit: 0d8c4cfd5c1f185d5f9c26d79758b141086e1251
@@ -359,6 +369,6 @@ SPEC CHECKSUMS:
   SDWebImageWebPCoder: cc72085bb20368b2f8dbb21b7e355c667e1309b7
   yoga: 843fe25849b56131275bf3e5da2c468e96f68aff
 
-PODFILE CHECKSUM: b8f987a4061e0740f64d9555b52e6d3074209cd9
+PODFILE CHECKSUM: e240c8f9d78f99f4c9562fbfd7e9e62b15f5492f
 
 COCOAPODS: 1.8.4
