@@ -97,8 +97,8 @@ export default class Filter extends React.PureComponent {
         <Item 
           title="CHAMPIONSHIP INDIVIDUAL" 
           icon="ios-notifications-outline" 
-          isSelected={this.state.selectedIndex == 3}
-          onPress={() => this.onFilterChanged(3)}
+          isSelected={this.state.selectedIndex == 4}
+          onPress={() => this.onFilterChanged(4)}
         />
       </View>
     )
