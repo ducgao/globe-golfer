@@ -253,6 +253,9 @@ export default class Api extends Base {
       callingApi = RANKING_USER_CLUB
       return this.callGet(callingApi, new RankingGroupBinder());
     }
+    else if(tag == 4){
+      callingApi = GET_RANKING
+    }
 
     return this.callGet(callingApi, new RankingBinder());
   }
