@@ -8,19 +8,9 @@ import Header from './components/Header'
 import BaseComponent from '../../components/BaseComponent';
 import Filter from './components/Filter';
 import DGText from '../../components/DGText';
-import { getFavoriteRanking, getAllRanking } from '../../actions/getRanking';
+import { getAllRanking } from '../../actions/getRanking';
 import LoadableImage from '../../components/LoadableImage'
 import Ads from '../../components/Ads'
-
-const Favorite = React.memo(({isExpanded, requestToggleExpand, isLoading, data}) => {
-  return <Board 
-    title="FAVORITE PLAYER" 
-    isExpanded={isExpanded}
-    isLoading={isLoading}
-    data={data}
-    requestToggleExpand={requestToggleExpand}
-  />
-})
 
 const AllPlayer = React.memo(({customName, isExpanded, requestToggleExpand, isLoading, data}) => {
   return <Board 
@@ -114,30 +104,15 @@ class LeaderBoard extends PureComponent {
 
   state = {
     tag: undefined,
-    isFavoriteExpand: false,
     isAllExpand: true
   }
 
   onFilterChanged = (tag) => {
-    if (this.state.isFavoriteExpand) {
-      this.props.getFavoriteRanking(tag)
-    }
-
     if (this.state.isAllExpand) {
       this.props.getAllRanking(tag)
     }
 
     this.setState({ tag })
-  }
-
-  requestToggleExpandFavorite = () => {
-    const newValue = !this.state.isFavoriteExpand
-
-    if (newValue == true) {
-      this.props.getFavoriteRanking(this.state.tag)
-    }
-
-    this.setState({ isFavoriteExpand: newValue })
   }
 
   requestToggleExpandAll = () => {
@@ -151,31 +126,13 @@ class LeaderBoard extends PureComponent {
   }
   
   render() {
-    if (this.props.allRankingData.data && !Array.isArray(this.props.allRankingData.data)) {
-      return (
-        <BaseComponent>
-          <Header />
-          <Filter onFilterChanged={this.onFilterChanged} />
-          <ScrollView showsVerticalScrollIndicator={false} >
-            <AllPlayer 
-                customName={this.props.allRankingData.data.name}
-                isLoading={this.props.allRankingData.isLoading}
-                data={this.props.allRankingData.data.data}
-                isExpanded={this.state.isAllExpand} 
-                requestToggleExpand={this.requestToggleExpandAll}
-              />
-          </ScrollView>
-          <Ads />
-        </BaseComponent>
-      )
-    }
-
     return (
       <BaseComponent>
         <Header />
         <Filter onFilterChanged={this.onFilterChanged} />
         <ScrollView showsVerticalScrollIndicator={false} >
           <AllPlayer 
+            // customName={this.props.allRankingData.data.name}
             isLoading={this.props.allRankingData.isLoading}
             data={this.props.allRankingData.data}
             isExpanded={this.state.isAllExpand} 
@@ -190,12 +147,12 @@ class LeaderBoard extends PureComponent {
 
 
 const mapStateToProps = (state) => ({
-  favoriteRankingData: state.ranking.favorite,
+  // favoriteRankingData: state.ranking.favorite,
   allRankingData: state.ranking.all
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getFavoriteRanking: (tag) => dispatch(getFavoriteRanking(tag)),
+  // getFavoriteRanking: (tag) => dispatch(getFavoriteRanking(tag)),
   getAllRanking: (tag) => dispatch(getAllRanking(tag))
 })
 

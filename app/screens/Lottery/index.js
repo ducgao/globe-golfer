@@ -2,15 +2,18 @@ import React, { PureComponent } from 'react'
 import { FlatList, Dimensions, View, TouchableWithoutFeedback } from 'react-native'
 
 import BaseComponent from '../../components/BaseComponent'
+import Lottery from '../../components/Lottery'
 import LoadingModal from '../../components/LoadingModal'
 import Api from '../../api'
 import LoadableImage from '../../components/LoadableImage'
 import Theme from '../../res/Theme'
 import { useNavigation } from 'react-navigation-hooks'
 import DGButtonV2 from '../../components/DGButtonV2'
+import DGText from '../../components/DGText'
+import moment from 'moment'
 
 const ITEM_WIDTH = Dimensions.get('window').width / 2
-const Lottery = React.memo(({data}) => {
+const LotteryItem = React.memo(({data}) => {
 
   const {navigate} = useNavigation()
 
@@ -86,7 +89,8 @@ export default class LotteryList extends PureComponent {
 
   state = {
     loading: true,
-    data: null
+    data: null,
+    isLotteryVisible: true
   }
 
   componentDidMount() {
@@ -100,7 +104,7 @@ export default class LotteryList extends PureComponent {
   }
 
   renderItem = ({item}) => {
-    return <Lottery data={item} />
+    return <LotteryItem data={item} />
   }
 
   keyExtractor = (_, index) => "lottery index: " + index
@@ -108,11 +112,52 @@ export default class LotteryList extends PureComponent {
   render() {
     const id = this.props.navigation.getParam("id")
 
+
+    const titleContent = "Next XXXX Lottery\nTry to win fantasic prizes"
+    let replaceTitleContent = "Wednesday"
+
+    const current = moment()
+    const currentDay = current.day()
+    if ([4, 5].indexOf(current) >= 0) {
+      replaceTitleContent = "Saturday"
+    }
+
+    if (currentDay == 3) {
+      const currentHour = current.hour()
+      if (currentHour >= 8) {
+        replaceTitleContent = "Saturday"
+      }
+    }
+
+    if (currentDay == 6) {
+      const currentHour = current.hour()
+      if (currentHour < 8) {
+        replaceTitleContent = "Saturday"
+      }
+    }
+
     return (
       <BaseComponent toolbar={{
         title: "Lottery",
         onBack: this.props.navigation.goBack,
       }}>
+        <View style={{
+          alignSelf: 'center'
+        }}>
+          <Lottery
+            visibleChanged={(visible) => this.setState({isLotteryVisible: visible})} 
+            customLogoSize={100} 
+          />
+        </View>
+        <DGText style={{
+          fontSize: 20,
+          fontWeight: 'bold',
+          color: 'white',
+          textAlign: 'center',
+          marginVertical: 24,
+        }}>
+          {titleContent.replace("XXXX", replaceTitleContent)}
+        </DGText>
         <FlatList 
           keyExtractor={this.keyExtractor}
           data={this.state.data}

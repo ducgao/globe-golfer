@@ -1,23 +1,59 @@
 import React, { PureComponent } from 'react'
-import { View } from 'react-native'
+import { View, ScrollView, Dimensions } from 'react-native'
 
 import BaseComponent from '../../components/BaseComponent'
 import DGText from '../../components/DGText'
+import DGButtonV2 from '../../components/DGButtonV2'
 
-export default class YouIn extends PureComponent {
+import { connect } from 'react-redux'
+
+class YouIn extends PureComponent {
   static navigationOptions = { header: null }
+
+  onGetPremium = () => {
+    this.props.navigation.navigate('Premium')
+  }
+
+  renderAdditionInfo(isPremium) {
+    if (isPremium) {
+
+    }
+    else {
+      return (
+        <View>
+          <DGText style={{
+            marginTop: 80,
+            color: 'white', 
+            fontSize: 20, 
+            fontWeight: 'bold', 
+            textAlign: 'center'
+          }}>{"The premium ticket is reserved for GG premium members only.\nTo take advantage of the many benefits, choose GlobeGolfer Premium!"}</DGText>   
+          <DGButtonV2
+            style={{ 
+              width: Dimensions.get('window').width / 2,
+              marginTop: 16,
+              backgroundColor: Theme.buttonPrimary 
+            }}
+            text={"Get GG subscription"}
+            onPress={this.onGetPremium}
+          />
+        </View>
+      )
+    }
+  }
 
   render() {
     const code = this.props.navigation.getParam("code")
+
     return (
       <BaseComponent toolbar={{
         title: "You Are In",
         onBack: this.props.navigation.goBack,
       }}>
-        <View style={{
+        <ScrollView contentContainerStyle={{
           alignItems: 'center',
           justifyContent: 'center',
-        }}>
+        }} showsVerticalScrollIndicator={false} >
           <DGText style={{
             marginTop: 40,
             color: 'white', 
@@ -40,9 +76,19 @@ export default class YouIn extends PureComponent {
             textAlign: 'center',
             textDecorationLine: 'underline'
           }}>{code}</DGText>
-        </View>
-        
+          {this.renderAdditionInfo(this.props.user.isPremium)}
+        </ScrollView>
       </BaseComponent>
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  user: state.profile.user,
+})
+
+const mapDispatchToProps = () => ({
+  
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(YouIn)

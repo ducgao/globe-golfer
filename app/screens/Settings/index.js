@@ -813,7 +813,7 @@ class Settings extends PureComponent {
             Strings.settings.maxDistance, 
             "%s km", 
             1, 
-            100, 
+            250, 
             this.state.settings.distance,
             (newValue) => this.setState({ 
               settings: {

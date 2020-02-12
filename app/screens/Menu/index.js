@@ -195,7 +195,7 @@ class Menu extends PureComponent {
         <Header />
         <Logo />
         <Body isHidePremium={this.props.user && this.props.user.isPremium} />
-        <Ads withLottery={true} />
+        <Ads withLottery={true} customLogoSize={100} />
       </BaseComponent>
     )
   }
