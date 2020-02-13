@@ -17,7 +17,7 @@ class YouIn extends PureComponent {
   renderAdditionInfo(isPremium) {
     const code = this.props.navigation.getParam("code")
     if (isPremium) {
-        <View>
+        return <View>
           <DGText style={{
             marginTop: 80,
             color: 'white', 
@@ -28,12 +28,12 @@ class YouIn extends PureComponent {
           }}>{"Your participation has been validated.\nYour ticket number for the next draw is"}</DGText>   
           <DGText style={{
             marginTop: 40,
-            color: 'white', 
+            color: 'yellow', 
             fontSize: 24, 
             fontWeight: 'bold', 
             textAlign: 'center',
             textDecorationLine: 'underline'
-          }}>{code[1]}</DGText>
+          }}>{code[1].code} </DGText>
         </View>
     }
     else {
@@ -95,7 +95,7 @@ class YouIn extends PureComponent {
             fontWeight: 'bold', 
             textAlign: 'center',
             textDecorationLine: 'underline'
-          }}>{code[0]}</DGText>
+          }}>{code[0].code}</DGText>
           {this.renderAdditionInfo(this.props.user.isPremium)}
         </ScrollView>
       </BaseComponent>

@@ -55,11 +55,9 @@ const Footer = React.memo(({id}) => {
   const onGetTicket = React.useCallback(() => {
     setState({loading: true})
     Api.instance().getLotteryTicket(id).then(res => {
-
-      console.warn(res);
       
       setState({loading: false})
-      if (res) {
+      if (Array.isArray(res) && res.length > 0) {
         navigate("YouIn", {code: res})
       }
       else {
