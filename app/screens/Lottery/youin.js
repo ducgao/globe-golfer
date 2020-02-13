@@ -15,8 +15,26 @@ class YouIn extends PureComponent {
   }
 
   renderAdditionInfo(isPremium) {
+    const code = this.props.navigation.getParam("code")
     if (isPremium) {
-
+        <View>
+          <DGText style={{
+            marginTop: 80,
+            color: 'white', 
+            fontSize: 20, 
+            fontWeight: 'bold', 
+            textAlign: 'center',
+            marginHorizontal: 16
+          }}>{"Your participation has been validated.\nYour ticket number for the next draw is"}</DGText>   
+          <DGText style={{
+            marginTop: 40,
+            color: 'white', 
+            fontSize: 24, 
+            fontWeight: 'bold', 
+            textAlign: 'center',
+            textDecorationLine: 'underline'
+          }}>{code[1]}</DGText>
+        </View>
     }
     else {
       return (
@@ -26,7 +44,8 @@ class YouIn extends PureComponent {
             color: 'white', 
             fontSize: 20, 
             fontWeight: 'bold', 
-            textAlign: 'center'
+            textAlign: 'center',
+            marginHorizontal: 16
           }}>{"The premium ticket is reserved for GG premium members only.\nTo take advantage of the many benefits, choose GlobeGolfer Premium!"}</DGText>   
           <DGButtonV2
             style={{ 
@@ -66,7 +85,8 @@ class YouIn extends PureComponent {
             color: 'white', 
             fontSize: 20, 
             fontWeight: '600', 
-            textAlign: 'center'
+            textAlign: 'center',
+            marginHorizontal: 16
           }}>{"Your participation has been validated.\nYour ticket number for the next draw is"}</DGText>
           <DGText style={{
             marginTop: 40,
@@ -75,7 +95,7 @@ class YouIn extends PureComponent {
             fontWeight: 'bold', 
             textAlign: 'center',
             textDecorationLine: 'underline'
-          }}>{code}</DGText>
+          }}>{code[0]}</DGText>
           {this.renderAdditionInfo(this.props.user.isPremium)}
         </ScrollView>
       </BaseComponent>
