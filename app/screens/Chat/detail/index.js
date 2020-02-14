@@ -74,8 +74,8 @@ class ChatDetail extends React.PureComponent {
       this.configStomp().then(() => {
         const client2 = this.props.stompContext.getStompClient()
         client2.publish({destination: subscribePath, body: JSON.stringify({sender_id: senderId})});
-        this.subscription.push(client.subscribe(path, this.onNewMessageComming))
-      })
+        this.subscription.push(client2.subscribe(path, this.onNewMessageComming))
+      })  
     }
   }
   
