@@ -132,7 +132,7 @@ class Overview extends React.Component {
           })
         }
       })
-
+      const target = gameData.playerA.id === this.props.user.id ? gameData.playerB : gameData.playerA
       Api.instance().updateMatchResultDetail(id, detail).then(_ => {
         this.props.getPendingMatches()
         this.props.getPlayedMatches()
@@ -140,7 +140,7 @@ class Overview extends React.Component {
         Alert.alert("Submit successfully!", "Your request has been submitted. Wait for the approval from your competitor.", [
           {
             text: "OK",
-            onPress: () => this.props.navigation.popToTop()
+            onPress: () => this.props.navigation.navigate('rating', {...target})
           }
         ])
       })
@@ -265,7 +265,9 @@ class Overview extends React.Component {
   }
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = (state) => ({
+  user: state.profile.user,
+})
 
 const mapDispatchToProps = (dispatch) => ({
   getPendingMatches: () => dispatch(getPendingMatches()),

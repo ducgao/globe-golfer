@@ -47,7 +47,8 @@ import {
   RANKING_USER_CLUB,
   UPDATE_LOCATION,
   CREATE_NEW_GAME,
-  UPDATE_READ_MESSAGE
+  UPDATE_READ_MESSAGE,
+  RATING_SOMEONE
 } from './Endpoints';
 import LoginBinder from './Binders/Login';
 import CountriesBinder from './Binders/CountriesBinder';
@@ -480,4 +481,14 @@ export default class Api extends Base {
 
     return this.callPost(callingApi)
   }
+
+  ratingSomeone(id, value) {
+    const callingApi = RATING_SOMEONE
+    const body = JSON.stringify({
+      userId: id,
+      value
+    })
+
+    return this.callPost(callingApi, body)
+  } 
 }
