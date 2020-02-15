@@ -417,9 +417,11 @@ class Settings extends PureComponent {
       Strings.button.yes,
       Strings.button.no,
       async () => {
+        AsyncStorage.removeItem(USER_EMAIL_STORE_KEY)
         AsyncStorage.removeItem(ACCESS_TOKEN_STORE_KEY).then(() => {
-          GoogleSignin.revokeAccess();
           GoogleSignin.signOut();
+          GoogleSignin.clearCachedToken();
+      
           Api.instance().setAccessToken(null)
           this.props.navigation.dispatch(StackActions.reset({
             index: 0, 
