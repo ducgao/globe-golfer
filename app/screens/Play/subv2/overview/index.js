@@ -140,7 +140,7 @@ class Overview extends React.Component {
         Alert.alert("Submit successfully!", "Your request has been submitted. Wait for the approval from your competitor.", [
           {
             text: "OK",
-            onPress: () => this.props.navigation.navigate('rating', {...target})
+            onPress: () => this.props.navigation.navigate('Rating', {...target})
           }
         ])
       })
