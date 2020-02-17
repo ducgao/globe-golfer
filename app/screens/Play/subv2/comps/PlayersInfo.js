@@ -8,7 +8,8 @@ const Player = React.memo(({avatar, name, showPoint, point, isWinner}) => {
     <View style={{
       justifyContent: 'center',
       alignItems: 'center',
-      marginVertical: 24
+      marginVertical: 24,
+      paddingTop: isWinner ? 0 : 30,
     }}>
       <Image
         style={{
@@ -28,7 +29,7 @@ const Player = React.memo(({avatar, name, showPoint, point, isWinner}) => {
       {showPoint ? (<DGText style={{
         backgroundColor: Theme.buttonPrimary,
         color: 'white',
-        marginTop: 12,
+        marginTop: 12 + (isWinner ? 0 : 10),
         paddingHorizontal: 8,
         paddingVertical: 4,
         borderRadius: 12,

@@ -143,6 +143,7 @@ export default class SelectType extends React.PureComponent {
       return <PlayersInfo 
         playerA={gameData.playerA}
         playerB={gameData.playerB}
+        showPoint
       />
     }
   }

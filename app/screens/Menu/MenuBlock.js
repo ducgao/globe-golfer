@@ -102,7 +102,7 @@ export default class MenuBlock extends PureComponent {
         iconSource = require('../../res/images/ic_global_1.png')
         break;
       default:
-        iconSource = require('../../res/images/ic_global.png')
+        iconSource = require('../../res/images/ic_global_1.png')
         break;
     }
 

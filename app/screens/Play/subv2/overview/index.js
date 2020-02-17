@@ -222,6 +222,7 @@ class Overview extends React.Component {
         playerA={gameData.playerA}
         playerB={gameData.playerB}
         winner={result[0] > result[1] ? gameData.playerA : gameData.playerB}
+        showPoint
       />
     }
   }
