@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04BD299223F3BA37009790BA /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 04BD299123F3BA37009790BA /* assets */; };
+		04BD299423F3BA43009790BA /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = 04BD299323F3BA43009790BA /* main.jsbundle */; };
 		0A2BBFDF2C54DC9379DACCC9 /* libPods-GolfGlobal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F506F5B19CA9CE589CF20B7A /* libPods-GolfGlobal.a */; };
 		0ED8BB7D22DF745D00D51605 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */; };
-		0EF27184234D8E0500D17402 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0EF27183234D8E0500D17402 /* StoreKit.framework */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -35,10 +36,11 @@
 /* Begin PBXFileReference section */
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* GolfGlobalTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GolfGlobalTests.m; sourceTree = "<group>"; };
+		04BD299123F3BA37009790BA /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
+		04BD299323F3BA43009790BA /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		053A0530E2A54A98A32003B8 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		0E197F19231F3FE3007A83F2 /* GolfGlobal.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = GolfGlobal.entitlements; path = GolfGlobal/GolfGlobal.entitlements; sourceTree = "<group>"; };
 		0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		0EF27183234D8E0500D17402 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		13B07F961A680F5B00A75B9A /* Globe Golfer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Globe Golfer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GolfGlobal/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = GolfGlobal/AppDelegate.m; sourceTree = "<group>"; };
@@ -83,7 +85,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A2BBFDF2C54DC9379DACCC9 /* libPods-GolfGlobal.a in Frameworks */,
-				0EF27184234D8E0500D17402 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +111,7 @@
 		13B07FAE1A68108700A75B9A /* GolfGlobal */ = {
 			isa = PBXGroup;
 			children = (
+				04BD299323F3BA43009790BA /* main.jsbundle */,
 				0E197F19231F3FE3007A83F2 /* GolfGlobal.entitlements */,
 				0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -125,7 +127,6 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0EF27183234D8E0500D17402 /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				F506F5B19CA9CE589CF20B7A /* libPods-GolfGlobal.a */,
@@ -161,6 +162,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				04BD299123F3BA37009790BA /* assets */,
 				13B07FAE1A68108700A75B9A /* GolfGlobal */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* GolfGlobalTests */,
@@ -240,7 +242,7 @@
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = NU865VDUYC;
+						DevelopmentTeam = 74L4RT476V;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -273,6 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04BD299223F3BA37009790BA /* assets in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				7BC17590AF414E85829FA993 /* AntDesign.ttf in Resources */,
@@ -284,6 +287,7 @@
 				4B44C2C0DDF14A918FF0263D /* FontAwesome5_Regular.ttf in Resources */,
 				4D96D0A4CBB5434CBF4FBD4E /* FontAwesome5_Solid.ttf in Resources */,
 				B31A96FD4C634A05BC2574EC /* Fontisto.ttf in Resources */,
+				04BD299423F3BA43009790BA /* main.jsbundle in Resources */,
 				0ED8BB7D22DF745D00D51605 /* GoogleService-Info.plist in Resources */,
 				9FE85D9C48F94CEAAA6AED6C /* Foundation.ttf in Resources */,
 				CCAAB4AF65894F3B958213FC /* Ionicons.ttf in Resources */,
@@ -300,7 +304,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -308,13 +312,13 @@
 			name = "Bundle React Native code and images";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		0E393A9023F2474B00A8E4E8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -325,13 +329,13 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" dfbf90568ad647f0a766288fd5280bafcf540797 39f745fd7f28627342a6c0cc88bb2eb04a657e56d5489d26bacfa1d96604ba77\n";
 		};
 		4F154DBEA7DA1FD1067A482A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -346,14 +350,13 @@
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-GolfGlobal-checkManifestLockResult.txt",
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		55993A2CF8D346996DE74CF9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputPaths = (
@@ -398,14 +401,13 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GolfGlobal/Pods-GolfGlobal-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -417,10 +419,9 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -457,7 +458,7 @@
 				CODE_SIGN_ENTITLEMENTS = GolfGlobal/GolfGlobal.entitlements;
 				CURRENT_PROJECT_VERSION = 91;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = NU865VDUYC;
+				DEVELOPMENT_TEAM = 74L4RT476V;
 				INFOPLIST_FILE = GolfGlobal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 0.6.31;
@@ -466,7 +467,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.globegolfer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.globegolfer.ver0.6.29;
 				PRODUCT_NAME = "Globe Golfer";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -479,7 +480,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GolfGlobal/GolfGlobal.entitlements;
 				CURRENT_PROJECT_VERSION = 91;
-				DEVELOPMENT_TEAM = NU865VDUYC;
+				DEVELOPMENT_TEAM = 74L4RT476V;
 				INFOPLIST_FILE = GolfGlobal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 0.6.31;
@@ -488,7 +489,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.globegolfer;
+				PRODUCT_BUNDLE_IDENTIFIER = com.globegolfer.ver0.6.29;
 				PRODUCT_NAME = "Globe Golfer";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
