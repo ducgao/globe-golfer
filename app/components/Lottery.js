@@ -99,11 +99,11 @@ export default class Lottery extends React.PureComponent {
   }
 
   render() {
-    // if (this.state.endTime == null || this.state.endTime < 0) {
-    //   this.isRunning = false
-    //   this.props.visibleChanged && this.props.visibleChanged(false)
-    //   return null
-    // }
+    if (this.state.endTime == null || this.state.endTime < 0) {
+      this.isRunning = false
+      this.props.visibleChanged && this.props.visibleChanged(false)
+      return null
+    }
     
     return (
       <TouchableWithoutFeedback style={{

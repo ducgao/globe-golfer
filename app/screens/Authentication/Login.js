@@ -97,7 +97,6 @@ class Login extends PureComponent {
         //   alert(e)
         // }, 500)
       })
-      
     })
   }
 

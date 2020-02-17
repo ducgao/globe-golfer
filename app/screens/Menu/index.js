@@ -92,6 +92,7 @@ class Menu extends PureComponent {
   }
 
   componentDidMount() {
+
     this.props.getProfile()
     this.configChatService()
 
@@ -183,6 +184,14 @@ class Menu extends PureComponent {
     }
     else if (data.type === "8") {
       this.props.navigation.navigate('Chat')  
+    }
+    else if (data.type === "9") {
+      this.props.navigation.navigate('Notification', 
+        {
+          tag: 2,
+          requestTime: currentDate.getTime()  
+        }
+      )
     }
     else {
       this.props.navigation.navigate('Notification')  

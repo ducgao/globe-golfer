@@ -62,21 +62,13 @@ class ChatDetail extends React.PureComponent {
     const data = this.props.navigation.getParam("data")
     const path = '/channel/' + data.id
     const subscribePath = '/app/chat/' + data.id + '/Subscribe'
-    const client = this.props.stompContext.getStompClient()
 
     Api.instance().updateReadMessage(data.id)
 
-    if (client) {
+    this.doSomethingWithAliveStompClient((client) => {
       client.publish({destination: subscribePath, body: JSON.stringify({sender_id: senderId})});
       this.subscription.push(client.subscribe(path, this.onNewMessageComming))
-    }
-    else {
-      this.configStomp().then(() => {
-        const client2 = this.props.stompContext.getStompClient()
-        client2.publish({destination: subscribePath, body: JSON.stringify({sender_id: senderId})});
-        this.subscription.push(client.subscribe(path, this.onNewMessageComming))
-      })
-    }
+    })
   }
   
   componentWillUnmount() {
@@ -84,6 +76,19 @@ class ChatDetail extends React.PureComponent {
     this.props.getMessages(tag)
     this.props.getPendingMatches()
     this.props.getPlayedMatches()
+  }
+
+  doSomethingWithAliveStompClient(job) {
+    const client = this.props.stompContext.getStompClient()
+    if (client) {
+      job(client)
+    }
+    else {
+      this.configStomp().then(() => {
+        const client2 = this.props.stompContext.getStompClient()
+        job(client2)
+      })
+    }
   }
 
   configStomp() {
@@ -140,9 +145,10 @@ class ChatDetail extends React.PureComponent {
       status: 0
     }
 
-    const client = this.props.stompContext.getStompClient()
     const sendMessagePath = '/app/chat/' + data.id + '/sendMessage'
-    client.publish({destination: sendMessagePath, body: JSON.stringify(message)});
+    this.doSomethingWithAliveStompClient((client) => {
+      client.publish({destination: sendMessagePath, body: JSON.stringify(message)});
+    })
   }
 
   render() {

@@ -70,12 +70,11 @@ import LotteryList from './screens/Lottery'
 import LotteryDetail from './screens/Lottery/detail'
 import YouIn from './screens/Lottery/youin'
 
+import Rating from './screens/Play/subv2/rating'
+
 import { createStackNavigator, createAppContainer, createBottomTabNavigator } from "react-navigation"
 import LoadableImage from './components/LoadableImage'
-import { withStomp, StompEventTypes } from 'react-stompjs'
-import { ACCESS_TOKEN_STORE_KEY } from './utils/constants'
-import Api from './api'
-import {BASE} from './api/Endpoints';
+import { withStomp } from 'react-stompjs'
 import DGText from './components/DGText'
 import NotificationRepository from './repository/NotificationRepository'
 import MessageRepository from './repository/MessageRepository'
@@ -271,6 +270,7 @@ const AppNavigator = createStackNavigator({
   AddGuest,
   AddMember,
   Select4rdPlayer,
+  Rating,
   ChangePassword,
   LotteryList,
   LotteryDetail,

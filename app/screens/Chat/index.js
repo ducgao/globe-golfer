@@ -43,7 +43,7 @@ const Challenge = React.memo(({item, onPress}) => {
         marginTop: 4,
         textAlign: 'center',
         color: 'white'
-      }}>{item.name}</DGText>
+      }} numberOfLines={1}>{item.name}</DGText>
     </TouchableOpacity>
   )
 })

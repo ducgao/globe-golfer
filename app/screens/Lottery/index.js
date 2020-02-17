@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { FlatList, Dimensions, View, TouchableWithoutFeedback } from 'react-native'
+import { Alert, FlatList, Dimensions, View, TouchableWithoutFeedback } from 'react-native'
 
 import BaseComponent from '../../components/BaseComponent'
 import Lottery from '../../components/Lottery'
@@ -55,16 +55,16 @@ const Footer = React.memo(({id}) => {
   const onGetTicket = React.useCallback(() => {
     setState({loading: true})
     Api.instance().getLotteryTicket(id).then(res => {
+      
       setState({loading: false})
-      if (res) {
+      if (Array.isArray(res) && res.length > 0) {
         navigate("YouIn", {code: res})
       }
       else {
-        alert("Can not get ticket, may you have gotten before. Please try again!")  
+        Alert.alert("Oops!", "Can not get ticket, may you have gotten before. Please try again!")
       }
     }).catch(_ => {
-      navigate("YouIn", {code: "ABC-ACB-BAC"})
-      // alert("Can not get ticket, may you have gotten before. Please try again!")
+      Alert.alert("Oops!", "Can not get ticket, may you have gotten before. Please try again!")
       setState({loading: false})
     })
   }, [])
@@ -74,6 +74,7 @@ const Footer = React.memo(({id}) => {
       <DGButtonV2
           style={{ 
             width: Dimensions.get('window').width - 32,
+            marginBottom: 12,
             backgroundColor: Theme.buttonPrimary 
           }}
           text={"Get Ticket"}

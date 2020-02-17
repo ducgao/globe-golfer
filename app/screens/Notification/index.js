@@ -138,6 +138,8 @@ const Board = React.memo(({title, isLoading, isExpanded, data, requestToggleExpa
   )
 })
 
+const expiredRequestTime = []
+
 class Notification extends PureComponent {
   static navigationOptions = { header: null }
 
@@ -149,6 +151,17 @@ class Notification extends PureComponent {
 
   componentDidMount() {
     this.props.getMessages(0)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const tag = nextProps.navigation.getParam("tag")
+    const requestTime = nextProps.navigation.getParam("requestTime")
+
+    if (tag && requestTime && expiredRequestTime.indexOf(requestTime) < 0) {
+      expiredRequestTime.push(requestTime)
+      this.theFilter.setSelection(tag)
+      this.setState({tag})
+    }
   }
 
   onFilterChanged = (tag) => {
@@ -187,7 +200,10 @@ class Notification extends PureComponent {
     return (
       <BaseComponent>
         <Header />
-        <Filter onFilterChanged={this.onFilterChanged} />
+        <Filter 
+          ref={r => {this.theFilter = r}}
+          onFilterChanged={this.onFilterChanged} 
+        />
         <ScrollView showsVerticalScrollIndicator={false} >
           <NewMessages 
             isExpanded={this.state.isNewExpand} 
