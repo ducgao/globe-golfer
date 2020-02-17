@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View ,Text} from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'react-navigation-hooks'
@@ -38,7 +38,10 @@ const Header = React.memo(({}) => {
       borderBottomColor: Theme.separator
     }}>
       <HeaderIcon name={"ios-home"} action={onGoBack}/>
-      <FlexSpacing />
+      <View style={{flex:1,alignItems:'center'}}>
+        <Text style={{color:Theme.buttonPrimary,fontSize:24,fontWeight:'bold'}}>Match</Text>
+      </View>
+    
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>
   )
