@@ -78,25 +78,25 @@ export default class Filter extends React.PureComponent {
       }}>
         <Item 
           title="FRIENDS" 
-          icon="ios-notifications-outline" 
+          icon="ios-trophy" 
           isSelected={this.state.selectedIndex == 0}
           onPress={() => this.onFilterChanged(0)}
         />
         <Item 
           title="CLUB" 
-          icon="ios-notifications-outline" 
+          icon="ios-trophy" 
           isSelected={this.state.selectedIndex == 1}
           onPress={() => this.onFilterChanged(1)}
         />
         <Item 
           title="CHAMPIONSHIP CLUB" 
-          icon="ios-notifications-outline" 
+          icon="ios-trophy" 
           isSelected={this.state.selectedIndex == 2}
           onPress={() => this.onFilterChanged(2)}
         />
         <Item 
           title="CHAMPIONSHIP INDIVIDUAL" 
-          icon="ios-notifications-outline" 
+          icon="ios-trophy" 
           isSelected={this.state.selectedIndex == 4}
           onPress={() => this.onFilterChanged(4)}
         />
