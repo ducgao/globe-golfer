@@ -16,7 +16,7 @@ class Challenge extends PureComponent {
 
   state = {
     isRefreshing: false,
-    isGridMode: false,
+    isGridMode: true,
     showingItemIndex: undefined
   }
 

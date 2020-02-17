@@ -62,7 +62,7 @@ export default class MenuBlock extends PureComponent {
         onPress: props.onChallengePress
       },
       {
-        name: "Scores",
+        name: "Ranking",
         onPress: props.onScoresPress
       } 
     ]
@@ -92,10 +92,13 @@ export default class MenuBlock extends PureComponent {
       case "Play":
         iconSource = require('../../res/images/ic_global_3.png')
         break;
-      case "Scores":
+      case "Ranking":
         iconSource = require('../../res/images/ic_global_4.png')
         break;
       case "Premium":
+        iconSource = require('../../res/images/ic_global_1.png')
+        break;
+      case "Friends":
         iconSource = require('../../res/images/ic_global_1.png')
         break;
       default:

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import CardMetaData from './CardMetaData';
 import CardBasicInfo from './CardBasicInfo.tindermode';
 import CardAbout from './CardAbout';
@@ -13,15 +13,21 @@ const Card = React.memo(({withAds, card}) => (
     backgroundColor: 'black'
   }}>
       {card.metaData ? <CardMetaData data={card.metaData} /> : undefined} 
-      <CardBasicInfo 
-        avatar={card.avatar} 
-        name={card.name + " " + card.lastName[0]} 
-        location={card.location} 
-        rating={card.rating}
-      />
-      {card.about ? <CardAbout about={card.about} /> : undefined}
-      <View style={{flex: 1}} />
-      {withAds ? <Ads /> : null}
+      <ScrollView style={{flex: 1}} >
+        <View style={{flex:1}}>
+        <CardBasicInfo 
+          avatar={card.avatar} 
+          name={card.name + " " + card.lastName[0]} 
+          location={card.location} 
+          rating={card.rating}
+        />
+        <View style={{flex: 1}}>
+        {card.about ? <CardAbout about={card.about} /> : undefined}
+        </View>
+        <View style={{flex: 1}} />
+        {withAds ? <Ads /> : null}
+        </View>
+      </ScrollView>
   </View>
 ))
 
