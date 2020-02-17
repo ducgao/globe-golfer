@@ -2,6 +2,7 @@ import React from 'react'
 import {View, Image} from 'react-native'
 import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
+import GameData from '../GameData'
 
 const Player = React.memo(({avatar, name, point}) => {
   if (!avatar && !name) {
@@ -73,6 +74,10 @@ const Player = React.memo(({avatar, name, point}) => {
 
 export default React.memo(({playerA, playerB, playerC, showPoint}) => {
 
+  const gameData = GameData.instance()
+  const gameType = gameData.gameType
+  const divider = gameType === 4 ? 1 : 2
+
   let playerCUI = null
   let pointA
   let pointB
@@ -89,9 +94,9 @@ export default React.memo(({playerA, playerB, playerC, showPoint}) => {
   
     const lowest = Math.min(pA3d4, pB3d4, pC3d4)
   
-    pointA = Math.round(Math.abs(pA3d4 - lowest)/2)
-    pointB = Math.round(Math.abs(pB3d4 - lowest)/2)
-    pointC = Math.round(Math.abs(pC3d4 - lowest)/2)
+    pointA = Math.round(Math.abs(pA3d4 - lowest)/divider)
+    pointB = Math.round(Math.abs(pB3d4 - lowest)/divider)
+    pointC = Math.round(Math.abs(pC3d4 - lowest)/divider)
   }
 
   if (!playerC) {

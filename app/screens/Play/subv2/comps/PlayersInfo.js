@@ -2,6 +2,7 @@ import React from 'react'
 import {View, Image} from 'react-native'
 import DGText from '../../../../components/DGText'
 import Theme from '../../../../res/Theme'
+import GameData from '../GameData'
 
 const Player = React.memo(({avatar, name, showPoint, point, isWinner}) => {
   return (
@@ -40,6 +41,10 @@ const Player = React.memo(({avatar, name, showPoint, point, isWinner}) => {
 
 export default React.memo(({playerA, playerB, showPoint, winner}) => {
 
+  const gameData = GameData.instance()
+  const gameType = gameData.gameType
+  const divider = gameType === 4 ? 1 : 2
+
   let aIndex = Number.parseInt(playerA.index)
   let bIndex = Number.parseInt(playerB.index)
 
@@ -53,9 +58,9 @@ export default React.memo(({playerA, playerB, showPoint, winner}) => {
   let bPoint = 0
 
   if (aBasePoint > bBasePoint) {
-    aPoint = Math.round(Math.abs(aBasePoint - bBasePoint)/2)
+    aPoint = Math.round(Math.abs(aBasePoint - bBasePoint)/divider)
   } else {
-    bPoint = Math.round(Math.abs(aBasePoint - bBasePoint)/2)
+    bPoint = Math.round(Math.abs(aBasePoint - bBasePoint)/divider)
   }
 
   return (

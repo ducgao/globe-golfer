@@ -89,7 +89,6 @@ class SelectNumber extends React.PureComponent {
           <PlayersInfo 
             playerA={gameData.playerA}
             playerB={gameData.playerB}
-            showPoint
           />
           {isEditable ? 
             <NumberSelector onChanged={this.onSelectionChanged} /> : 
