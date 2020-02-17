@@ -143,7 +143,10 @@ class SetupAccountStepInputAvatar extends PureComponent {
 
   render() {
     return (
-      <BaseComponent>
+      <BaseComponent toolbar={{
+        title: Strings.toolbar.back,
+        onBack: () => this.props.navigation.goBack()
+        }}>
         <KeyboardAwareScrollView contentContainerStyle={styles.body}>
           <View style={styles.body}>
             {this.renderLogo()}
