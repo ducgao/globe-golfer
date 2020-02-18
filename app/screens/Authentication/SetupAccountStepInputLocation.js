@@ -285,12 +285,14 @@ class SetupAccountStepInputLocation extends PureComponent {
       title="Index"
       placeholder="Enter your index" 
       inputAlign="left"
+      inputType="number-pad"
     />
     let license = <TextInputBlockV2 
       ref={ref => this.licenseTextInput = ref}
       title="License's number"
       placeholder="Enter your number of license"
       inputAlign="left"
+      inputType="number-pad"
     />
     return (
       <View style={{
