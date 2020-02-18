@@ -46,7 +46,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
   const { goBack, navigate } = useNavigation()
 
   const onGoBack = () => {
-    goBack()
+    navigate('Menu')
   }
 
   const onGoToInvite = () => {
@@ -68,7 +68,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       borderBottomWidth: 1,
       borderBottomColor: Theme.separator
     }}>
-      <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
+      <HeaderIcon name={"ios-home"} action={onGoBack}/>
       <FlexSpacing />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>

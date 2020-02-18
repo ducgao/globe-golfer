@@ -43,7 +43,7 @@ const Header = React.memo(({title}) => {
   const { goBack, navigate } = useNavigation()
 
   const onGoBack = () => {
-    goBack()
+    navigate('Menu')
   }
 
   const onGoToInvite = () => {
@@ -64,7 +64,7 @@ const Header = React.memo(({title}) => {
       borderBottomWidth: 1,
       borderBottomColor: Theme.separator
     }}>
-      <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
+      <HeaderIcon name={"ios-home"} action={onGoBack}/>
       <Title style={{ 
         flex: 1,
         color: Theme.buttonPrimary, 
