@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity ,Text} from 'react-native'
 
 import Icon from 'react-native-vector-icons/Ionicons'
 import { useNavigation } from 'react-navigation-hooks'
 import FlexSpacing from './FlexSpacing'
 import Toggler from '@components/Toggler';
+import Theme from '../../../res/Theme'
 
 const HeaderIcon = React.memo(({name, action}) => (
   <TouchableOpacity style={{
@@ -42,7 +43,9 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
     }}>
       <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
       <FlexSpacing />
-      <Toggler isOn={isOn} onChanged={onViewModeChanged} />
+      <View>
+        <Text style={{color:Theme.buttonPrimary,fontSize:24,fontWeight:'bold'}}>Challenge</Text>
+      </View>
       <FlexSpacing />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>

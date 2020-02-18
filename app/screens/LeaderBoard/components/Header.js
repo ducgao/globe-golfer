@@ -18,19 +18,15 @@ const HeaderIcon = React.memo(({name, action}) => (
 
 const CenterButton = React.memo(({action}) => {
   return (
-    <TouchableOpacity style={{ 
+    <View style={{ 
       flex: 1,
       justifyContent: 'center', 
       alignItems: 'center',
       flexDirection: 'row'
-    }} activeOpacity={0.7} onPress={action}>
-      <Icon 
-        size={32}
-        color={'white'}
-        name={"ios-person-add"}
-      />
-      <DGText style={{ color: Theme.textWhite, marginLeft: 12 }}>Invite a Friend</DGText>
-    </TouchableOpacity>
+    }}>
+        <DGText style={{ color: Theme.buttonPrimary, marginLeft: 12,fontSize:24,fontWeight:'bold' }}>Ranking</DGText>
+    </View>
+   
   )
 })
 
