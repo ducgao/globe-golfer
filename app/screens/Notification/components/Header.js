@@ -39,7 +39,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
   const { goBack, navigate } = useNavigation()
 
   const onGoBack = () => {
-    goBack()
+    navigate('Menu')
   }
 
   const onGoToSetting = () => {

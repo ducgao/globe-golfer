@@ -28,6 +28,10 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
     goBack()
   }
 
+  const onGoHome = () => {
+    navigate('Main')
+  }
+
   const onGoToSetting = () => {
     navigate('Profile')
   }
@@ -40,7 +44,7 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       paddingHorizontal: 16,
       paddingVertical: 12,
     }}>
-      <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
+      <HeaderIcon name={"ios-home"} action={onGoHome}/>
       <FlexSpacing />
       <Toggler isOn={isOn} onChanged={onViewModeChanged} />
       <FlexSpacing />

@@ -39,7 +39,7 @@ const Header = React.memo(() => {
   const { goBack, navigate } = useNavigation()
 
   const onGoBack = () => {
-    goBack()
+    navigate('Menu')
   }
 
   const onGoToInvite = () => {

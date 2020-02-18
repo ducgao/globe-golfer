@@ -31,11 +31,15 @@ const Title = React.memo(({title}) => {
   )
 })
 
-const Header = React.memo(({onRequestGoBack, onRequestSaveScoreCard}) => {
+const Header = React.memo(({onRequestGoBack, onRequestSaveScoreCard, navigate}) => {
+  
   const onGoBack = () => {
     if (onRequestGoBack) {
       onRequestGoBack()
     }
+  }
+  const onGoHome = () => {
+    navigate('Menu')
   }
 
   const onGoToSetting = () => {
@@ -53,7 +57,7 @@ const Header = React.memo(({onRequestGoBack, onRequestSaveScoreCard}) => {
       paddingVertical: 12,
       marginTop: 20
     }}>
-      <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
+      <HeaderIcon name={"ios-home"} action={onGoHome}/>
       <Title title={"Match"}/>
       <HeaderIcon name={"ios-arrow-forward"} action={onGoToSetting}/>
     </View>

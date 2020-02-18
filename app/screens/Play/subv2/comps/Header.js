@@ -45,7 +45,7 @@ const Header = React.memo(({withSearch, onSearchKeywordChanged}) => {
   const { goBack, navigate } = useNavigation()
 
   const onGoBack = () => {
-    goBack()
+    navigate('Menu')
   }
 
   const onGoToSetting = () => {
@@ -62,7 +62,7 @@ const Header = React.memo(({withSearch, onSearchKeywordChanged}) => {
       borderBottomWidth: 1,
       borderBottomColor: Theme.separator
     }}>
-      <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
+      <HeaderIcon name={"ios-home"} action={onGoBack}/>
       <MiddleContent withSearch={withSearch} onSearchKeywordChanged={onSearchKeywordChanged} />
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>
