@@ -68,7 +68,10 @@ export default class SetupAccountStepActiveEmailContact extends PureComponent {
 
   render() {
     return (
-      <BaseComponent>
+      <BaseComponent toolbar={{
+        title: Strings.toolbar.back,
+        onBack: () => this.props.navigation.goBack()
+      }}>
         {this.renderLogo()}
         {this.renderBody()}
         {this.renderFooter()}

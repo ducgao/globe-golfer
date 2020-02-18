@@ -342,7 +342,9 @@ class SetupAccountStepInputLocation extends PureComponent {
 
   render() {
     return (
-      <BaseComponent>
+      <BaseComponent toolbar={{
+        title: Strings.toolbar.back,
+        onBack: () => this.props.navigation.goBack()}}>
         <KeyboardAwareScrollView contentContainerStyle={styles.body}>
             {this.renderLogo()}
             {this.renderBody()}
