@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import BaseComponent from '../../components/BaseComponent'
@@ -16,12 +16,45 @@ import { connect } from 'react-redux'
 import lodash from 'lodash'
 import Api from '../../api'
 import { getMessages } from '../../actions/getMessages'
+import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications'
+import { getPendingMatches } from '../../actions/getPendingMatches'
+import { getPlayedMatches } from '../../actions/getPlayedMatches'
+
+const Button = React.memo(({text, backgroundColor, onPress}) => {
+  return (
+    <TouchableOpacity style={{ 
+      flex: 1, 
+      backgroundColor,
+      height: 44,
+      justifyContent: 'center',
+      alignItems: 'center'
+    }} activeOpacity={0.7} onPress={onPress}>
+      <DGText style={{
+        color: Theme.textWhite,
+        fontWeight: 'bold'
+      }}>{text}</DGText>
+    </TouchableOpacity>
+  )
+})
 
 class NewMatch extends PureComponent {
   static navigationOptions = { header: null }
 
   state = {
-    loading: false
+    loading: true
+  }
+
+  componentDidMount() {
+    this.props.getNewNotifications(0)
+    this.props.getHistoryNotifications(0)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (Array.isArray(nextProps.newNotificationsData.data) && nextProps.newNotificationsData.data.length > 0) {
+      this.setState({
+        loading: false    
+      })
+    }
   }
 
   requestChatWithHim = () => {
@@ -32,13 +65,56 @@ class NewMatch extends PureComponent {
     this.props.navigation.navigate("NotificationDetail", { notification: conversation, tag: 0 })
   }
 
+  requestAcceptMatch = () => {
+    this.setState({
+      loading: true
+    })
+
+    const user = this.props.navigation.getParam('data').userFromProfile
+    const notification = lodash.find(this.props.newNotificationsData.data, (item) => item.avatar.indexOf(user.avatar) >= 0)
+
+    Api.instance().acceptChallenge(notification.challengeId).then(_ => {
+      this.props.getPendingMatches()
+      this.props.getPlayedMatches()
+
+      this.setState({
+        loading: false,
+      }, () => {
+        const conversation = lodash.find(this.props.messagesData.data, (item) => item.avatar == notification.avatar)
+        this.props.navigation.replace("MatchAccepted", {
+          notification,
+          chatData: {
+            conversation,
+            notification
+          }  
+        })
+      })
+    })
+  }
+
+  requestDeclineMatch = () => {
+    this.setState({
+      loading: true
+    })
+
+    const user = this.props.navigation.getParam('data').userFromProfile
+    const notification = lodash.find(this.props.newNotificationsData.data, (item) => item.avatar.indexOf(user.avatar) >= 0)
+
+    Api.instance().declineChallenge(notification.challengeId).then(_ => {
+      this.setState({
+        loading: false,
+      }, () => {
+        this.props.navigation.goBack()
+      })
+    })
+  }
+
   renderCTABlock() {
     return (
-      <DGButtonV2 
-        style={{ backgroundColor: Theme.buttonPrimary, width: '50%' }}
-        text={"View"}
-        onPress={this.requestChatWithHim}
-        />
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <Button text="Accept" backgroundColor={Theme.buttonPrimary} onPress={this.requestAcceptMatch}/>
+        <Button text="Decline" backgroundColor={Theme.buttonSecondary} onPress={this.requestDeclineMatch}/>
+      </View>
     )
   }
 
@@ -78,13 +154,16 @@ class NewMatch extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
+  messagesData: state.messages,
   newNotificationsData: state.notifications.new,
   historyNotificationsData: state.notifications.history,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   getNewNotifications: (tag) => dispatch(getNewNotifications(tag)),
-  getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag))
+  getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag)),
+  getPendingMatches: () => dispatch(getPendingMatches()),
+  getPlayedMatches: () => dispatch(getPlayedMatches())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewMatch)

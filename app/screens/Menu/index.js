@@ -92,7 +92,7 @@ class Menu extends PureComponent {
   }
 
   componentDidMount() {
-
+    
     this.props.getProfile()
     this.configChatService()
 
