@@ -82,6 +82,8 @@ import MessageRepository from './repository/MessageRepository'
 import NewMatch from './screens/NewMatch'
 import MatchAccepted  from './screens/MatchAccepted'
 
+import ChallengeDetail from './screens/Challenge/ChallengeDetail'
+
 const iconStyle = {
   alignSelf: 'center',
   width: 44,
@@ -277,6 +279,7 @@ const AppNavigator = createStackNavigator({
   YouIn,
   NewMatch,
   MatchAccepted,
+  ChallengeDetail,
   ...loginNavigator,
   ...setupAccountNavigator
 }, {
