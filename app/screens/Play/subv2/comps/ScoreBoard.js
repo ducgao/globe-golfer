@@ -49,7 +49,7 @@ export default React.memo(({
 
     const data = [0]
 
-    for (let i = 0; i < holes; i++) {
+    for (let i = 0; i <= holes / 2; i++) {
       data.push(i + 1)
     }
 
