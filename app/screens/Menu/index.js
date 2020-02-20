@@ -25,6 +25,7 @@ import Geolocation from '@react-native-community/geolocation';
 import MessageRepository from '../../repository/MessageRepository'
 
 import Permissions from 'react-native-permissions';
+import { getMessages } from '../../actions/getMessages'
 
 const Logo = React.memo(() => (
   <LoadableImage
@@ -170,6 +171,8 @@ class Menu extends PureComponent {
     this.props.getNewNotifications(0)
     this.props.getHistoryNotifications(0)
 
+    this.props.getMessages(0)
+
     this.props.getPendingMatches()
     this.props.getPlayedMatches()
   }
@@ -240,7 +243,8 @@ const mapDispatchToProps = (dispatch) => ({
   getNewNotifications: (tag) => dispatch(getNewNotifications(tag)),
   getHistoryNotifications: (tag) => dispatch(getHistoryNotifications(tag)),
   getPendingMatches: () => dispatch(getPendingMatches()),
-  getPlayedMatches: () => dispatch(getPlayedMatches())
+  getPlayedMatches: () => dispatch(getPlayedMatches()),
+  getMessages: (tag) => dispatch(getMessages(tag)),
 })
 
 export default withStomp(connect(mapStateToProps, mapDispatchToProps)(Menu))

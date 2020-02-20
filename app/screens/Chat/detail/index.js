@@ -11,11 +11,19 @@ import LoadingModal from '../../../components/LoadingModal';
 import { getMessages } from '../../../actions/getMessages';
 import { getPendingMatches } from '../../../actions/getPendingMatches';
 import { getPlayedMatches } from '../../../actions/getPlayedMatches';
+import lodash from 'lodash'
+import { BASE } from '../../../api/Endpoints'
+import OneSignal from 'react-native-onesignal';
 
 class ChatDetail extends React.PureComponent {
 
   user1 = null
   user2 = null
+
+  host = null
+  target = null
+
+  client = null
 
   subscription = []
   
@@ -38,11 +46,21 @@ class ChatDetail extends React.PureComponent {
       avatar: data.second.id == currentUserId ? props.user.avatar : data.avatar,
     }
 
+    if (props.user.id == this.user1.id) {
+      this.host = this.user1
+      this.target = this.user2
+    }
+    else {
+      this.target = this.user1
+      this.host = this.user2
+    }
+
     const messages = data.message.map(m => {
       const owner = m.sender_id == this.user1.id ? this.user1 : this.user2
       return {
         _id: m.message_id,
         text: m.message,
+        sent: true,
         createdAt: m.time,
         user: {
           ...owner,
@@ -63,6 +81,8 @@ class ChatDetail extends React.PureComponent {
     const path = '/channel/' + data.id
     const subscribePath = '/app/chat/' + data.id + '/Subscribe'
 
+    OneSignal.setSubscription(false)
+
     Api.instance().updateReadMessage(data.id)
 
     this.doSomethingWithAliveStompClient((client) => {
@@ -72,6 +92,9 @@ class ChatDetail extends React.PureComponent {
   }
   
   componentWillUnmount() {
+
+    OneSignal.setSubscription(true)
+
     const tag = this.props.navigation.getParam('tag')
     this.props.getMessages(tag)
     this.props.getPendingMatches()
@@ -79,27 +102,30 @@ class ChatDetail extends React.PureComponent {
   }
 
   doSomethingWithAliveStompClient(job) {
-    const client = this.props.stompContext.getStompClient()
-    if (client) {
-      job(client)
+    if (this.client) {
+      job(this.client)
     }
     else {
       this.configStomp().then(() => {
-        const client2 = this.props.stompContext.getStompClient()
-        job(client2)
+        this.doSomethingWithAliveStompClient(job)
       })
     }
   }
 
   configStomp() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _) => {
       const token = Api.instance().getAccessToken()
 
       this.props.stompContext.addStompEventListener(StompEventTypes.Connect, () => {
+        this.client = this.props.stompContext.getStompClient()
         resolve("ok")
       })
-      this.props.stompContext.addStompEventListener(StompEventTypes.Disconnect, this.onDisconnected)
-      this.props.stompContext.addStompEventListener(StompEventTypes.WebSocketClose, this.onClose)
+      this.props.stompContext.addStompEventListener(StompEventTypes.Disconnect, () => {
+        this.client = null
+      })
+      this.props.stompContext.addStompEventListener(StompEventTypes.WebSocketClose, () => {
+        this.client = null
+      })
 
       this.props.stompContext.newStompClient(
         BASE + "ws?access_token=" + token,
@@ -108,7 +134,7 @@ class ChatDetail extends React.PureComponent {
         "/"
       )
     })
-  }
+  } 
 
   onNewMessageComming = (message) => {
     const messageObject = JSON.parse(message.body)
@@ -116,34 +142,64 @@ class ChatDetail extends React.PureComponent {
       return
     }
 
-    const owner = messageObject.sender_id == this.user1.id ? this.user1 : this.user2
-    const currentTime = (new Date()).getMilliseconds()
+    const owner = messageObject.sender_id == this.host.id ? this.host : this.target
     const newMessage = {
-      _id: currentTime,
+      _id: messageObject.message_id,
       text: messageObject.message,
+      sent: true,
       user: {
         ...owner,
         _id: owner.id,
       },
     }
 
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, newMessage),
-    }))
+    const isFromHost = this.host.id === messageObject.sender_id
+    if (isFromHost) {
+      const targetMessageIndex = lodash.findIndex(this.state.messages, m => m._id === messageObject.message_id || m.user._id === messageObject.sender_id)
+      let theMessages = [...this.state.messages]
+      theMessages[targetMessageIndex] = newMessage
+
+      this.setState({
+        messages: theMessages
+      })
+    }
+    else {
+      this.setState(previousState => ({
+        messages: GiftedChat.append(previousState.messages, newMessage)
+      }))
+    }
+
+    const data = this.props.navigation.getParam("data")
+    Api.instance().updateReadMessage(data.id)
   }
 
   onSend = (messages = []) => {
     const data = this.props.navigation.getParam("data")
-    const senderId = this.props.user.id
-    const userTo = senderId == this.user1.id ? this.user2.id : this.user1.id
+
+    const currentTime = Math.floor(Math.random() * 10000) + 1  
     const message = {
+      message_id: currentTime,
       conversation_id: data.id,
-      sender_id: this.props.user.id,
+      sender_id: this.host.id,
       message: messages[0].text,
-      userto_id: userTo,
+      userto_id: this.target.id,
       type: 11,
-      status: 0
+      status: 0,
     }
+
+    const newMessage = {
+      _id: currentTime,
+      text: messages[0].text,
+      pending: true,
+      user: {
+        ...this.host,
+        _id: this.host.id,
+      },
+    }
+
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, newMessage),
+    }))
 
     const sendMessagePath = '/app/chat/' + data.id + '/sendMessage'
     this.doSomethingWithAliveStompClient((client) => {
@@ -152,22 +208,22 @@ class ChatDetail extends React.PureComponent {
   }
 
   render() {
-    const host = this.props.user.id == this.user1.id ? this.user1 : this.user2
+    
     return (
       <View style={{ backgroundColor: Theme.mainBackground, flex: 1 }}>
-        <Header />
+        <Header title={this.target.name} />
         <GiftedChat
           listViewProps={{
             style: {
               paddingVertical: 16,
             }
           }}
-          alignTop={true}
+          alignTop
           messages={this.state.messages}
           onSend={messages => this.onSend(messages)}
           user={{
-            ...host,
-            _id: host.id
+            ...this.host,
+            _id: this.host.id
           }}
         />
         <LoadingModal visible={this.state.connecting} />

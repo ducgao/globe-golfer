@@ -121,9 +121,6 @@ const EmptyData = React.memo(() => {
 
 const MessageItem = React.memo(({user, item, tag}) => {
 
-  console.warn(item);
-  
-
   const { navigate } = useNavigation()
 
   const onPress = () => {

@@ -12,7 +12,7 @@ export default React.memo(({item, viewOnly, myId}) => {
 
   const requestPlayTo = () => {
     const target = myId === item.from.id ? item.to : item.from
-    console.warn(target);
+    
     Api.instance().challengeTo(target.id);
     Alert.alert("Request Sent!", "You just sent a new request to play again with xxx, please wait for the response from him!".replace('xxx', target.name))
   }

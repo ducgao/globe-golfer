@@ -111,9 +111,6 @@ class NewMatch extends PureComponent {
   render() {
     const user = this.props.navigation.getParam('data').userFromProfile
 
-    console.warn(user);
-    
-  
     return (
       <BaseComponent toolbar={{
         title: "",

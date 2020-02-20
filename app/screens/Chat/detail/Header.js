@@ -41,7 +41,7 @@ const CenterButton = React.memo(({action}) => {
   )
 })
 
-const Header = React.memo(({isOn, onViewModeChanged}) => {
+const Header = React.memo(({title}) => {
 
   const { goBack, navigate } = useNavigation()
 
@@ -69,7 +69,13 @@ const Header = React.memo(({isOn, onViewModeChanged}) => {
       borderBottomColor: Theme.separator
     }}>
       <HeaderIcon name={"ios-arrow-back"} action={onGoBack}/>
-      <FlexSpacing />
+      <DGText style={{
+        flex: 1, 
+        color: 'white', 
+        textAlign: 'center',
+        fontWeight:'bold',
+        fontSize:24,
+      }}>{title}</DGText>
       <HeaderIcon name={"ios-settings"} action={onGoToSetting}/>
     </View>
   )
