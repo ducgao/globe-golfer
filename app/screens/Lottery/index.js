@@ -53,20 +53,22 @@ const Footer = React.memo(({id}) => {
   const {navigate} = useNavigation()
 
   const onGetTicket = React.useCallback(() => {
-    setState({loading: true})
-    Api.instance().getLotteryTicket(id).then(res => {
+    navigate("YouIn", {id})
+
+    // setState({loading: true})
+    // Api.instance().getLotteryTicket(id).then(res => {
       
-      setState({loading: false})
-      if (Array.isArray(res) && res.length > 0) {
-        navigate("YouIn", {code: res})
-      }
-      else {
-        Alert.alert("Oops!", "Can not get ticket, may you have gotten before. Please try again!")
-      }
-    }).catch(_ => {
-      Alert.alert("Oops!", "Can not get ticket, may you have gotten before. Please try again!")
-      setState({loading: false})
-    })
+    //   setState({loading: false})
+    //   if (Array.isArray(res) && res.length > 0) {
+    //     navigate("YouIn", {id})
+    //   }
+    //   else {
+    //     Alert.alert("Oops!", "Can not get ticket, may you have gotten before. Please try again!")
+    //   }
+    // }).catch(_ => {
+    //   Alert.alert("Oops!", "Can not get ticket, may you have gotten before. Please try again!")
+    //   setState({loading: false})
+    // })
   }, [])
 
   return (
