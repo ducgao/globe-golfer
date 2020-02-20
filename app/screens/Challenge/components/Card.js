@@ -22,7 +22,7 @@ const Card = React.memo(({withAds, card}) => (
           rating={card.rating}
         />
         <View style={{flex: 1}}>
-        {card.about ? <CardAbout about={card.about} /> : undefined}
+        {card.about && card.about.trim() === '' ? <CardAbout about={card.about} /> : undefined}
         </View>
         <View style={{flex: 1}} />
         {withAds ? <Ads /> : null}
