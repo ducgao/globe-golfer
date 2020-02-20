@@ -67,7 +67,7 @@ const PendingBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, da
   )
 })
 
-const PlayedItems = React.memo(({isLoading, data, userAvatar}) => {
+const PlayedItems = React.memo(({isLoading, data, myId}) => {
   if (isLoading || data == null) {
     return <ActivityIndicator size='large' color={Theme.buttonPrimary} />
   }
@@ -76,14 +76,14 @@ const PlayedItems = React.memo(({isLoading, data, userAvatar}) => {
     return <DGText style={{ color: Theme.textWhite, fontStyle: 'italic', marginHorizontal: 16 + 30 + 8, fontSize: 12 }}>No Pending Match</DGText>
   }
 
-  return data.map((item, index) => <PlayedItem key={`pending-item-${index}`} item={item} />)
+  return data.map((item, index) => <PlayedItem key={`pending-item-${index}`} item={item} myId={myId} />)
 })
 
-const PlayedBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data, userAvatar}) => {
+const PlayedBlock = React.memo(({isLoading, isExpanded, requestToggleExpand, data, userAvatar, myId}) => {
   return (
     <>
       <BoardHeader title={"PLAYED"} isExpanded={isExpanded} requestToggleExpand={requestToggleExpand}/>
-      {isExpanded ? <PlayedItems isLoading={isLoading} data={data} userAvatar={userAvatar} /> : undefined}
+      {isExpanded ? <PlayedItems isLoading={isLoading} data={data} userAvatar={userAvatar} myId={myId}/> : undefined}
     </>
   )
 })
@@ -137,6 +137,7 @@ class Play extends PureComponent {
             isExpanded={this.state.isPlayedExpand} 
             isLoading={this.props.playedData.isLoading}
             requestToggleExpand={this.requestTogglePlayedBlock} 
+            myId={this.props.user.id}
           />
         </DialogCombination>
       </BaseComponent>

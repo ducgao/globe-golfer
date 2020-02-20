@@ -6,20 +6,15 @@ import DGText from '../../../components/DGText';
 import LoadableImage from '../../../components/LoadableImage';
 import Theme from '../../../res/Theme';
 import GameData from '../subv2/GameData';
+import Api from '../../../api';
 
-export default React.memo(({item, viewOnly}) => {
-
-  const { navigate } = useNavigation()
+export default React.memo(({item, viewOnly, myId}) => {
 
   const requestPlayTo = () => {
-  
-    // GameData.instance().challengeId = item.id 
-    // GameData.instance().playerA = item.from
-    // GameData.instance().playerB = item.to
-    
-    // navigate("SelectNumber")
-
-    Alert.alert("Feature is under development")
+    const target = myId === item.from.id ? item.to : item.from
+    console.warn(target);
+    Api.instance().challengeTo(target.id);
+    Alert.alert("Request Sent!", "You just sent a new request to play again with xxx, please wait for the response from him!".replace('xxx', target.name))
   }
 
   const sourceFrom = item.from.avatar ? { uri: item.from.avatar } : require('../../../res/images/golfer_placeholder.png')

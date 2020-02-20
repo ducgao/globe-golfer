@@ -3,7 +3,6 @@ import { View, TouchableOpacity } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import BaseComponent from '../../components/BaseComponent'
-import DGButtonV2 from '../../components/DGButtonV2'
 
 import Theme from '../../res/Theme'
 
@@ -15,7 +14,6 @@ import DGText from '../../components/DGText'
 import { connect } from 'react-redux'
 import lodash from 'lodash'
 import Api from '../../api'
-import { getMessages } from '../../actions/getMessages'
 import { getNewNotifications, getHistoryNotifications } from '../../actions/getNotifications'
 import { getPendingMatches } from '../../actions/getPendingMatches'
 import { getPlayedMatches } from '../../actions/getPlayedMatches'
@@ -55,14 +53,6 @@ class NewMatch extends PureComponent {
         loading: false    
       })
     }
-  }
-
-  requestChatWithHim = () => {
-    const user = this.props.navigation.getParam('data').userFromProfile
-
-    const conversation = lodash.find(this.props.newNotificationsData.data, (item) => item.avatar.indexOf(user.avatar) >= 0)
-
-    this.props.navigation.navigate("NotificationDetail", { notification: conversation, tag: 0 })
   }
 
   requestAcceptMatch = () => {
@@ -120,6 +110,9 @@ class NewMatch extends PureComponent {
 
   render() {
     const user = this.props.navigation.getParam('data').userFromProfile
+
+    console.warn(user);
+    
   
     return (
       <BaseComponent toolbar={{
@@ -142,6 +135,12 @@ class NewMatch extends PureComponent {
                 rating: user.rate,
                 name: user.firstname,
                 lastName: user.lastname,
+                metaData: [
+                  { key: "Level", value: "Tour Player" },
+                  { key: "Index", value: user.p_index },
+                  { key: "Match", value: user.match },
+                  { key: "Win", value: user.win },
+                ]
               }}/>
             </View>,
             this.renderCTABlock()
