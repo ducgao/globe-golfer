@@ -5,7 +5,7 @@ const initialState = {
   data: null
 }
 
-export default regionsReducer = (state = initialState, action) => {
+export default challengesReducer = (state = initialState, action) => {
   switch(action.type) {
     case GET_CHALLENGES_BEGIN:
       return {

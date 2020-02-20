@@ -85,7 +85,7 @@ export default class Base {
         } else if (code == 200) {
           if (binder) {
             const binded = binder.bind(data);
-            if (binded.result === false) {
+            if (!binded || binded.result === false) {
               rejecter()
             }
             else {

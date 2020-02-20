@@ -161,6 +161,8 @@ class Notification extends PureComponent {
       expiredRequestTime.push(requestTime)
       this.theFilter.setSelection(tag)
       this.setState({tag})
+      this.props.getNewNotifications(tag)
+      this.props.getHistoryNotifications(tag)
     }
   }
 
@@ -207,15 +209,15 @@ class Notification extends PureComponent {
         <ScrollView showsVerticalScrollIndicator={false} >
           <NewMessages 
             isExpanded={this.state.isNewExpand} 
-            isLoading={this.props.newNotificationsData.isLoading}
-            data={this.props.newNotificationsData.data}
+            isLoading={this.state.tag !== undefined ? this.props.newNotificationsData[this.state.tag + 1].isLoading : true}
+            data={this.state.tag  !== undefined ? this.props.newNotificationsData[this.state.tag + 1].data : []}
             requestToggleExpand={this.requestToggleExpandNew}
             currentTag={this.state.tag}
           />
           <History 
             isExpanded={this.state.isHistoryExpand} 
-            isLoading={this.props.historyNotificationsData.isLoading}
-            data={this.props.historyNotificationsData.data}
+            isLoading={this.state.tag  !== undefined ? this.props.historyNotificationsData[this.state.tag + 1].isLoading : true}
+            data={this.state.tag  !== undefined ? this.props.historyNotificationsData[this.state.tag + 1].data : []}
             requestToggleExpand={this.requestToggleExpandHistory}
             currentTag={this.state.tag}
           />

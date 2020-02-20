@@ -95,7 +95,7 @@ export default class Filter extends React.PureComponent {
 
   setSelection(tag) {
     this.setState({
-      selectedIndex: tag - 1
+      selectedIndex: tag
     })
   }
 

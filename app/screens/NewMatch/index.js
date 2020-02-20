@@ -48,7 +48,7 @@ class NewMatch extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (Array.isArray(nextProps.newNotificationsData.data) && nextProps.newNotificationsData.data.length > 0) {
+    if (Array.isArray(nextProps.newNotificationsData["1"].data) && nextProps.newNotificationsData["1"].data.length > 0) {
       this.setState({
         loading: false    
       })
@@ -61,7 +61,7 @@ class NewMatch extends PureComponent {
     })
 
     const user = this.props.navigation.getParam('data').userFromProfile
-    const notification = lodash.find(this.props.newNotificationsData.data, (item) => item.avatar.indexOf(user.avatar) >= 0)
+    const notification = lodash.find(this.props.newNotificationsData["1"].data, (item) => item.avatar.indexOf(user.avatar) >= 0)
 
     Api.instance().acceptChallenge(notification.challengeId).then(_ => {
       this.props.getPendingMatches()
@@ -88,7 +88,7 @@ class NewMatch extends PureComponent {
     })
 
     const user = this.props.navigation.getParam('data').userFromProfile
-    const notification = lodash.find(this.props.newNotificationsData.data, (item) => item.avatar.indexOf(user.avatar) >= 0)
+    const notification = lodash.find(this.props.newNotificationsData["1"].data, (item) => item.avatar.indexOf(user.avatar) >= 0)
 
     Api.instance().declineChallenge(notification.challengeId).then(_ => {
       this.setState({

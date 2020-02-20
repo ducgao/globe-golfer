@@ -192,7 +192,7 @@ class Menu extends PureComponent {
       this.props.navigation.navigate('Notification', 
         {
           tag: 2,
-          requestTime: currentDate.getTime()  
+          requestTime: (new Date()).getTime()  
         }
       )
     }

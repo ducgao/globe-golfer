@@ -8,7 +8,7 @@ const initialState = {
   data: null
 }
 
-export default matchesReducer = (state = initialState, action) => {
+export default messagesReducer = (state = initialState, action) => {
   switch(action.type) {
     case GET_MESSAGES.BEGIN:
       return {

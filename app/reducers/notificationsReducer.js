@@ -5,50 +5,103 @@ import NotificationRepository from '../repository/NotificationRepository'
 
 const initialState = {
   new: {
-    isLoading: false,
-    data: null  
+    1: {
+      isLoading: false,
+      data: null  
+    },
+    2: {
+      isLoading: false,
+      data: null  
+    },
+    3: {
+      isLoading: false,
+      data: null  
+    },
+    4: {
+      isLoading: false,
+      data: null  
+    }
   },
   history: {
-    isLoading: false,
-    data: null  
+    1: {
+      isLoading: false,
+      data: null  
+    },
+    2: {
+      isLoading: false,
+      data: null  
+    },
+    3: {
+      isLoading: false,
+      data: null  
+    },
+    4: {
+      isLoading: false,
+      data: null  
+    }
   }
 }
 
-export default matchesReducer = (state = initialState, action) => {
+export default notificcationReducer = (state = initialState, action) => {
   switch(action.type) {
-    case GET_NOTIFICATIONS.NEW.BEGIN:
+    case GET_NOTIFICATIONS.NEW.BEGIN: {
+      const tag = action.tag + 1
+      const cloneNewState = {...state.new}
+
+      cloneNewState[tag] = {
+        ...cloneNewState[tag],
+        isLoading: true
+      }
+
       return {
         ...state,
-        new: {
-          ...state.new,
-          isLoading: true  
-        }
+        new: cloneNewState
       }
-    case GET_NOTIFICATIONS.HISTORY.BEGIN:
+    }
+    case GET_NOTIFICATIONS.HISTORY.BEGIN: {
+      const tag = action.tag + 1
+      const cloneHistoryState = {...state.history}
+
+      cloneHistoryState[tag] = {
+        ...cloneHistoryState[tag],
+        isLoading: true
+      }
+
       return {
         ...state,
-        history: {
-          ...state.history,
-          isLoading: true  
-        }
+        history: cloneHistoryState
       }
-    case GET_NOTIFICATIONS.NEW.FINISH:
+    }
+    case GET_NOTIFICATIONS.NEW.FINISH: {
       NotificationRepository.instance().updateNotifications(action.payload)
+
+      const tag = action.tag + 1
+      const cloneNewState = {...state.new}
+
+      cloneNewState[tag] = {
+        data: action.payload,
+        isLoading: false
+      }
+
       return {
         ...state,
-        new: {
-          isLoading: false,
-          data: action.payload
-        }
+        new: cloneNewState
       }
-    case GET_NOTIFICATIONS.HISTORY.FINISH:
+    }
+    case GET_NOTIFICATIONS.HISTORY.FINISH: {
+      const tag = action.tag + 1
+      const cloneHistoryState = {...state.history}
+
+      cloneHistoryState[tag] = {
+        data: action.payload,
+        isLoading: false
+      }
+
       return {
         ...state,
-        history: {
-          isLoading: false,
-          data: action.payload
-        }
+        history: cloneHistoryState
       }
+    }
     default:
       return state
   }

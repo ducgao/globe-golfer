@@ -11,7 +11,7 @@ const initialState = {
   }
 }
 
-export default placeReducer = (state = initialState, action) => {
+export default raningReducer = (state = initialState, action) => {
   switch(action.type) {
     case GET_RANKING.FAVORITE.BEGIN:
       return {
