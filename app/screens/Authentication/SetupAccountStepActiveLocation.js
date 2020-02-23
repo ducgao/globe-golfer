@@ -52,7 +52,6 @@ export default class SetupAccountStepActiveLocation extends PureComponent {
     return (
       <LoadableImage
         style={{
-          marginTop: 60,
           width: 120,
           height: 120,
           alignSelf: 'center'
