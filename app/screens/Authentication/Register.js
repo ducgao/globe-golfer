@@ -157,7 +157,7 @@ export default class Register extends PureComponent {
         this.props.navigation.navigate("SetupAccountStepInputLocation")
       }
     }).catch(e => {
-      // alert(e)
+      alert(e)
     })
   }
 
