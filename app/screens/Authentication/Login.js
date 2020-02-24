@@ -8,7 +8,7 @@ import {
   Alert,
 } from 'react-native'
 
-import { GoogleSignin } from 'react-native-google-signin'
+import { GoogleSignin } from '@react-native-community/google-signin';
 import { LoginManager, AccessToken } from "react-native-fbsdk"
 import { connect } from 'react-redux'
 import Icon from 'react-native-vector-icons/Ionicons'

@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		0A2BBFDF2C54DC9379DACCC9 /* libPods-GolfGlobal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F506F5B19CA9CE589CF20B7A /* libPods-GolfGlobal.a */; };
 		0ED8BB7D22DF745D00D51605 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */; };

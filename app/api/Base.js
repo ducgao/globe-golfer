@@ -1,25 +1,29 @@
 import { AsyncStorage } from 'react-native'
 import { ACCESS_TOKEN_STORE_KEY } from '../utils/constants'
-import LotteryBinder from './Binders/LotteryBinder';
-import ProfileBinder from './Binders/ProfileBinder';
+import { StackActions, NavigationActions } from 'react-navigation';
 
 export default class Base {
 
   accessToken = undefined;
+  navigation = undefined;
 
   _clearApp() {
-    // AsyncStorage.removeItem(ACCESS_TOKEN_STORE_KEY).then(() => {
-    //   this.navigation.dispatch(StackActions.reset(
-    //     {
-    //        index: 0,
-    //        key: null,
-    //        actions: [
-    //          NavigationActions.navigate({ routeName: 'Authentication'})
-    //        ]
-    //      }
-    //     )
-    //   )
-    // })
+    AsyncStorage.removeItem(ACCESS_TOKEN_STORE_KEY).then(() => {
+      this.navigation.dispatch(StackActions.reset(
+        {
+           index: 0,
+           key: null,
+           actions: [
+             NavigationActions.navigate({ routeName: 'Authentication'})
+           ]
+         }
+        )
+      )
+    })
+  }
+
+  setNavigation(navigation) {
+    this.navigation = navigation
   }
 
   setAccessToken(token) {
@@ -71,18 +75,20 @@ export default class Base {
       fetch(url, configs)
       .then(response => {
         const statusCode = response.status
-        const data = response.json()
 
-        if (statusCode != 200) {
-          alert(JSON.stringify(response))
+        if (statusCode == 401) {
+          this._clearApp()
+          return
         }
+
+        const data = response.json()
 
         return Promise.all([statusCode, data])
       })
-      .then(([code, data]) => {
-        if (code == 401) {
+      .then(([statusCode, data]) => {
+        if (statusCode == 401) {
           this._clearApp()
-        } else if (code == 200) {
+        } else if (statusCode == 200) {
           if (binder) {
             const binded = binder.bind(data);
             if (!binded || binded.result === false) {
@@ -96,7 +102,7 @@ export default class Base {
             resolve()
           }
         }
-        rejecter(code)
+        rejecter(statusCode)
       })
       .catch(e => {
         rejecter(e)

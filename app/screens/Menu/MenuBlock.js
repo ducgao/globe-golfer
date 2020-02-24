@@ -144,7 +144,9 @@ export default class MenuBlock extends PureComponent {
 
   render() {
     return (
-      <View style={[styles.container, this.props.style]}>
+      <View style={[styles.container, this.props.style]} onLayout={() => {
+        this.carousel.snapToItem(2, false)
+      }}>
         <Carousel
           ref={(c) => { this.carousel = c; }}
           data={this.data}

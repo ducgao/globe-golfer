@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-import { GoogleSignin } from 'react-native-google-signin'
+import { GoogleSignin } from '@react-native-community/google-signin';
 import { LoginManager, AccessToken, GraphRequest, GraphRequestManager } from "react-native-fbsdk"
 import DGText from '../../components/DGText'
 import Strings from '../../res/Strings'
@@ -29,7 +29,9 @@ export default class Register extends PureComponent {
   }
 
   componentDidMount() {
-    GoogleSignin.configure({ webClientId: '150393205713-niluqkkcdf6kir5trl7odkfdoe7aeqio.apps.googleusercontent.com' })
+    GoogleSignin.configure({ 
+      scopes: ["https://www.googleapis.com/auth/userinfo.profile"],
+      webClientId: '150393205713-niluqkkcdf6kir5trl7odkfdoe7aeqio.apps.googleusercontent.com' })
   }
 
   checkGoogleAccountExisted = (user) => {

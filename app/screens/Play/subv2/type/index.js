@@ -97,6 +97,8 @@ export default class SelectType extends React.PureComponent {
       else {
         Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
       }
+    }).catch(error => {
+      Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
     })
   }
 
@@ -108,8 +110,6 @@ export default class SelectType extends React.PureComponent {
 
     const gameType = this.state.type
     const challenge = GameData.instance().challengeId
-
-    // this.props.navigation.navigate("EnterFinalResult")
     
     Api.instance().createNewGame(challenge, gameType).then(res => {
       if (res.data && res.data.scheduleId) {
@@ -119,6 +119,8 @@ export default class SelectType extends React.PureComponent {
       else {
         Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
       }
+    }).catch(error => {
+      Alert.alert("Oops!", "We was unable to create your match. Please try again later!")
     })
   }
 

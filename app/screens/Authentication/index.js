@@ -9,6 +9,7 @@ export default class Authentication extends PureComponent {
 
   constructor(props) {
     super(props)
+    Api.instance().setNavigation(props.naviga)
     AsyncStorage.getItem(ACCESS_TOKEN_STORE_KEY).then(token => {
       if (token) {
         Api.instance().setAccessToken(token)

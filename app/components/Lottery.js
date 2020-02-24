@@ -81,7 +81,7 @@ export default class Lottery extends React.PureComponent {
   secondToCountDown(t) {
     const s = this.makeUpTimeValue(Math.floor(t % 60));
     const m = this.makeUpTimeValue(Math.floor((t/60) % 60));
-    const h = this.makeUpTimeValue(Math.floor((t/(60*60)) % 24));
+    const h = this.makeUpTimeValue(Math.floor((t/(60*60))));
 
     return `${h}:${m}:${s}`
   } 

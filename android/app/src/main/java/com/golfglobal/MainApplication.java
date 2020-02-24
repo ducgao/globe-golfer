@@ -4,16 +4,10 @@ import android.app.Application;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.reactnativecommunity.geolocation.GeolocationPackage;
-import com.dooboolab.RNIap.RNIapPackage;
-import cl.json.RNSharePackage;
-import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.golfglobal.SharingHelper.SharingHelperPackage;
-import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 
 import java.util.List;
 

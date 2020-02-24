@@ -14,7 +14,7 @@ import Theme from '../../res/Theme'
 import { ACCESS_TOKEN_STORE_KEY, USER_EMAIL_STORE_KEY } from '../../utils/constants';
 import { StackActions, NavigationActions } from 'react-navigation';
 import { updateProfile } from '../../actions/updateProfile';
-import { GoogleSignin } from 'react-native-google-signin'
+import { GoogleSignin } from '@react-native-community/google-signin';
 import { 
   renderToggleItem, 
   renderSectionTitle, 
@@ -258,6 +258,8 @@ class Settings extends PureComponent {
     const coIndex = data.countries.findIndex(o => o.title === newValue)
     const coId = coIndex >= 0 ? data.countries[coIndex].id : -1
 
+    this.updateLocationData(coIndex, -1, -1, data.countries, [], [])
+
     this.setState({
       locationData: {
         ...this.state.locationData,
@@ -282,39 +284,39 @@ class Settings extends PureComponent {
     })
   }
 
-  onTempCountryChanged = (newValue) => {
-    const data = this.state.tempLocationData
+  // onTempCountryChanged = (newValue) => {
+  //   const data = this.state.tempLocationData
 
-    if (data.countries == null) {
-      return
-    }
+  //   if (data.countries == null) {
+  //     return
+  //   }
 
-    const coIndex = data.countries.findIndex(o => o.title === newValue)
-    const coId = coIndex >= 0 ? data.countries[coIndex].id : -1
+  //   const coIndex = data.countries.findIndex(o => o.title === newValue)
+  //   const coId = coIndex >= 0 ? data.countries[coIndex].id : -1
 
-    this.setState({
-      tempLocationData: {
-        ...this.state.tempLocationData,
-        regions: [],
-        clubs: [],
-        coIndex,
-        reIndex: -1,
-        clIndex: -1
-      }
-    })
+  //   this.setState({
+  //     tempLocationData: {
+  //       ...this.state.tempLocationData,
+  //       regions: [],
+  //       clubs: [],
+  //       coIndex,
+  //       reIndex: -1,
+  //       clIndex: -1
+  //     }
+  //   })
 
-    this.getRegions(coId, (regions) => {
-      this.setState({
-        tempLocationData: {
-          ...this.state.tempLocationData,
-          regions,
-          clubs: [],
-          reIndex: -1,
-          clIndex: -1
-        }
-      })
-    })
-  }
+  //   this.getRegions(coId, (regions) => {
+  //     this.setState({
+  //       tempLocationData: {
+  //         ...this.state.tempLocationData,
+  //         regions,
+  //         clubs: [],
+  //         reIndex: -1,
+  //         clIndex: -1
+  //       }
+  //     })
+  //   })
+  // }
 
   onRegionChanged = (newValue) => {
     const data = this.state.locationData
@@ -326,10 +328,14 @@ class Settings extends PureComponent {
     const reIndex = data.regions.findIndex(o => o.title === newValue)
     const reId = reIndex >= 0 ? data.regions[reIndex].id : -1
 
+    this.updateLocationData(data.coIndex, reIndex, -1, data.countries, data.regions, [])
+
     this.setState({
       locationData: {
         ...this.state.locationData,
-        reIndex
+        reIndex,
+        clIndex: -1,
+        clubs: []
       }
     })
 
@@ -344,33 +350,33 @@ class Settings extends PureComponent {
     })
   }
 
-  onTempRegionChanged = (newValue) => {
-    const data = this.state.tempLocationData
+  // onTempRegionChanged = (newValue) => {
+  //   const data = this.state.tempLocationData
 
-    if (data.regions == null) {
-      return
-    }
+  //   if (data.regions == null) {
+  //     return
+  //   }
 
-    const reIndex = data.regions.findIndex(o => o.title === newValue)
-    const reId = reIndex >= 0 ? data.regions[reIndex].id : -1
+  //   const reIndex = data.regions.findIndex(o => o.title === newValue)
+  //   const reId = reIndex >= 0 ? data.regions[reIndex].id : -1
 
-    this.setState({
-      tempLocationData: {
-        ...this.state.tempLocationData,
-        reIndex
-      }
-    })
+  //   this.setState({
+  //     tempLocationData: {
+  //       ...this.state.tempLocationData,
+  //       reIndex
+  //     }
+  //   })
 
-    this.getClubs(reId, (clubs) => {
-      this.setState({
-        tempLocationData: {
-          ...this.state.tempLocationData,
-          clubs,
-          clIndex: -1
-        }
-      })
-    })
-  }
+  //   this.getClubs(reId, (clubs) => {
+  //     this.setState({
+  //       tempLocationData: {
+  //         ...this.state.tempLocationData,
+  //         clubs,
+  //         clIndex: -1
+  //       }
+  //     })
+  //   })
+  // }
 
   onClubChanged = (newValue) => {
     const data = this.state.locationData
@@ -381,6 +387,8 @@ class Settings extends PureComponent {
 
     const clIndex = data.clubs.findIndex(o => o.title === newValue)
 
+    this.updateLocationData(data.coIndex, data.reIndex, clIndex, data.countries, data.regions, data.clubs)
+
     this.setState({
       locationData: {
         ...this.state.locationData,
@@ -389,22 +397,61 @@ class Settings extends PureComponent {
     })
   }
 
-  onTempClubChanged = (newValue) => {
-    const data = this.state.tempLocationData
+  updateLocationData(coIndex, reIndex, clIndex, countries, regions, clubs) {
+    const user = this.props.user
 
-    if (data.clubs == null) {
-      return
+    let countryValue = null
+    let regionValue = null
+    let clubValue = null
+
+    if (coIndex == null) {
+      countryValue = user.country
+    }
+    else {
+      if (coIndex >= 0 && Array.isArray(countries) && coIndex < countries.length) {
+        countryValue = countries[coIndex].title
+      }
     }
 
-    const clIndex = data.clubs.findIndex(o => o.title === newValue)
-
-    this.setState({
-      tempLocationData: {
-        ...this.state.tempLocationData,
-        clIndex
+    if (reIndex == null) {
+      regionValue = user.region
+    }
+    else {
+      if (reIndex >= 0 && Array.isArray(regions) && reIndex < regions.length) {
+        regionValue = regions[reIndex].title
       }
-    })
+    }
+    
+    if (clIndex == null) {
+      clubValue = user.club
+    }
+    else {
+      if (clIndex >= 0 && Array.isArray(clubs) && clIndex < clubs.length) {
+        clubValue = clubs[clIndex].title
+      }
+    }
+
+    this.coDV = countryValue
+    this.reDV = regionValue
+    this.clDV = clubValue
   }
+
+  // onTempClubChanged = (newValue) => {
+  //   const data = this.state.tempLocationData
+
+  //   if (data.clubs == null) {
+  //     return
+  //   }
+
+  //   const clIndex = data.clubs.findIndex(o => o.title === newValue)
+
+  //   this.setState({
+  //     tempLocationData: {
+  //       ...this.state.tempLocationData,
+  //       clIndex
+  //     }
+  //   })
+  // }
 
   onRequestChangePassword = () => {
     this.props.navigation.navigate("ChangePassword")
@@ -670,82 +717,81 @@ class Settings extends PureComponent {
     return [userAvatar, userBasicInfo, renderSpacing(44)]
   }
   
-  renderTemporaryLocation() {
-    const user = this.props.user
-    const value = this.state.tempLocationEnable != null ? this.state.tempLocationEnable : (user.locationType == 1)
+  // renderTemporaryLocation() {
+  //   const user = this.props.user
+  //   const value = this.state.tempLocationEnable != null ? this.state.tempLocationEnable : (user.locationType == 1)
 
-    const data = this.state.tempLocationData
+  //   const data = this.state.tempLocationData
 
-    let countryValue = null
-    let regionValue = null
-    let clubValue = null
+  //   let countryValue = null
+  //   let regionValue = null
+  //   let clubValue = null
 
-    if (data.coIndex == null) {
-      countryValue = user.tempCountry
-    }
-    else {
-      if (data.coIndex >= 0 && Array.isArray(data.countries) && data.coIndex < data.countries.length) {
-        countryValue = data.countries[data.coIndex].title
-      }
-    }
+  //   if (data.coIndex == null) {
+  //     countryValue = user.tempCountry
+  //   }
+  //   else {
+  //     if (data.coIndex >= 0 && Array.isArray(data.countries) && data.coIndex < data.countries.length) {
+  //       countryValue = data.countries[data.coIndex].title
+  //     }
+  //   }
 
-    if (data.reIndex == null) {
-      regionValue = user.tempRegion
-    }
-    else {
-      if (data.reIndex >= 0 && Array.isArray(data.regions) && data.reIndex < data.regions.length) {
-        regionValue = data.regions[data.reIndex].title
-      }
-    }
+  //   if (data.reIndex == null) {
+  //     regionValue = user.tempRegion
+  //   }
+  //   else {
+  //     if (data.reIndex >= 0 && Array.isArray(data.regions) && data.reIndex < data.regions.length) {
+  //       regionValue = data.regions[data.reIndex].title
+  //     }
+  //   }
     
-    if (data.clIndex == null) {
-      clubValue = user.tempClub
-    }
-    else {
-      if (data.clIndex >= 0 && Array.isArray(data.clubs) && data.clIndex < data.clubs.length) {
-        clubValue = data.clubs[data.clIndex].title
-      }
-    }
+  //   if (data.clIndex == null) {
+  //     clubValue = user.tempClub
+  //   }
+  //   else {
+  //     if (data.clIndex >= 0 && Array.isArray(data.clubs) && data.clIndex < data.clubs.length) {
+  //       clubValue = data.clubs[data.clIndex].title
+  //     }
+  //   }
 
-    this.tempCoDV = countryValue
-    this.tempReDV = regionValue
-    this.tempClDV = clubValue
+  //   this.tempCoDV = countryValue
+  //   this.tempReDV = regionValue
+  //   this.tempClDV = clubValue
 
-    return (
-      <View>
-        {renderSectionTitle("TEMPORARY LOCATION")}
-        {renderToggleItem("Enable", null, value, this.onRequestToggleTempLocation)}
-        {renderValueClickableItem(
-          Strings.settings.location, 
-          Strings.inputLocation.hint.country, 
-          null,
-          countryValue, 
-          data.countries ? data.countries : [],
-          this.onTempCountryChanged
-          )}
-        {renderValueClickableItem(
-          Strings.settings.region, 
-          Strings.inputLocation.hint.region, 
-          "Please select country first!",
-          regionValue, 
-          data.regions ? data.regions : [],
-          this.onTempRegionChanged
-          )}
-        {renderValueClickableItem(
-          Strings.settings.club, 
-          Strings.inputLocation.hint.club, 
-          "Please select region first!",
-          clubValue, 
-          data.clubs ? data.clubs : [],
-          this.onTempClubChanged
-          )} 
-      </View>
-    )
-  }
+  //   return (
+  //     <View>
+  //       {renderSectionTitle("TEMPORARY LOCATION")}
+  //       {renderToggleItem("Enable", null, value, this.onRequestToggleTempLocation)}
+  //       {renderValueClickableItem(
+  //         Strings.settings.location, 
+  //         Strings.inputLocation.hint.country, 
+  //         null,
+  //         countryValue, 
+  //         data.countries ? data.countries : [],
+  //         this.onTempCountryChanged
+  //         )}
+  //       {renderValueClickableItem(
+  //         Strings.settings.region, 
+  //         Strings.inputLocation.hint.region, 
+  //         "Please select country first!",
+  //         regionValue, 
+  //         data.regions ? data.regions : [],
+  //         this.onTempRegionChanged
+  //         )}
+  //       {renderValueClickableItem(
+  //         Strings.settings.club, 
+  //         Strings.inputLocation.hint.club, 
+  //         "Please select region first!",
+  //         clubValue, 
+  //         data.clubs ? data.clubs : [],
+  //         this.onTempClubChanged
+  //         )} 
+  //     </View>
+  //   )
+  // }
 
   renderDiscoverBlock() {
     const user = this.props.user
-
     const data = this.state.locationData
 
     let countryValue = null
@@ -1075,6 +1121,12 @@ class Settings extends PureComponent {
   isLocationHasChanged() {
     const data = this.state.locationData
     const user = this.props.user
+
+    // console.warn(data.coIndex + "/" + data.reIndex + "/" + data.clIndex);
+    // console.warn(user.country + "/" + user.region + "/" + user.club);
+    // console.warn(this.coDV + "/" + this.reDV + "/" + this.clDV);
+    
+
     if (data.coIndex == null && data.reIndex == null && data.clIndex == null) {
       return false
     }
