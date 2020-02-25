@@ -32,11 +32,11 @@ target 'GolfGlobal' do
 
   pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
 
-  pod 'GoogleSignIn', '~> 4.4.0'
+  pod 'GoogleSignIn', '~> 5.0.0'
   pod 'FBSDKCoreKit'
 
   use_native_modules!
-  pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
+#  pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
 
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 

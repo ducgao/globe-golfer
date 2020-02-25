@@ -45,23 +45,7 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
   BOOL facebook = [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
-  BOOL google = [RNGoogleSignin application:application openURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
-  
-  return facebook || google;
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-  
-  BOOL facebook = [[FBSDKApplicationDelegate sharedInstance]
-                   application:application
-                   openURL:url
-                   sourceApplication:sourceApplication
-                   annotation:annotation];
-  BOOL google = [RNGoogleSignin application:application
-                                    openURL:url
-                          sourceApplication:sourceApplication
-                                 annotation:annotation];
+  BOOL google = [RNGoogleSignin application:application openURL:url options:options];;
   
   return facebook || google;
 }
