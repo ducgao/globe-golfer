@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		0A2BBFDF2C54DC9379DACCC9 /* libPods-GolfGlobal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F506F5B19CA9CE589CF20B7A /* libPods-GolfGlobal.a */; };
 		0ED8BB7D22DF745D00D51605 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0ED8BB7C22DF745D00D51605 /* GoogleService-Info.plist */; };
@@ -454,12 +455,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GolfGlobal/GolfGlobal.entitlements;
-				CURRENT_PROJECT_VERSION = 103;
+				CURRENT_PROJECT_VERSION = 104;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = NU865VDUYC;
 				INFOPLIST_FILE = GolfGlobal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.6.43;
+				MARKETING_VERSION = 0.6.44;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -477,11 +478,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GolfGlobal/GolfGlobal.entitlements;
-				CURRENT_PROJECT_VERSION = 103;
+				CURRENT_PROJECT_VERSION = 104;
 				DEVELOPMENT_TEAM = NU865VDUYC;
 				INFOPLIST_FILE = GolfGlobal/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.6.43;
+				MARKETING_VERSION = 0.6.44;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
