@@ -18,6 +18,7 @@
     "moment": "^2.24.0",
     "react": "16.8.6",
     "react-native": "0.60.3",
+    "react-native-android-dialog-picker": "^0.1.0",
     "react-native-contacts": "^5.0.2",
     "react-native-datepicker": "^1.7.2",
     "react-native-deck-swiper": "^1.6.7",

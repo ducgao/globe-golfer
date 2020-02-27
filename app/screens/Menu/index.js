@@ -180,7 +180,7 @@ class Menu extends PureComponent {
   onOpened = (openResult) => {
     const notification = openResult.notification
     const payload = notification.payload
-    const data = payload.rawPayload.custom.a
+    const data = payload.rawPayload.custom ? payload.rawPayload.custom.a : {}
 
     if (data.type === "1") {
       this.props.navigation.navigate('NewMatch', {data})  

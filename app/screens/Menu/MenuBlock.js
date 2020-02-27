@@ -145,7 +145,7 @@ export default class MenuBlock extends PureComponent {
   render() {
     return (
       <View style={[styles.container, this.props.style]} onLayout={() => {
-        this.carousel.snapToItem(2, false)
+        this.carousel.snapToItem(2, true)
       }}>
         <Carousel
           ref={(c) => { this.carousel = c; }}
@@ -157,7 +157,7 @@ export default class MenuBlock extends PureComponent {
           itemWidth={itemWidth}
           itemHeight={itemWidth}
           loop={true}
-          firstItem={2}
+          // firstItem={2}
           inactiveSlideScale={0.6}
           onSnapToItem={(index) => this.setState({ activeSlide: index })}
         />

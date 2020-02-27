@@ -1,8 +1,9 @@
 import React from 'react'
-import {View, TouchableOpacity, Alert} from 'react-native'
+import {View, TouchableOpacity, Alert, Platform} from 'react-native'
 import Theme from '../../../../res/Theme'
 import DGText from '../../../../components/DGText'
 import GameData from '../GameData'
+import AndroidDialogPicker from "react-native-android-dialog-picker";
 
 const ScoreInput = React.memo(({value, editable, onRequestChange}) => {
   return (
@@ -51,6 +52,23 @@ export default React.memo(({
 
     for (let i = 0; i <= holes / 2; i++) {
       data.push(i + 1)
+    }
+
+    if (Platform.OS === "android") {
+      // only for android
+      AndroidDialogPicker.show(
+        {
+          title: "Select score",
+          items: data.map(i => "" + i),
+          cancelText: "Cancel" // cancel text (optional - cancel button won't be render if this is not passed)
+        },
+        // only called when pressed on one of the items
+        // won't be called if user pressed on cancel or dismissed the dialog
+        buttonIndex => {
+          callback(data[buttonIndex])
+        }
+      );
+      return
     }
 
     Alert.alert("Select score", null, data.map(i => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, ScrollView, Alert} from 'react-native'
+import {View, ScrollView, Alert, Platform} from 'react-native'
 import PlayersInfo from '../comps/PlayersInfo'
 import Header from '../comps/Header'
 import BaseComponent from '../../../../components/BaseComponent'
@@ -10,6 +10,7 @@ import PlayersInfo3 from '../comps/PlayersInfo3'
 import PlayersInfo4 from '../comps/PlayersInfo4'
 import Api from '../../../../api'
 import Ads from '../../../../components/Ads'
+import AndroidDialogPicker from "react-native-android-dialog-picker";
 
 const gameTypes = [
   "Select the game type",
@@ -39,22 +40,41 @@ export default class SelectType extends React.PureComponent {
   }
 
   onRequestChangeGameType = () => {
+    if (Platform.OS === "android") {
+      AndroidDialogPicker.show(
+        {
+          title: gameTypes[0],
+          items: [gameTypes[1], gameTypes[2], gameTypes[3], gameTypes[4]],
+        },
+        // only called when pressed on one of the items
+        // won't be called if user pressed on cancel or dismissed the dialog
+        buttonIndex => {
+          this.updateGameType(buttonIndex + 1)
+        }
+      );
+      return
+    }
+
     Alert.alert(gameTypes[0], null, [
       {
         text: gameTypes[1],
-        onPress: () => this.updateGameType(1)
+        onPress: () => this.updateGameType(1),
+        style: 'destructive'
       },
       {
         text: gameTypes[2],
-        onPress: () => this.updateGameType(2)
+        onPress: () => this.updateGameType(2),
+        style: 'destructive'
       },
       {
         text: gameTypes[3],
-        onPress: () => this.updateGameType(3)
+        onPress: () => this.updateGameType(3),
+        style: 'destructive'
       },
       {
         text: gameTypes[4],
-        onPress: () => this.updateGameType(4)
+        onPress: () => this.updateGameType(4),
+        style: 'destructive'
       }
     ])
   }
